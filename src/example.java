@@ -7,6 +7,7 @@ public class example {
 		// TODO Auto-generated method stub
 		System.out.println("Liad");
 		System.out.println("Roei");
+		System.out.println("Noga");
 	}
 
 }
