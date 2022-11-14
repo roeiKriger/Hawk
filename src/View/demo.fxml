@@ -10,5 +10,6 @@
    <children>
       <Label layoutX="115.0" layoutY="27.0" text="DEMO" />
       <Button layoutX="253.0" layoutY="132.0" mnemonicParsing="false" text="I am The button" />
+      <Button layoutX="273.0" layoutY="152.0" mnemonicParsing="false" text="Roei is the button" />
    </children>
 </AnchorPane>
