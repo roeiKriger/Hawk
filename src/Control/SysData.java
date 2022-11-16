@@ -1,10 +1,17 @@
 package Control;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import Model.Game;
 import Model.Question;
@@ -46,6 +53,37 @@ public class SysData implements Initializable
 		}
 
 	}
+	
+	/*
+	 * 
+	 */
+	public void loadQuestionsDetails() throws IOException, ParseException
+	{
+		questions = new ArrayList<>();
+		String fileName = "Questions.json";
+		FileReader reader;
+		JSONObject jsO = new JSONObject();
+		try
+		{
+			reader = new FileReader(fileName);
+			JSONParser jsonParser = new JSONParser();
+			jsO = (JSONObject) jsonParser.parse(reader);
+
+			JSONArray jsAr = (JSONArray) jsO.get("questions");
+			for (int i = 0; i < jsAr.size(); i++)
+			{
+
+				JSONObject currItem = ((JSONObject) jsAr.get(i));
+				/*Question question = new Question(); To be field after create question class */
+			}
+		} catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 	
 
 	
