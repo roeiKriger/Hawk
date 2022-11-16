@@ -1,17 +1,10 @@
 package Control;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+
 
 import Model.Game;
 import Model.Question;
@@ -54,41 +47,7 @@ public class SysData implements Initializable
 
 	}
 	
-	/**
-	 * This method is used to read data from JSON
-	 * 
-	 * @throws IOException    exception
-	 * @throws ParseException exception
-	 */
-	public void loadQuestionsDetails() throws IOException, ParseException
-	{
-		questions = new ArrayList<>();
-		String fileName = "Questions.json";
-		FileReader reader;
-		JSONObject jsO = new JSONObject();
-		try
-		{
-			reader = new FileReader(fileName);
-			JSONParser jsonParser = new JSONParser();
-			jsO = (JSONObject) jsonParser.parse(reader);
 
-			JSONArray jsAr = (JSONArray) jsO.get("questions");
-			for (int i = 0; i < jsAr.size(); i++)
-			{
-
-				JSONObject currItem = ((JSONObject) jsAr.get(i));
-				Question question = new Question(Integer.parseInt(currItem.get("level") + ""),
-						(String) currItem.get("question"), (List<String>) currItem.get("answers"),
-						Integer.parseInt(currItem.get("correct_ans") + ""), (String) currItem.get("team"));
-				questions.add(question);
-			}
-		} catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 	
 	
 
