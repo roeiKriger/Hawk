@@ -55,7 +55,7 @@ public class SysData implements Initializable
 	}
 	
 	/*
-	 * 
+	 * This method do import JSON to Question array
 	 */
 	public void loadQuestionsDetails() throws IOException, ParseException
 	{
