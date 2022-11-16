@@ -9,9 +9,14 @@ import java.util.List;
 public class Question {
 
 	/**
+	 * ID of a question
+	 */
+	private int questionId;
+	
+	/**
 	 * Level of a question
 	 */
-	private int questionLevel;
+	private int questionDifficulty;
 
 	/**
 	 * The text of the question
@@ -29,9 +34,10 @@ public class Question {
 	private int correctAnswerId;
 	
 	// Constructor
-	public Question(int questionLevel, String questionContent, List<String> answers, int correctAnswerId)
+	public Question(int questionId ,int questionDifficulty, String questionContent, List<String> answers, int correctAnswerId)
 	{
-		this.questionLevel = questionLevel;
+		this.questionId = questionId;
+		this.questionDifficulty = questionDifficulty;
 		this.questionContent = questionContent;
 		this.answers = answers;
 		this.correctAnswerId = correctAnswerId;
@@ -41,12 +47,20 @@ public class Question {
 	 * Getters and Setters
 	 */
 	
-	public int getQuestionLevel() {
-		return questionLevel;
+	public int getQuestionId() {
+		return questionId;
 	}
 
-	public void setQuestionLevel(int questionLevel) {
-		this.questionLevel = questionLevel;
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
+	}
+
+	public int getQuestionDifficulty() {
+		return questionDifficulty;
+	}
+
+	public void setQuestionDifficulty(int questionLevel) {
+		this.questionDifficulty = questionLevel;
 	}
 
 	public String getQuestionContent() {
@@ -117,7 +131,7 @@ public class Question {
 	@Override
 	public String toString()
 	{
-		return "Question [questionLevel=" + questionLevel + ", content of question=" + questionContent + ", answers=" + answers
+		return "Question [questionId=" + questionId + "questionDifficulty=" + questionDifficulty + ", content of question=" + questionContent + ", answers=" + answers
 				+ ", correctanswerIdx=" + correctAnswerId +"]";
 	}
 	
