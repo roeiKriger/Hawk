@@ -5,16 +5,22 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Model.Constants;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Game implements Initializable {
 	
@@ -23,10 +29,24 @@ public class Game implements Initializable {
 
     @FXML
     private GridPane boardPane;
-
+    
+    @FXML
+    private Label countDownLabel;
+    
+    @FXML
+    private Label levelLabel;
+    
+    @FXML
+    private Label pointsLabel;
+    
+    @FXML
+    private Label playPauseLabel;
+    private String playPauseMode = "pause";
+    
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		drawInitialBoard();
+		initializeTimer();
 	}
 	
 	private void drawInitialBoard() {
@@ -49,6 +69,49 @@ public class Game implements Initializable {
 		}
 		return color;
 	}
+	
+	private Integer seconds = Constants.ROUND_TIME;
+	private Timeline time;
+	private void initializeTimer() {
+		countDownLabel.setText("01:00");
+		time = new Timeline();
+		time.setCycleCount(Timeline.INDEFINITE);
+		if (time != null) {
+			time.stop();
+		}
+		KeyFrame frame = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				seconds--;
+				String secondsStr = (seconds >= 10) ? seconds.toString() : '0' + seconds.toString();
+				countDownLabel.setText("00:" + secondsStr);
+				if (seconds <= 0) {
+					time.stop();
+				}
+			}
+		});
+		time.getKeyFrames().add(frame);
+		time.playFromStart();
+	}
+	
+    @FXML
+    void playPause(MouseEvent event) {
+    	if (playPauseMode == "pause") {
+    		pause();
+    		playPauseLabel.setText("Play");
+    		playPauseMode = "play";
+    	} else {
+    		play();
+    		playPauseLabel.setText("Pause");
+    		playPauseMode = "pause";
+    	}
+    }
+    private void pause() {
+    	time.pause();
+    }
+    private void play() {
+    	time.play();
+    }
 
     @FXML
     void returnToHomePage(ActionEvent event) throws IOException {
