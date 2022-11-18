@@ -12,13 +12,20 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -53,8 +60,19 @@ public class Game implements Initializable {
 		for (int i=0; i<8; i++) {
 			for (int j=0; j<8; j++) {
 				Paint color = getTileColor(i, j);
-				Rectangle tile = new Rectangle(Constants.TILE_SIZE, Constants.TILE_SIZE, color);
-				boardPane.add(tile, i, j);
+				StackPane tile = new StackPane();
+				tile.setPrefSize(Constants.TILE_SIZE, Constants.TILE_SIZE);
+				tile.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+				
+				if (i == 0 & j == 0) {
+					drawGamePiece(tile, "knight");
+				}
+				else if (i == 0 && j == 7) { // TODO: change this by level.
+					drawGamePiece(tile, "king");
+					drawGamePiece(tile, "queen");
+				}
+				
+				boardPane.add(tile, j, i);
 			}
 		}
 	}
@@ -68,6 +86,15 @@ public class Game implements Initializable {
 			color = Paint.valueOf(Constants.DARK_TILE);
 		}
 		return color;
+	}
+	
+	private void drawGamePiece(StackPane tile, String pieceType) {
+		ImageView actorImg = new ImageView(new Image("/Assets/" + pieceType + ".png"));
+		actorImg.setFitWidth(Constants.GAME_PIECES_SIZE);
+		actorImg.setFitHeight(Constants.GAME_PIECES_SIZE);
+		tile.getChildren().clear();
+		tile.getChildren().add(actorImg);
+		StackPane.setAlignment(actorImg, Pos.CENTER);
 	}
 	
 	private Integer seconds = Constants.ROUND_TIME;
