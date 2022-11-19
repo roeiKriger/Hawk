@@ -5,7 +5,7 @@ public class Knight extends Piece{
 	public Knight(int row, int col, Square[][] possiblemoves) 
 	{
 		super(row, col, possiblemoves);
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	/*
@@ -13,7 +13,7 @@ public class Knight extends Piece{
 	 * The method will return a board of possible moves, which the type of the possible squares will be "possible".
 	 */
 
-	public Square[][] move(Square[][] board, int newRow, int newCol, int level) 
+	public Square[][] move(Square[][] board, int currentRow, int currentCol, int level) 
 	{
 		// initiate variables.
 		Square[][] possibleMoves = new Square[8][8];
@@ -23,14 +23,14 @@ public class Knight extends Piece{
 		// when the level is 2 then knight moves differently, due to game rules.
 		if(level == 2)
 		{
-			possibleNewRow = possibleRowMovesLevelTwo(possibleNewRow, newRow);
-			possibleNewCol = possibleColMovesTwo(possibleNewCol, newCol);
+			possibleNewRow = possibleRowMovesLevelTwo(possibleNewRow, currentRow);
+			possibleNewCol = possibleColMovesTwo(possibleNewCol, currentCol);
 		}
 		// in other levels the knight moves regularly 
 		else
 		{
-			possibleNewRow = possibleRowMovesLevelDefault(possibleNewRow, newRow);
-			possibleNewCol = possibleColMovesDefault(possibleNewCol, newCol);
+			possibleNewRow = possibleRowMovesLevelDefault(possibleNewRow, currentRow);
+			possibleNewCol = possibleColMovesDefault(possibleNewCol, currentCol);
 		}
 
 		
@@ -48,79 +48,78 @@ public class Knight extends Piece{
 	}
 
 	@Override
-	public Square[][] move(Square[][] board, int newRow, int newCol) 
+	public Square[][] move(Square[][] board, int currentRow, int currentCol) 
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	// possible row moves according to chess regular rules
-	public int[] possibleRowMovesLevelDefault(int possibleNewRow[], int newRow)
+	public int[] possibleRowMovesLevelDefault(int possibleNewRow[], int currentRow)
 	{
-		possibleNewRow[0]= newRow+1;
-		possibleNewRow[1]= newRow+1;
-		possibleNewRow[2]= newRow+2;
-		possibleNewRow[3]= newRow+2;
-		possibleNewRow[4]= newRow-1;
-		possibleNewRow[5]= newRow-1;
-		possibleNewRow[6]= newRow-2;
-		possibleNewRow[7]= newRow-2;
+		possibleNewRow[0]= currentRow+1;
+		possibleNewRow[1]= currentRow+1;
+		possibleNewRow[2]= currentRow+2;
+		possibleNewRow[3]= currentRow+2;
+		possibleNewRow[4]= currentRow-1;
+		possibleNewRow[5]= currentRow-1;
+		possibleNewRow[6]= currentRow-2;
+		possibleNewRow[7]= currentRow-2;
 		return possibleNewRow;
 	}
 	
 	// possible column moves according to chess regular rules
-	public int[] possibleColMovesDefault(int possibleNewCol[], int newCol)
+	public int[] possibleColMovesDefault(int possibleNewCol[], int currentCol)
 	{
-		possibleNewCol[0]= newCol-2;
-		possibleNewCol[1]= newCol+2;
-		possibleNewCol[2]= newCol-1;
-		possibleNewCol[3]= newCol+1;
-		possibleNewCol[4]= newCol-2;
-		possibleNewCol[5]= newCol+2;
-		possibleNewCol[6]= newCol-1;
-		possibleNewCol[7]= newCol+1;
+		possibleNewCol[0]= currentCol-2;
+		possibleNewCol[1]= currentCol+2;
+		possibleNewCol[2]= currentCol-1;
+		possibleNewCol[3]= currentCol+1;
+		possibleNewCol[4]= currentCol-2;
+		possibleNewCol[5]= currentCol+2;
+		possibleNewCol[6]= currentCol-1;
+		possibleNewCol[7]= currentCol+1;
 		return possibleNewCol;
 	}
 
 	// possible row moves according to level 2 rules
-	public int[] possibleRowMovesLevelTwo(int possibleNewRow[], int newRow)
+	public int[] possibleRowMovesLevelTwo(int possibleNewRow[], int currentRow)
 	{
 		// Two rows straight then one diagonal (one diagonal is also an extra row)
-		possibleNewRow[0]= newRow+3;
-		possibleNewRow[1]= newRow+3;
+		possibleNewRow[0]= currentRow+3;
+		possibleNewRow[1]= currentRow+3;
 
 		// Two rows back then one diagonal (one diagonal is also an extra row)
-		possibleNewRow[2]= newRow-3;
-		possibleNewRow[3]= newRow-3;
+		possibleNewRow[2]= currentRow-3;
+		possibleNewRow[3]= currentRow-3;
 
 		// Two Diagonal forward and one straight
-		possibleNewRow[4]= newRow+3;
-		possibleNewRow[5]= newRow+3;
+		possibleNewRow[4]= currentRow+3;
+		possibleNewRow[5]= currentRow+3;
 
 		// Two Diagonal back and one straight
-		possibleNewRow[6]= newRow-3;
-		possibleNewRow[7]= newRow-3;
+		possibleNewRow[6]= currentRow-3;
+		possibleNewRow[7]= currentRow-3;
 
 		return possibleNewRow;
 	}
 	
 	// possible column moves according to level 2 rules
-	public int[] possibleColMovesTwo(int possibleNewCol[], int newCol)
+	public int[] possibleColMovesTwo(int possibleNewCol[], int currentCol)
 	{
 		// Two rows straight then one diagonal (one diagonal is also an extra row)
-		possibleNewCol[0]= newCol-1;
-		possibleNewCol[1]= newCol+1;
+		possibleNewCol[0]= currentCol-1;
+		possibleNewCol[1]= currentCol+1;
 
 		// Two rows back then one diagonal (one diagonal is also an extra row)
-		possibleNewCol[2]= newCol-1;
-		possibleNewCol[3]= newCol+1;
+		possibleNewCol[2]= currentCol-1;
+		possibleNewCol[3]= currentCol+1;
 
 		// Two Diagonal forward and one straight
-		possibleNewCol[4]= newCol-2;
-		possibleNewCol[5]= newCol+2;
+		possibleNewCol[4]= currentCol-2;
+		possibleNewCol[5]= currentCol+2;
 
-		possibleNewCol[6]= newCol+2;
-		possibleNewCol[7]= newCol-2;
+		possibleNewCol[6]= currentCol+2;
+		possibleNewCol[7]= currentCol-2;
 
 		return possibleNewCol;
 	}
