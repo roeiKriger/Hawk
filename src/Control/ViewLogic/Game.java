@@ -15,7 +15,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -23,7 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -35,7 +37,7 @@ public class Game implements Initializable {
     private AnchorPane mainPane;
 
     @FXML
-    private GridPane boardPane;
+    private AnchorPane boardPane;
     
     @FXML
     private Label countDownLabel;
@@ -50,6 +52,7 @@ public class Game implements Initializable {
     private Label playPauseLabel;
     private String playPauseMode = "pause";
     
+    public Pane[][] board = null;
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		drawInitialBoard();
@@ -57,27 +60,33 @@ public class Game implements Initializable {
 	}
 	
 	private void drawInitialBoard() {
-		for (int i=0; i<8; i++) {
-			for (int j=0; j<8; j++) {
-				Paint color = getTileColor(i, j);
+		board = new Pane[8][8];
+		
+		for (int row=0; row<8; row++) {
+			for (int col=0; col<8; col++) {
+				Paint color = getTileColor(row, col);
 				StackPane tile = new StackPane();
 				tile.setPrefSize(Constants.TILE_SIZE, Constants.TILE_SIZE);
 				tile.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
 				
-				if (i == 0 & j == 0) {
+				if (row == 0 & col == 0) {
 					drawGamePiece(tile, "knight");
 				}
-				else if (i == 0 && j == 7) { // TODO: change this by level.
+				else if (row == 0 && col == 7) { // TODO: change this by level.
 					drawGamePiece(tile, "king");
 					drawGamePiece(tile, "queen");
 				}
 				
-				boardPane.add(tile, j, i);
+				tile.setLayoutX(Constants.TILE_SIZE * col);
+				tile.setLayoutY(Constants.TILE_SIZE * row);
+				boardPane.getChildren().add(tile);
+				board[row][col] = tile;
 			}
 		}
 	}
 	
 	private Paint getTileColor(int i, int j) {
+		// TODO - change color by tile type
 		Paint color;
 		if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
 			color = Paint.valueOf(Constants.LIGHT_TILE);
@@ -88,14 +97,54 @@ public class Game implements Initializable {
 		return color;
 	}
 	
+	Pane tileBeforeMove;
 	private void drawGamePiece(StackPane tile, String pieceType) {
 		ImageView actorImg = new ImageView(new Image("/Assets/" + pieceType + ".png"));
 		actorImg.setFitWidth(Constants.GAME_PIECES_SIZE);
 		actorImg.setFitHeight(Constants.GAME_PIECES_SIZE);
+		actorImg.setStyle("-fx-cursor: hand");
+		actorImg.setOnDragDetected(event -> {
+//			System.out.println("setOnDragDetected");
+			int oldCol = (int) (event.getSceneX() - boardPane.getLayoutX()) / Constants.TILE_SIZE;
+			int oldRow = (int) (event.getSceneY() - boardPane.getLayoutY()) / Constants.TILE_SIZE;
+//			System.out.println("oldCol: " + oldCol + ", oldRow: " + oldRow);
+			tileBeforeMove = board[oldRow][oldCol];
+		});
+		actorImg.setOnMouseReleased(event -> {
+//			System.out.println("setOnMouseReleased");
+			int newCol = (int) (event.getSceneX() - boardPane.getLayoutX()) / Constants.TILE_SIZE;
+			int newRow = (int) (event.getSceneY() - boardPane.getLayoutY()) / Constants.TILE_SIZE;
+//			System.out.println("newCol: " + newCol + ", newRow: " + newRow);
+			
+			// Handle Exceptions of position
+			if ((event.getSceneX() < boardPane.getLayoutX()) || (event.getSceneX() > (boardPane.getLayoutX() + Constants.TILE_SIZE*8))
+					|| (event.getSceneY() < boardPane.getLayoutY()) || (event.getSceneY() > boardPane.getLayoutY() + Constants.TILE_SIZE*8)) {
+				this.pause();
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Out of bounds location");
+				alert.setHeaderText("Please select a location within the board");
+				alert.showAndWait();
+				this.play();
+				return;
+			}
+			tileBeforeMove.getChildren().clear();
+			Pane tileAfterMove = board[newRow][newCol];
+			tileAfterMove.getChildren().clear();
+			tileAfterMove.getChildren().add(actorImg);
+		});
+		
+		// TODO - try to move the game piece while dragging
+//		actorImg.setOnMouseDragged(event -> {
+//			System.out.println("setOnMouseDragged: " + event.getSceneX() + " " + event.getSceneY());
+//			actorImg.toFront();
+//			actorImg.setX(event.getX());
+//			actorImg.setY(event.getY());
+//		});
 		tile.getChildren().clear();
 		tile.getChildren().add(actorImg);
 		StackPane.setAlignment(actorImg, Pos.CENTER);
 	}
+	
 	
 	private Integer seconds = Constants.ROUND_TIME;
 	private Timeline time;
