@@ -1,10 +1,10 @@
 package Model;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.util.Timer;
 
-
+import javafx.animation.Timeline;
 
 public class Game {
 
@@ -21,7 +21,7 @@ public class Game {
 	/*
 	 * The timer of the game
 	 */
-	private Timer timer;
+	private Timeline timer;
 	
 	/*
 	 * The level of the game at the moment
@@ -38,12 +38,21 @@ public class Game {
 	 */
 	private Date date;
 	
+	private int knightRowStarts = 0;
+	private int knightColStarts = 0;
+	
+	private int queenRowStarts = 0;
+	private int queenColStarts = 7;
+	
+	private int kingRowStarts = 0;
+	private int kingColStarts = 7;
+	
 	// Constructor
-	public Game(Square[][] board, int score, Timer timer, int gameLevel, String nickname, Date date) {
-		this.board = board;
-		this.score = score;
+	public Game(Timeline timer, String nickname, Date date) {
+		this.board = new Square[8][8];
+		this.score = 0;
 		this.timer = timer;
-		this.gameLevel = gameLevel;
+		this.gameLevel = 1;
 		this.nickname = nickname;
 		this.date = date;
 	}
@@ -72,12 +81,12 @@ public class Game {
 	}
 
 
-	public Timer getTimer() {
+	public Timeline getTimer() {
 		return timer;
 	}
 
 
-	public void setTimer(Timer timer) {
+	public void setTimer(Timeline timer) {
 		this.timer = timer;
 	}
 
@@ -88,9 +97,15 @@ public class Game {
 
 
 	public void setGameLevel(int gameLevel) {
-		this.gameLevel = gameLevel;
+		if(gameLevel <= 4 && gameLevel > 0)
+		{
+		this.gameLevel = gameLevel;	
+		}
+		else 
+		{
+			this.gameLevel = 1;
+		}
 	}
-
 
 	public String getNickname() {
 		return nickname;
@@ -111,7 +126,60 @@ public class Game {
 		this.date = date;
 	}
 	
+	public void createBoardLevelOne()
+	{
+		this.board = createEmptyBoard(this.board);
+		int numOfRandSquares = 0;
+
+		// knight starts always at the same place
+		this.board[knightRowStarts][knightColStarts].setSquareType("knight");
+		
+		// queen always starts at the same place
+		this.board[queenRowStarts][queenColStarts].setSquareType("queen");
+		
+		// at level 1 we create at the start 3 Squares which are for random squares
+		while(numOfRandSquares < 3)
+		{
+			this.board = createNewRandSquare(this.board);
+		}		
+		
+	}
 	
+	public Square[][] createEmptyBoard(Square[][] board)
+	{
+		for(int i =0; i<7; i++)
+		{
+			for(int j=0; j<8; j++)
+			{
+				this.board[i][j].setSquareType("empty");
+			}
+		}
+		return board;
+	}
+	
+	public Square[][] createNewRandSquare(Square[][] board)
+	{
+		Random rand = new Random();
+		int randRow = rand.nextInt(8);
+		int randCol = rand.nextInt(8);
+		Boolean isDone = false;
+	
+		while(isDone == false)
+		{
+			if(board[randRow][randCol].getSquareType().equals("empty"))
+			{
+				board[randRow][randCol].setSquareType("randomSquare");
+				isDone = true;
+			}
+			else 
+			{
+				 randRow = rand.nextInt(8);
+				 randCol = rand.nextInt(8);
+			}
+		}
+				
+		return board;
+	}
 	
 
 }
