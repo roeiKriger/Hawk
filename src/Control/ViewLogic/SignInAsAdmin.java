@@ -61,7 +61,18 @@ public class SignInAsAdmin {
 				alert.showAndWait();
 			}
 		}	
-	}	
+	}
+	
+	
+	@FXML
+    void returnToHomePage(ActionEvent event) throws IOException {
+		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
+		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
+		primaryStage.getScene().setRoot(newRoot);
+		primaryStage.setTitle("Knight's Move");
+		primaryStage.show(); 
+ 	}
+	
    }
 	
 
