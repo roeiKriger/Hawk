@@ -30,7 +30,12 @@ public class HomePage {
     }
 
     @FXML
-    void onQuestionsManagement(ActionEvent event) {
+    void onQuestionsManagement(ActionEvent event) throws IOException {
+    	Parent newRoot = FXMLLoader.load(getClass().getResource("/View/SignInAsAdmin.fxml"));
+		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
+		primaryStage.getScene().setRoot(newRoot);
+		primaryStage.setTitle("Insert Nickname");
+		primaryStage.show();
 
     }
 
