@@ -16,8 +16,12 @@ public class HomePage {
 	
 
     @FXML
-    void onGameHistory(ActionEvent event) {
-
+    void onGameHistory(ActionEvent event) throws IOException {
+    	Parent newRoot = FXMLLoader.load(getClass().getResource("/View/GameHistory.fxml"));
+		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
+		primaryStage.getScene().setRoot(newRoot);
+		primaryStage.setTitle("Rules");
+		primaryStage.show();
     }
 
     @FXML

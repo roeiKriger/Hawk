@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -15,32 +16,38 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <TableView layoutX="12.0" layoutY="148.0" prefHeight="323.0" prefWidth="773.0">
+      <TableView layoutX="38.0" layoutY="191.0" prefHeight="323.0" prefWidth="714.0">
         <columns>
-          <TableColumn prefWidth="32.66667938232422" text="No." />
-          <TableColumn prefWidth="61.77783203125" text="Level" />
-            <TableColumn prefWidth="177.11111450195312" text="Question" />
+          <TableColumn prefWidth="43.11112308502197" text="No." />
+          <TableColumn prefWidth="63.5555419921875" text="Difficulty" />
+            <TableColumn prefWidth="166.66670989990234" text="Question" />
             <TableColumn prefWidth="86.22225952148438" text="Answer 1" />
             <TableColumn prefWidth="98.88882446289062" text="Answer 2" />
             <TableColumn prefWidth="97.7777099609375" text="Answer 3" />
-            <TableColumn prefWidth="117.55560302734375" text="Answer 4" />
-            <TableColumn prefWidth="97.33333333333337" text="Correct Answer" />
+            <TableColumn prefWidth="82.44439697265625" text="Answer 4" />
+            <TableColumn prefWidth="71.77777099609375" text="Correct&#10;Answer" />
         </columns>
       </TableView>
-      <Button layoutX="188.0" layoutY="504.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Add">
+      <Button layoutX="188.0" layoutY="525.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Add">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="346.0" layoutY="504.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Edit">
+      <Button layoutX="346.0" layoutY="525.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Edit">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="504.0" layoutY="504.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Delete">
+      <Button layoutX="504.0" layoutY="525.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Delete">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font size="18.0" />
          </font>
       </Button>
+      <ComboBox fx:id="difficultyComboBox" layoutX="192.0" layoutY="149.0" prefWidth="150.0" promptText="Choose difficulty" />
+      <Label layoutX="41.0" layoutY="149.0" text="Filter by difficulty:" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
