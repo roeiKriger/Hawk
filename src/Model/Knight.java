@@ -33,6 +33,9 @@ public class Knight extends Piece{
 			possibleNewCol = possibleColMovesDefault(possibleNewCol, currentCol);
 		}
 
+		possibleNewRow = minusTurnsToPlusLocation(possibleNewRow);
+		possibleNewCol = minusTurnsToPlusLocation(possibleNewCol);
+		
 		
 		for(int i=0;i<8;i++)
 			if((possibleNewRow[i] >=0 && possibleNewRow[i] <8 && possibleNewCol[i] >=0 && possibleNewCol[i]<8))
@@ -124,5 +127,22 @@ public class Knight extends Piece{
 		return possibleNewCol;
 	}
 
+	// method in case the knight wants to go from one side of the board to the other
+	public int[] minusTurnsToPlusLocation(int possibleLoc[])
+	{
+		for(int i=0; i<possibleLoc.length; i++)
+		{
+			if(possibleLoc[i] < 0)
+			{
+				possibleLoc[i] = 8 + possibleLoc[i];
+			}
+			if (possibleLoc[i] > 7) 
+			{
+				possibleLoc[i] = possibleLoc[i] - 8;
+			}
+		}
+		
+		return possibleLoc;
+	}
 
 }
