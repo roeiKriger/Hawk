@@ -7,9 +7,9 @@ public class King extends Piece{
 	 */
 	private double speed;
 
-	public King(int row, int col, Square[][] possibleMoves) 
+	public King(int row, int col) 
 	{
-		super(row, col, possibleMoves);
+		super(row, col);
 
 	}
 

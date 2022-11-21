@@ -2,9 +2,9 @@ package Model;
 
 public class Knight extends Piece{
 
-	public Knight(int row, int col, Square[][] possiblemoves) 
+	public Knight(int row, int col) 
 	{
-		super(row, col, possiblemoves);
+		super(row, col);
 	
 	}
 

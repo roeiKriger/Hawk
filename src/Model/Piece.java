@@ -16,16 +16,11 @@ public abstract class Piece {
 	 */
 	private int col;
 
-	/**
-	 * Each player has possible next moves
-	 */
-	private Square[][] possibleMoves;
 
 	
-	public Piece(int row, int col, Square[][] possibleMoves) {
+	public Piece(int row, int col) {
 		this.row = row;
 		this.col = col;
-		this.possibleMoves = possibleMoves;
 	}
 	
 	/**
@@ -47,13 +42,7 @@ public abstract class Piece {
 		this.col = col;
 	}
 
-	public Square[][] getPossibleMoves() {
-		return possibleMoves;
-	}
 
-	public void setPossiblemoves(Square[][] possibleMoves) {
-		this.possibleMoves = possibleMoves;
-	}
 
 	/**
 	 * Move function, gets current board, returns the new board after the piece movement
@@ -62,7 +51,7 @@ public abstract class Piece {
 	
 	@Override
 	public String toString() {
-		return "Piece [row=" + row + ", col=" + col + ", possibleMoves=" + possibleMoves + "]";
+		return "Piece [row=" + row + ", col=" + col + "]";
 	}
 	
 	

@@ -38,6 +38,11 @@ public class Game {
 	 */
 	private Date date;
 	
+	//game pieces
+	private Knight knight;
+	private Queen queen;
+	private King king;
+	
 	private int knightRowStarts = 0;
 	private int knightColStarts = 0;
 	
@@ -48,13 +53,13 @@ public class Game {
 	private int kingColStarts = 7;
 	
 	// Constructor
-	public Game(Timeline timer, String nickname, Date date) {
+	public Game(String nickname, Date date) {
 		this.board = new Square[8][8];
 		this.score = 0;
-		this.timer = timer;
 		this.gameLevel = 1;
 		this.nickname = nickname;
 		this.date = date;
+		
 	}
 
 	/*
@@ -128,6 +133,8 @@ public class Game {
 	
 	public void createBoardLevelOne()
 	{
+		knight = new Knight(kingRowStarts, kingColStarts);
+		queen = new Queen(queenRowStarts, queenColStarts);
 		this.board = createEmptyBoard(this.board);
 		int numOfRandSquares = 0;
 

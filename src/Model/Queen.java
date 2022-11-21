@@ -2,8 +2,8 @@ package Model;
 
 public class Queen extends Piece{
 
-	public Queen(int row, int col, Square[][] possibleMoves) {
-		super(row, col, possibleMoves);
+	public Queen(int row, int col) {
+		super(row, col);
 		// TODO Auto-generated constructor stub
 	}
 
