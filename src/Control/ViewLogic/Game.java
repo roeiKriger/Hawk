@@ -2,9 +2,11 @@ package Control.ViewLogic;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import Model.Constants;
+import Model.Square;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -55,15 +57,21 @@ public class Game implements Initializable {
     private Label playPauseLabel;
     private String playPauseMode = "pause";
     
-    public Pane[][] board = null;
+    public Pane[][] boardView = null;
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		drawInitialBoard();
+		
+		Model.Game currentGame = new Model.Game("name", null);
+		currentGame.createBoardLevelOne();
+		drawInitialBoard(currentGame.getBoard());
 		initializeTimer();
+		
+		
+	
 	}
 	
-	private void drawInitialBoard() {
-		board = new Pane[8][8];
+	private void drawInitialBoard(Square[][] currentBoard) {
+		boardView = new Pane[8][8];
 		
 		for (int row=0; row<8; row++) {
 			for (int col=0; col<8; col++) {
@@ -83,7 +91,7 @@ public class Game implements Initializable {
 				tile.setLayoutX(Constants.TILE_SIZE * col);
 				tile.setLayoutY(Constants.TILE_SIZE * row);
 				boardPane.getChildren().add(tile);
-				board[row][col] = tile;
+				boardView[row][col] = tile;
 			}
 		}
 	}
@@ -111,7 +119,7 @@ public class Game implements Initializable {
 			int oldCol = (int) (event.getSceneX() - boardPane.getLayoutX()) / Constants.TILE_SIZE;
 			int oldRow = (int) (event.getSceneY() - boardPane.getLayoutY()) / Constants.TILE_SIZE;
 //			System.out.println("oldCol: " + oldCol + ", oldRow: " + oldRow);
-			tileBeforeMove = board[oldRow][oldCol];
+			tileBeforeMove = boardView[oldRow][oldCol];
 		});
 		actorImg.setOnMouseReleased(event -> {
 //			System.out.println("setOnMouseReleased");
@@ -131,7 +139,7 @@ public class Game implements Initializable {
 				return;
 			}
 			tileBeforeMove.getChildren().clear();
-			Pane tileAfterMove = board[newRow][newCol];
+			Pane tileAfterMove = boardView[newRow][newCol];
 			tileAfterMove.getChildren().clear();
 			tileAfterMove.getChildren().add(actorImg);
 		});
@@ -212,5 +220,9 @@ public class Game implements Initializable {
 		primaryStage.setTitle("Knight's Move");
 		primaryStage.show();
     }
+    
+    
+    
+    
 
 }
