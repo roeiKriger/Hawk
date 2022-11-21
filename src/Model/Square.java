@@ -27,7 +27,7 @@ public class Square {
 		this.color = color;
 		this.squareType = "empty";
 		this.isVisited = false;
-		this.canVisit = true;
+		this.canVisit = false;
 	}
 
 	
