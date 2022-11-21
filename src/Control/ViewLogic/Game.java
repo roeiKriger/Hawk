@@ -14,7 +14,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
@@ -28,6 +30,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -187,6 +190,18 @@ public class Game implements Initializable {
     }
     private void play() {
     	time.play();
+    }
+    
+    @FXML
+    void openModal(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/View/QuestionModal.fxml"));
+        stage.setScene(new Scene(root));
+        stage.setTitle("Question");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(
+            ((Node)event.getSource()).getScene().getWindow() );
+        stage.show();
     }
 
     @FXML

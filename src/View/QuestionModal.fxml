@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.QuestionModal">
+   <children>
+      <Label fx:id="questionLabel" layoutX="69.0" layoutY="76.0" text="questionLabel" />
+      <RadioButton fx:id="answer1" layoutX="69.0" layoutY="141.0" mnemonicParsing="false" text="answer1">
+         <toggleGroup>
+            <ToggleGroup fx:id="answers" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="answer4" layoutX="69.0" layoutY="264.0" mnemonicParsing="false" text="answer4" toggleGroup="$answers" />
+      <RadioButton fx:id="answer3" layoutX="69.0" layoutY="223.0" mnemonicParsing="false" text="answer3" toggleGroup="$answers" />
+      <RadioButton fx:id="answer2" layoutX="69.0" layoutY="182.0" mnemonicParsing="false" text="answer2" toggleGroup="$answers" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-radius: 20;" text="Back" />
+      <Button layoutX="68.0" layoutY="318.0" mnemonicParsing="false" onAction="#onAnswer" prefHeight="41.0" prefWidth="91.0" style="-fx-background-radius: 20;" text="Answer">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
