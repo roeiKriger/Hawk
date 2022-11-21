@@ -18,14 +18,10 @@
       </Label>
       <TableView layoutX="38.0" layoutY="191.0" prefHeight="323.0" prefWidth="714.0">
         <columns>
-          <TableColumn prefWidth="43.11112308502197" text="No." />
-          <TableColumn prefWidth="63.5555419921875" text="Difficulty" />
-            <TableColumn prefWidth="166.66670989990234" text="Question" />
-            <TableColumn prefWidth="86.22225952148438" text="Answer 1" />
-            <TableColumn prefWidth="98.88882446289062" text="Answer 2" />
-            <TableColumn prefWidth="97.7777099609375" text="Answer 3" />
-            <TableColumn prefWidth="82.44439697265625" text="Answer 4" />
-            <TableColumn prefWidth="71.77777099609375" text="Correct&#10;Answer" />
+          <TableColumn prefWidth="93.11107635498047" text="No." />
+          <TableColumn prefWidth="125.55563354492188" text="Difficulty" />
+            <TableColumn prefWidth="407.55560302734375" text="Question" />
+            <TableColumn prefWidth="85.55560302734375" text="Correct&#10;Answer" />
         </columns>
       </TableView>
       <Button layoutX="188.0" layoutY="525.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Add">
@@ -43,7 +39,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <ComboBox fx:id="difficultyComboBox" layoutX="192.0" layoutY="149.0" prefWidth="150.0" promptText="Choose difficulty" />
+      <ComboBox fx:id="difficultyComboBox" layoutX="192.0" layoutY="149.0" prefHeight="25.0" prefWidth="198.0" promptText="Choose difficulty" />
       <Label layoutX="41.0" layoutY="149.0" text="Filter by difficulty:" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
