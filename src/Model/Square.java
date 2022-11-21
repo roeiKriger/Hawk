@@ -8,9 +8,14 @@ public class Square {
 	private String color;
 	
 	/**
-	 * Square has few types, regular, special and more
+	 * Square has few types, regular, special and more, "empty" , "special", "question", "blocked", "random", "forgetting", "queen", "king", "knight"
 	 */
 	private String squareType;
+	
+	/**
+	 * Square has few types, regular, special and more, "true", "false"
+	 */
+	private Boolean canVisit; 
 	
 	/**
 	 * Boolean which indicates if player stepped on this square or not
@@ -18,10 +23,11 @@ public class Square {
 	private Boolean isVisited;
 
 	// Constructor 
-	public Square(String color, String squareType, Boolean isVisited) {
+	public Square(String color, Boolean isVisited) {
 		this.color = color;
-		this.squareType = squareType;
+		this.squareType = "empty";
 		this.isVisited = false;
+		this.canVisit = true;
 	}
 
 	
@@ -53,16 +59,28 @@ public class Square {
 	public void setIsVisited(Boolean isVisited) {
 		this.isVisited = isVisited;
 	}
+	
+	public Boolean getCanVisit() {
+		return canVisit;
+	}
+
+
+	public void setCanVisit(Boolean canVisit) {
+		this.canVisit = canVisit;
+	}
 
 	@Override
 	public String toString() {
-		return "Square [color=" + color + ", squareType=" + squareType + ", isVisited=" + isVisited + "]";
+		return "Square [color=" + color + ", squareType=" + squareType + ", isVisited=" + isVisited +", canVisit=" + canVisit + "]";
 	}
 	
 	// Returns string which tells you on which type of square you stepped on
 	public String steppedOn() {
 		return "You stepped on a special square from " + squareType + "type!";
 	}
+
+
+
 	
 
 }

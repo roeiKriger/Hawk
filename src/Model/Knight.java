@@ -41,9 +41,9 @@ public class Knight extends Piece{
 			if((possibleNewRow[i] >=0 && possibleNewRow[i] <8 && possibleNewCol[i] >=0 && possibleNewCol[i]<8))
 			{
 				// if the Square is not already used by the king or the queen we would like to allow the knight to move to there, if he would choose that
-				if(!board[possibleNewRow[i]][possibleNewCol[i]].getSquareType().equals("king") && (!board[possibleNewRow[i]][possibleNewCol[i]].getSquareType().equals("queen")))
+				if(!board[possibleNewRow[i]][possibleNewCol[i]].getSquareType().equals("king") && (!board[possibleNewRow[i]][possibleNewCol[i]].getSquareType().equals("queen"))&& (!board[possibleNewRow[i]][possibleNewCol[i]].getSquareType().equals("blocked")))
 				{
-					possibleMoves[possibleNewRow[i]][possibleNewCol[i]].setSquareType("possible"); 
+					possibleMoves[possibleNewRow[i]][possibleNewCol[i]].setCanVisit(true);
 				}
 			}
 		return possibleMoves;
