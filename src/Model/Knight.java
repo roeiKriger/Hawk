@@ -13,7 +13,7 @@ public class Knight extends Piece{
 	 * The method will return a board of possible moves, which the type of the possible squares will be "possible".
 	 */
 
-	public Square[][] move(Square[][] board, int currentRow, int currentCol, int level) 
+	public Square[][] move(Square[][] board, int level, King king, Queen queen) 
 	{
 		// initiate variables.
 		Square[][] possibleMoves = new Square[8][8];
@@ -23,29 +23,40 @@ public class Knight extends Piece{
 		// when the level is 2 then knight moves differently, due to game rules.
 		if(level == 2)
 		{
-			possibleNewRow = possibleRowMovesLevelTwo(possibleNewRow, currentRow);
-			possibleNewCol = possibleColMovesTwo(possibleNewCol, currentCol);
+			possibleNewRow = possibleRowMovesLevelTwo(possibleNewRow, this.getRow());
+			possibleNewCol = possibleColMovesTwo(possibleNewCol, this.getCol());
 		}
 		// in other levels the knight moves regularly 
 		else
 		{
-			possibleNewRow = possibleRowMovesLevelDefault(possibleNewRow, currentRow);
-			possibleNewCol = possibleColMovesDefault(possibleNewCol, currentCol);
+			possibleNewRow = possibleRowMovesLevelDefault(possibleNewRow, this.getRow());
+			possibleNewCol = possibleColMovesDefault(possibleNewCol, this.getCol());
 		}
 
 		possibleNewRow = minusTurnsToPlusLocation(possibleNewRow);
 		possibleNewCol = minusTurnsToPlusLocation(possibleNewCol);
 		
+		// now we have two arrays, each of them has locations of the placements, first array is the Row and the second is the Column, now we will check if the place is empty
 		
 		for(int i=0;i<8;i++)
 			if((possibleNewRow[i] >=0 && possibleNewRow[i] <8 && possibleNewCol[i] >=0 && possibleNewCol[i]<8))
 			{
-				// if the Square is not already used by the king or the queen we would like to allow the knight to move to there, if he would choose that
-				if(!board[possibleNewRow[i]][possibleNewCol[i]].getSquareType().equals("king") && (!board[possibleNewRow[i]][possibleNewCol[i]].getSquareType().equals("queen"))&& (!board[possibleNewRow[i]][possibleNewCol[i]].getSquareType().equals("blocked")))
+				if(king != null)
 				{
-					possibleMoves[possibleNewRow[i]][possibleNewCol[i]].setCanVisit(true);
+					if(possibleNewRow[i] != king.getRow() && possibleNewCol[i] != king.getCol() && (!board[possibleNewRow[i]][possibleNewCol[i]].getSquareType().equals("blocked")))
+					{
+						possibleMoves[possibleNewRow[i]][possibleNewCol[i]].setCanVisit(true);
+					}
+				}
+				else 
+				{
+					if(possibleNewRow[i] != queen.getRow() && possibleNewCol[i] != queen.getCol() && (!board[possibleNewRow[i]][possibleNewCol[i]].getSquareType().equals("blocked")))
+					{
+						possibleMoves[possibleNewRow[i]][possibleNewCol[i]].setCanVisit(true);
+					}
 				}
 			}
+		
 		return possibleMoves;
 
 	}

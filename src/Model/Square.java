@@ -8,12 +8,12 @@ public class Square {
 	private String color;
 	
 	/**
-	 * Square has few types, regular, special and more, "empty" , "special", "question", "blocked", "random", "forgetting", "queen", "king", "knight"
+	 * Square has few types, regular, special and more, "empty" , "special", "question", "blocked", "randomSquare", "forgetting"
 	 */
 	private String squareType;
 	
 	/**
-	 * Square has few types, regular, special and more, "true", "false"
+	 * indicate if the player can visit this square now or not
 	 */
 	private Boolean canVisit; 
 	

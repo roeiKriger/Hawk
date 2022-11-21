@@ -139,15 +139,17 @@ public class Game {
 		int numOfRandSquares = 0;
 
 		// knight starts always at the same place
-		this.board[knightRowStarts][knightColStarts].setSquareType("knight");
+		//this.board[knightRowStarts][knightColStarts].setSquareType("knight");
 		
 		// queen always starts at the same place
-		this.board[queenRowStarts][queenColStarts].setSquareType("queen");
+		//this.board[queenRowStarts][queenColStarts].setSquareType("queen");
 		
-		// at level 1 we create at the start 3 Squares which are for random squares
+		// at level 1 we create at the start 3 Squares which are for random squares and 3 for questions
 		while(numOfRandSquares < 3)
 		{
-			this.board = createNewRandSquare(this.board);
+			this.board = createNewSquare(this.board, "randomSquare");
+			this.board = createNewSquare(this.board, "question");
+			numOfRandSquares++;
 		}		
 		
 	}
@@ -158,13 +160,15 @@ public class Game {
 		{
 			for(int j=0; j<8; j++)
 			{
+				this.board[i][j] = new Square("no-color", false);
 				this.board[i][j].setSquareType("empty");
 			}
 		}
 		return board;
 	}
 	
-	public Square[][] createNewRandSquare(Square[][] board)
+	// creating new type of squares in random locations, get the board and the type we want to create.
+	public Square[][] createNewSquare(Square[][] board, String type)
 	{
 		Random rand = new Random();
 		int randRow = rand.nextInt(8);
@@ -173,9 +177,9 @@ public class Game {
 	
 		while(isDone == false)
 		{
-			if(board[randRow][randCol].getSquareType().equals("empty"))
+			if(board[randRow][randCol].getSquareType().equals("empty") && (randRow!=0 && randCol!=0))
 			{
-				board[randRow][randCol].setSquareType("randomSquare");
+				board[randRow][randCol].setSquareType(type);
 				isDone = true;
 			}
 			else 
