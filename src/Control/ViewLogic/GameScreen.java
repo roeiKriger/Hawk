@@ -70,6 +70,9 @@ public class GameScreen implements Initializable {
 		initializeTimer();
 	}
 	
+	/*
+	 *  draw board in fxml, in given board and game for pieces
+	 */
 	private void drawBoard(Square[][] currentBoard, Game currentGame) {
 		boardView = new Pane[8][8];
 		
@@ -112,15 +115,20 @@ public class GameScreen implements Initializable {
 					drawGamePiece(tileView, "question");
 				}
 				
+				// set position in fxml
 				tileView.setLayoutX(Constants.TILE_SIZE * col);
 				tileView.setLayoutY(Constants.TILE_SIZE * row);
 				boardWrapper.getChildren().add(tileView);
 
+				// save tileView in board that repressents the view
 				boardView[row][col] = tileView;
 			}
 		}
 	}
 	
+	/*
+	 * get background color of tile by type or position 
+	 */
 	private Paint getTileColor(int i, int j, String tileType) {
 		// TODO - change color by tile type
 		Paint color;
@@ -133,6 +141,10 @@ public class GameScreen implements Initializable {
 		return color;
 	}
 	
+	/*
+	 * function that add game piece to tile in view
+	 * tileBeforeMove is global variable for save the initial tile before player move
+	 */
 	private Pane tileBeforeMove;
 	private void drawGamePiece(StackPane tile, String pieceType) {
 		ImageView actorImg = new ImageView(new Image("/Assets/" + pieceType + ".png"));
@@ -143,11 +155,13 @@ public class GameScreen implements Initializable {
 			
 			actorImg.setStyle("-fx-cursor: hand");
 			// TODO possible moves
+			// start drag
 			actorImg.setOnDragDetected(event -> {
 				int oldCol = (int) (event.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
 				int oldRow = (int) (event.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
 				tileBeforeMove = boardView[oldRow][oldCol];
 			});
+			// end drag
 			actorImg.setOnMouseReleased(event -> {
 				int newCol = (int) (event.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
 				int newRow = (int) (event.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
@@ -177,6 +191,10 @@ public class GameScreen implements Initializable {
 		StackPane.setAlignment(actorImg, Pos.CENTER);
 	}
 	
+	/*
+	 * initalize timer to 1 minute per round
+	 * seconds and time are global variables for changing them after as subject
+	 */
 	private Integer seconds = Constants.ROUND_TIME;
 	private Timeline time;
 	private void initializeTimer() {
@@ -201,6 +219,9 @@ public class GameScreen implements Initializable {
 		time.playFromStart();
 	}
 	
+	/*
+	 * function that responsible to play and pause the game
+	 */
     @FXML
     void playPause(MouseEvent event) {
     	if (playPauseMode == "pause") {
@@ -220,6 +241,9 @@ public class GameScreen implements Initializable {
     	time.play();
     }
     
+    /*
+     * open question modal, without override the game screen
+     */
     @FXML
     void openQuestionModal(ActionEvent event) throws IOException {
         Stage stage = new Stage();
@@ -232,6 +256,9 @@ public class GameScreen implements Initializable {
         stage.show();
     }
 
+    /*
+     * exit the game
+     */
     @FXML
     void returnToHomePage(ActionEvent event) throws IOException {
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
