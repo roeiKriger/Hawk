@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import Model.Constants;
+import Model.Game;
 import Model.Square;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -58,41 +59,69 @@ public class GameScreen implements Initializable {
     private String playPauseMode = "pause";
     
     public Pane[][] boardView = null;
+    
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		Model.Game currentGame = new Model.Game("name", null);
+		// TODO get nickname 
+		Game currentGame = new Game("nickname", new Date());
 		currentGame.createBoardLevelOne();
-		drawInitialBoard(currentGame.getBoard());
+		Square[][] currentBoard = currentGame.getBoard();
+		drawBoard(currentBoard, currentGame);
 		initializeTimer();
 	}
 	
-	private void drawInitialBoard(Square[][] currentBoard) {
+	private void drawBoard(Square[][] currentBoard, Game currentGame) {
 		boardView = new Pane[8][8];
+		
+		// get position of game pieces
+		int knightRow = -1, knightCol = -1, queenRow = -1, queenCol = -1, kingRow = -1, kingCol = -1;
+		if (currentGame.getKnight() != null) {
+			knightRow = currentGame.getKnight().getRow();
+			knightCol = currentGame.getKnight().getCol();
+		}
+		if (currentGame.getQueen() != null) {
+			queenRow = currentGame.getQueen().getRow();
+			queenCol = currentGame.getQueen().getCol();
+		}
+		if (currentGame.getKing() != null) {
+			kingRow = currentGame.getKing().getRow();
+			kingCol = currentGame.getKing().getCol();
+		}
 		
 		for (int row=0; row<8; row++) {
 			for (int col=0; col<8; col++) {
-				Paint color = getTileColor(row, col);
-				StackPane tile = new StackPane();
-				tile.setPrefSize(Constants.TILE_SIZE, Constants.TILE_SIZE);
-				tile.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+				Paint color = getTileColor(row, col, currentBoard[row][col].getSquareType());
+				StackPane tileView = new StackPane();
+				tileView.setPrefSize(Constants.TILE_SIZE, Constants.TILE_SIZE);
+				tileView.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
 				
-				if (row == 0 & col == 0) {
-					drawGamePiece(tile, "knight");
+				// draw game pieces
+				if (row == knightRow && col == knightCol) {
+					drawGamePiece(tileView, "knight");
 				}
-				else if (row == 0 && col == 7) { // TODO: change this by level.
-					drawGamePiece(tile, "king");
-					drawGamePiece(tile, "queen");
+				if (row == queenRow && col == queenCol) {
+					drawGamePiece(tileView, "queen");
+				}
+				if (row == kingRow && col == kingCol) {
+					drawGamePiece(tileView, "king");
 				}
 				
-				tile.setLayoutX(Constants.TILE_SIZE * col);
-				tile.setLayoutY(Constants.TILE_SIZE * row);
-				boardWrapper.getChildren().add(tile);
-				boardView[row][col] = tile;
+				// draw question tile
+				if (currentBoard[row][col].getSquareType() == "question") {
+					// TODO check what happens if there is override
+					drawGamePiece(tileView, "question");
+				}
+				
+				tileView.setLayoutX(Constants.TILE_SIZE * col);
+				tileView.setLayoutY(Constants.TILE_SIZE * row);
+				boardWrapper.getChildren().add(tileView);
+
+				boardView[row][col] = tileView;
 			}
 		}
 	}
 	
-	private Paint getTileColor(int i, int j) {
+	private Paint getTileColor(int i, int j, String tileType) {
 		// TODO - change color by tile type
 		Paint color;
 		if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
@@ -104,54 +133,49 @@ public class GameScreen implements Initializable {
 		return color;
 	}
 	
-	Pane tileBeforeMove;
+	private Pane tileBeforeMove;
 	private void drawGamePiece(StackPane tile, String pieceType) {
 		ImageView actorImg = new ImageView(new Image("/Assets/" + pieceType + ".png"));
 		actorImg.setFitWidth(Constants.GAME_PIECES_SIZE);
 		actorImg.setFitHeight(Constants.GAME_PIECES_SIZE);
-		actorImg.setStyle("-fx-cursor: hand");
-		actorImg.setOnDragDetected(event -> {
-//			System.out.println("setOnDragDetected");
-			int oldCol = (int) (event.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
-			int oldRow = (int) (event.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
-//			System.out.println("oldCol: " + oldCol + ", oldRow: " + oldRow);
-			tileBeforeMove = boardView[oldRow][oldCol];
-		});
-		actorImg.setOnMouseReleased(event -> {
-//			System.out.println("setOnMouseReleased");
-			int newCol = (int) (event.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
-			int newRow = (int) (event.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
-//			System.out.println("newCol: " + newCol + ", newRow: " + newRow);
-			
-			// Handle Exceptions of position
-			if ((event.getSceneX() < boardWrapper.getLayoutX()) || (event.getSceneX() > (boardWrapper.getLayoutX() + Constants.TILE_SIZE*8))
-					|| (event.getSceneY() < boardWrapper.getLayoutY()) || (event.getSceneY() > boardWrapper.getLayoutY() + Constants.TILE_SIZE*8)) {
-				this.pause();
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("Out of bounds location");
-				alert.setHeaderText("Please select a location within the board");
-				alert.showAndWait();
-				this.play();
-				return;
-			}
-			tileBeforeMove.getChildren().clear();
-			Pane tileAfterMove = boardView[newRow][newCol];
-			tileAfterMove.getChildren().clear();
-			tileAfterMove.getChildren().add(actorImg);
-		});
 		
-		// TODO - try to move the game piece while dragging
-//		actorImg.setOnMouseDragged(event -> {
-//			System.out.println("setOnMouseDragged: " + event.getSceneX() + " " + event.getSceneY());
-//			actorImg.toFront();
-//			actorImg.setX(event.getX());
-//			actorImg.setY(event.getY());
-//		});
+		if (pieceType == "knight") {
+			
+			actorImg.setStyle("-fx-cursor: hand");
+			// TODO possible moves
+			actorImg.setOnDragDetected(event -> {
+				int oldCol = (int) (event.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
+				int oldRow = (int) (event.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
+				tileBeforeMove = boardView[oldRow][oldCol];
+			});
+			actorImg.setOnMouseReleased(event -> {
+				int newCol = (int) (event.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
+				int newRow = (int) (event.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
+				
+				// Handle Exceptions of position
+				if ((event.getSceneX() < boardWrapper.getLayoutX()) || (event.getSceneX() > (boardWrapper.getLayoutX() + Constants.TILE_SIZE*8))
+						|| (event.getSceneY() < boardWrapper.getLayoutY()) || (event.getSceneY() > boardWrapper.getLayoutY() + Constants.TILE_SIZE*8)) {
+					this.pause();
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("Out of bounds location");
+					alert.setHeaderText("Please select a location within the board");
+					alert.showAndWait();
+					this.play();
+					return;
+				}
+				tileBeforeMove.getChildren().clear();
+				Pane tileAfterMove = boardView[newRow][newCol];
+				tileAfterMove.getChildren().clear();
+				tileAfterMove.getChildren().add(actorImg);
+			});
+			
+			// TODO - try to move the game piece while dragging
+		}
+		
 		tile.getChildren().clear();
 		tile.getChildren().add(actorImg);
 		StackPane.setAlignment(actorImg, Pos.CENTER);
 	}
-	
 	
 	private Integer seconds = Constants.ROUND_TIME;
 	private Timeline time;
@@ -197,7 +221,7 @@ public class GameScreen implements Initializable {
     }
     
     @FXML
-    void openModal(ActionEvent event) throws IOException {
+    void openQuestionModal(ActionEvent event) throws IOException {
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/View/QuestionModal.fxml"));
         stage.setScene(new Scene(root));
@@ -217,8 +241,4 @@ public class GameScreen implements Initializable {
 		primaryStage.show();
     }
     
-    
-    
-    
-
 }

@@ -139,10 +139,35 @@ public class Game {
 		this.date = date;
 	}
 	
+	
+	public Knight getKnight() {
+		return knight;
+	}
+
+	public void setKnight(Knight knight) {
+		this.knight = knight;
+	}
+
+	public Queen getQueen() {
+		return queen;
+	}
+
+	public void setQueen(Queen queen) {
+		this.queen = queen;
+	}
+
+	public King getKing() {
+		return king;
+	}
+
+	public void setKing(King king) {
+		this.king = king;
+	}
+
 	public void createBoardLevelOne()
 	{
-		knight = new Knight(kingRowStarts, kingColStarts);
-		queen = new Queen(queenRowStarts, queenColStarts);
+		this.knight = new Knight(knightRowStarts, knightColStarts);
+		this.queen = new Queen(queenRowStarts, queenColStarts);
 		this.board = createEmptyBoard(this.board);
 		int numOfRandSquares = 0;
 
