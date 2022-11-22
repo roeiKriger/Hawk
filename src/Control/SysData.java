@@ -7,7 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -198,6 +200,7 @@ public class SysData implements Initializable
 
 			inner.put("nickname", g.getNickname());
 			inner.put("score", g.getScore());
+			inner.put("date", g.getDate().toGMTString());
 			gamesArr.add(inner);
 		}
 		JSONObject outer = new JSONObject();
@@ -222,7 +225,48 @@ public class SysData implements Initializable
 		return false;
 	}
 	
-	
+	/*
+	 * This method get the scores to the list from Scores.json
+	 */
+	public boolean import_scores() throws java.text.ParseException
+	{
+		String fileName = "Scores.json";
+		FileReader reader;
+		JSONObject jsO = new JSONObject();
+		try
+		{
+			reader = new FileReader(fileName);
+			JSONParser jsonParser = new JSONParser();
+			jsO = (JSONObject) jsonParser.parse(reader);
+
+			JSONArray jsAr = (JSONArray) jsO.get("games");
+			for (int i = 0; i < jsAr.size(); i++)
+			{
+				JSONObject currItem = ((JSONObject) jsAr.get(i));
+				String nick = (String) currItem.get("nickname");
+				Game game = new Game(nick);
+				Long s = (Long) currItem.get("score");
+				int score = s.intValue();
+				game.setScore(score);
+				String gameDayOnString = (String) currItem.get("date");
+				Date gameDay = new Date(gameDayOnString);
+				game.setDate(gameDay);
+				System.out.println(game);
+			}	
+			return true;
+		} catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+		
+	}
 	
 	
 	

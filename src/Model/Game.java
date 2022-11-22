@@ -199,6 +199,14 @@ public class Game {
 				
 		return board;
 	}
+
+	@Override
+	public String toString() {
+		return "Game [score=" + score + ", nickname=" + nickname + ", date=" + date + "]";
+	}
+	
+	
+	
 	
 
 }
