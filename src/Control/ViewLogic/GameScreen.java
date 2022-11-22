@@ -36,13 +36,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Game implements Initializable {
+public class GameScreen implements Initializable {
 	
     @FXML
     private AnchorPane mainPane;
 
     @FXML
-    private AnchorPane boardPane;
+    private AnchorPane boardWrapper;
     
     @FXML
     private Label countDownLabel;
@@ -60,14 +60,10 @@ public class Game implements Initializable {
     public Pane[][] boardView = null;
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		
 		Model.Game currentGame = new Model.Game("name", null);
 		currentGame.createBoardLevelOne();
 		drawInitialBoard(currentGame.getBoard());
 		initializeTimer();
-		
-		
-	
 	}
 	
 	private void drawInitialBoard(Square[][] currentBoard) {
@@ -90,7 +86,7 @@ public class Game implements Initializable {
 				
 				tile.setLayoutX(Constants.TILE_SIZE * col);
 				tile.setLayoutY(Constants.TILE_SIZE * row);
-				boardPane.getChildren().add(tile);
+				boardWrapper.getChildren().add(tile);
 				boardView[row][col] = tile;
 			}
 		}
@@ -116,20 +112,20 @@ public class Game implements Initializable {
 		actorImg.setStyle("-fx-cursor: hand");
 		actorImg.setOnDragDetected(event -> {
 //			System.out.println("setOnDragDetected");
-			int oldCol = (int) (event.getSceneX() - boardPane.getLayoutX()) / Constants.TILE_SIZE;
-			int oldRow = (int) (event.getSceneY() - boardPane.getLayoutY()) / Constants.TILE_SIZE;
+			int oldCol = (int) (event.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
+			int oldRow = (int) (event.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
 //			System.out.println("oldCol: " + oldCol + ", oldRow: " + oldRow);
 			tileBeforeMove = boardView[oldRow][oldCol];
 		});
 		actorImg.setOnMouseReleased(event -> {
 //			System.out.println("setOnMouseReleased");
-			int newCol = (int) (event.getSceneX() - boardPane.getLayoutX()) / Constants.TILE_SIZE;
-			int newRow = (int) (event.getSceneY() - boardPane.getLayoutY()) / Constants.TILE_SIZE;
+			int newCol = (int) (event.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
+			int newRow = (int) (event.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
 //			System.out.println("newCol: " + newCol + ", newRow: " + newRow);
 			
 			// Handle Exceptions of position
-			if ((event.getSceneX() < boardPane.getLayoutX()) || (event.getSceneX() > (boardPane.getLayoutX() + Constants.TILE_SIZE*8))
-					|| (event.getSceneY() < boardPane.getLayoutY()) || (event.getSceneY() > boardPane.getLayoutY() + Constants.TILE_SIZE*8)) {
+			if ((event.getSceneX() < boardWrapper.getLayoutX()) || (event.getSceneX() > (boardWrapper.getLayoutX() + Constants.TILE_SIZE*8))
+					|| (event.getSceneY() < boardWrapper.getLayoutY()) || (event.getSceneY() > boardWrapper.getLayoutY() + Constants.TILE_SIZE*8)) {
 				this.pause();
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("Out of bounds location");

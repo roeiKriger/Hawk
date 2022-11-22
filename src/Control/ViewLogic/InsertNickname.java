@@ -32,7 +32,7 @@ public class InsertNickname {
     	}
     	
     	// Move to game screen
-		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/Game.fxml"));
+		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/GameScreen.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);
 		primaryStage.setTitle("Knight's Move");
