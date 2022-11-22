@@ -1,28 +1,16 @@
 {
-    "questions":[
-        {
-            "question": "q1",
-            "answers": [
-                "answer1",
-                "answer2",
-                "answer3",
-                "answer4"
-            ],
-            "correct_ans": "2",
-            "level": "1",
-            "team": "animal"
-        },
-        {
-            "question": "q2",
-            "answers": [
-                "answer1",
-                "answer2",
-                "answer3",
-                "answer4"
-            ],
-            "correct_ans": "1",
-            "level": "2",
-            "team": "animal"
-        }
-    ]
+	"questions":[
+		{
+			"question":"What is design? ",
+			"level":1,
+			"answers":[
+				"a plan or specification for the construction of an object or system",
+				"no",
+				"yes",
+				"other"
+			],
+			"team":"Hawk",
+			"correct_ans":1
+		}
+	]
 }

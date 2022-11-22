@@ -3,6 +3,7 @@ package Control;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -12,6 +13,7 @@ import java.util.ResourceBundle;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.Jsoner;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -87,7 +89,7 @@ public class SysData implements Initializable
 				
 				Question q = new Question(questionDifficulty, questionContent, answers, correctAnswerId);
 				//ystem.out.println(q);
-				this.questions.add(q);
+				add_question(q);
 			}
 		} catch (FileNotFoundException e)
 		{
@@ -96,20 +98,66 @@ public class SysData implements Initializable
 		}
 		return this.questions;
 	}
-
-
 	
-	/**
-	 * Updating JSON of question
-	 * 
-	 * @param questionsToUpdate list to update json
-	 * 
-	 * TO-DO method after question class created
+	/*
+	 * This method add question to arrayList
 	 */
-	public static void updateJson(List<Question> questionsToUpdate)
+	private boolean add_question(Question q)
 	{
-		//TO DO//
+		return this.questions.add(q);
 	}
+	
+	
+	/*
+	 * This method will write the questions to JSON file
+	 */
+	public boolean write_questions(List<Question> questionsToUpdate)
+	{
+		questions = new ArrayList<>();
+		questions.addAll(questionsToUpdate);
+		JSONArray questionsArr = new JSONArray();
+
+		for (Question q : questions)
+		{
+			JSONArray answers = new JSONArray();
+			for (String ans : q.getAnswers())
+			{
+				answers.add(ans);
+			}
+			JSONObject inner = new JSONObject();
+
+			inner.put("question", q.getQuestionContent());
+			inner.put("answers", answers);
+			inner.put("correct_ans", q.getCorrectAnswerId());
+			inner.put("level", q.getQuestionDifficulty());
+			inner.put("team", "Hawk");
+			questionsArr.add(inner);
+
+		}
+		JSONObject outer = new JSONObject();
+
+		if (questions.size() > 0)
+		{
+			outer.put("questions", questionsArr);
+		}
+
+		@SuppressWarnings("resource")
+		FileWriter writer;
+		try
+		{
+			writer = new FileWriter("Questions.json");
+			writer.write(Jsoner.prettyPrint(outer.toJSONString()));
+			writer.flush();
+			return true;
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return false;
+
+	}
+
 	
 	
 	
