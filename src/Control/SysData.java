@@ -41,19 +41,18 @@ public class SysData implements Initializable
 		return instance;
 	}
 	
-	//TO-DO update JSON
-	
-	
-	//TO-DO read JSON
-	
-	//TO-DO initialize 
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		if (questions == null)
+		if (this.questions == null)
 		{
-			questions = new ArrayList<>();
+			this.questions = new ArrayList<Question>();
+		}
 
+		if (this.games == null)
+		{
+			this.games = new ArrayList<Game>();
 		}
 
 	}
@@ -80,20 +79,16 @@ public class SysData implements Initializable
 			{
 
 				JSONObject currItem = ((JSONObject) jsAr.get(i));
-				/*Question question = new Question(); To be field after create question class */
-				//String questionId = (String) currItem.get("question");
 				int questionDifficulty = Integer.parseInt((String) currItem.get("level"));
 				String questionContent = (String) currItem.get("question");
 				List<String> answers =  (List<String>) currItem.get("answers");
 				int correctAnswerId = Integer.parseInt((String) currItem.get("correct_ans"));
 				
 				Question q = new Question(questionDifficulty, questionContent, answers, correctAnswerId);
-				//ystem.out.println(q);
 				add_question(q);
 			}
 		} catch (FileNotFoundException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return this.questions;
@@ -183,7 +178,50 @@ public class SysData implements Initializable
 	
 	
 	// Score Zone // 
+	
+	//this method add game to list
+	public boolean add_game_to_list(Game g)
+	{
+		return this.games.add(g);
+	}
+	
+	/*
+	 * This method will add the scores to JSON file
+	 */
+	public boolean add_score()
+	{
+		JSONArray gamesArr = new JSONArray();
 
+		for (Game g : games)
+		{
+			JSONObject inner = new JSONObject();
+
+			inner.put("nickname", g.getNickname());
+			inner.put("score", g.getScore());
+			gamesArr.add(inner);
+		}
+		JSONObject outer = new JSONObject();
+
+		if (games.size() > 0)
+		{
+			outer.put("games", gamesArr);
+		}
+
+		FileWriter writer;
+		try
+		{
+			writer = new FileWriter("Scores.json");
+			writer.write(Jsoner.prettyPrint(outer.toJSONString()));
+			writer.flush();
+			return true;
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	
 	
 	

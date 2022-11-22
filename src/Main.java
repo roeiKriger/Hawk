@@ -1,10 +1,13 @@
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
 
 import Control.SysData;
+import Model.Game;
 import Model.Question;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +35,13 @@ public class Main extends Application {
 	
 	public static void main(String[] args) throws IOException, ParseException 
 	{
+		Game g = new Game("Matan");
+		g.setScore(15);
+		SysData.getInstance().add_game_to_list(g);
+		Game ga = new Game("Noga");
+		ga.setScore(15);
+		SysData.getInstance().add_game_to_list(ga);
+		SysData.getInstance().add_score();
 		launch(args);
 	}
 }

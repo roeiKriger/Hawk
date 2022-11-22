@@ -59,7 +59,15 @@ public class Game {
 		this.gameLevel = 1;
 		this.nickname = nickname;
 		this.date = date;
-		
+	}
+
+	// Constructor
+	public Game(String nickname) {
+		this.board = new Square[8][8];
+		this.score = 0;
+		this.gameLevel = 1;
+		this.nickname = nickname;
+		this.date = new Date(System.currentTimeMillis());
 	}
 
 	/*
