@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.QuestionEditor">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.QuestionEditor">
    <children>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToHomePage" style="-fx-background-radius: 20;" text="Log Out" />
       <Label layoutX="323.0" layoutY="88.0" text="Questions" textAlignment="CENTER" underline="true">
@@ -16,7 +16,7 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <TableView layoutX="38.0" layoutY="191.0" prefHeight="323.0" prefWidth="714.0">
+      <TableView fx:id="questionsTable" layoutX="38.0" layoutY="191.0" prefHeight="323.0" prefWidth="714.0">
         <columns>
           <TableColumn prefWidth="93.11107635498047" text="No." />
           <TableColumn prefWidth="125.55563354492188" text="Difficulty" />

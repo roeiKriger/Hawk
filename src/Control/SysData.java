@@ -21,6 +21,7 @@ import org.json.simple.parser.ParseException;
 
 import Model.Game;
 import Model.Question;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 
 
@@ -30,6 +31,7 @@ public class SysData implements Initializable
 	private static List<Question> questions;
 	private Game game;
 	private static List<Game> games;
+	//public static ObservableList<Question> observableQuestions;
 	
 	// static method to create instance of Singleton class
 	public static SysData getInstance()
@@ -39,32 +41,18 @@ public class SysData implements Initializable
 			instance = new SysData();
 			questions = new ArrayList<>();
 			games = new ArrayList<>();
+			//observableQuestions = FXCollections.observableArrayList();
 		}
 		return instance;
 	}
 	
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1)
-	{
-		if (this.questions == null)
-		{
-			this.questions = new ArrayList<Question>();
-		}
-
-		if (this.games == null)
-		{
-			this.games = new ArrayList<Game>();
-		}
-
-	}
 	
 	// Questions Zone // 
 	
 	/*
 	 * This method do import JSON to Question array
 	 */
-	public List<Question> load_questions() throws IOException, ParseException
+	public boolean load_questions() throws IOException, ParseException
 	{
 		//questions = new ArrayList<>();
 		String fileName = "Questions.json";
@@ -81,27 +69,23 @@ public class SysData implements Initializable
 			{
 
 				JSONObject currItem = ((JSONObject) jsAr.get(i));
-				int questionDifficulty = Integer.parseInt((String) currItem.get("level"));
+				Long difficulty = (Long) currItem.get("level");
+				int questionDifficulty = difficulty.intValue();
 				String questionContent = (String) currItem.get("question");
 				List<String> answers =  (List<String>) currItem.get("answers");
-				int correctAnswerId = Integer.parseInt((String) currItem.get("correct_ans"));
+				Long correct = (Long) currItem.get("correct_ans");
+				int correctAnswerId = correct.intValue();
 				
 				Question q = new Question(questionDifficulty, questionContent, answers, correctAnswerId);
-				add_question(q);
+				SysData.questions.add(q);
 			}
+			System.out.println(this.questions);
+			return true;
 		} catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
 		}
-		return this.questions;
-	}
-	
-	/*
-	 * This method add question to arrayList
-	 */
-	private boolean add_question(Question q)
-	{
-		return this.questions.add(q);
+		return false;
 	}
 	
 	
@@ -177,6 +161,16 @@ public class SysData implements Initializable
 		return false;
 	}
 
+	/*
+	 * This method get this question list 
+	 */
+	public List<Question> get_questions()
+	{
+		if(this.questions!=null)
+			return this.questions;
+		
+		return new ArrayList<Question>();
+	}
 	
 	
 	// Score Zone // 
@@ -267,6 +261,31 @@ public class SysData implements Initializable
 		return false;
 		
 	}
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) 
+	{
+		if (questions == null)
+		{
+			questions = new ArrayList<>();
+			try
+			{
+				this.load_questions();
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		
+	}
+	
 	
 	
 	

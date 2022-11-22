@@ -43,6 +43,8 @@ public class Main extends Application {
 		SysData.getInstance().add_game_to_list(ga);
 		SysData.getInstance().add_score();*/
 		//SysData.getInstance().import_scores();
+		/*SysData.getInstance().load_questions();
+		System.out.println(SysData.getInstance().get_questions());*/
 		launch(args);
 	}
 }
