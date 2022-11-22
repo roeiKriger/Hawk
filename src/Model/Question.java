@@ -6,8 +6,9 @@ import java.util.List;
  * Class of Question
  */
 
-public class Question {
-
+public class Question 
+{
+	private static int count = 0; //the counter will use for question id
 	/**
 	 * ID of a question
 	 */
@@ -42,7 +43,15 @@ public class Question {
 		this.answers = answers;
 		this.correctAnswerId = correctAnswerId;
 	}
-
+	// Constructor
+	public Question(int questionDifficulty, String questionContent, List<String> answers, int correctAnswerId)
+	{
+		this.questionId = count ++; //adding counter for id
+		this.questionDifficulty = questionDifficulty;
+		this.questionContent = questionContent;
+		this.answers = answers;
+		this.correctAnswerId = correctAnswerId;
+	}
 	/*
 	 * Getters and Setters
 	 */

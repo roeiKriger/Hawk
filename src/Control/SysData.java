@@ -61,9 +61,9 @@ public class SysData implements Initializable
 	/*
 	 * This method do import JSON to Question array
 	 */
-	public void loadQuestionsDetails() throws IOException, ParseException
+	public List<Question> load_questions() throws IOException, ParseException
 	{
-		questions = new ArrayList<>();
+		//questions = new ArrayList<>();
 		String fileName = "Questions.json";
 		FileReader reader;
 		JSONObject jsO = new JSONObject();
@@ -79,32 +79,25 @@ public class SysData implements Initializable
 
 				JSONObject currItem = ((JSONObject) jsAr.get(i));
 				/*Question question = new Question(); To be field after create question class */
+				//String questionId = (String) currItem.get("question");
+				int questionDifficulty = Integer.parseInt((String) currItem.get("level"));
+				String questionContent = (String) currItem.get("question");
+				List<String> answers =  (List<String>) currItem.get("answers");
+				int correctAnswerId = Integer.parseInt((String) currItem.get("correct_ans"));
+				
+				Question q = new Question(questionDifficulty, questionContent, answers, correctAnswerId);
+				//ystem.out.println(q);
+				this.questions.add(q);
 			}
 		} catch (FileNotFoundException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return this.questions;
 	}
 
-	/**
-	 * This method is used for fetching the questions
-	 * 
-	 * @return List of questions
-	 */
-	public List<Question> getQuestions()
-	{
-		if (questions == null)
-			try
-			{
-				loadQuestionsDetails();
-			} catch (IOException | ParseException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		return questions;
-	}
+
 	
 	/**
 	 * Updating JSON of question

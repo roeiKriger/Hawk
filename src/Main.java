@@ -1,3 +1,8 @@
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
+import Control.SysData;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +26,8 @@ public class Main extends Application {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException, ParseException 
+	{
 		launch(args);
 	}
 }
