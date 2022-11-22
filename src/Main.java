@@ -29,23 +29,9 @@ public class Main extends Application {
 		}
 	}
 
-	public static void example() {
-		List<String> ans = new ArrayList<String>();
-			ans.add("a plan or specification for the construction of an object or system");
-			ans.add("no");
-			ans.add("yes");
-			ans.add("other");
-		Question q = new Question(1, "What is design? ", ans, 1);
-		List<Question> que = new ArrayList<Question>();
-		que.add(q);
-		System.out.println(SysData.getInstance().write_questions(que));
-		
-	}
-	
 	
 	public static void main(String[] args) throws IOException, ParseException 
 	{
-		example();
 		launch(args);
 	}
 }

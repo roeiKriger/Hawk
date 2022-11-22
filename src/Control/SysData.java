@@ -141,7 +141,6 @@ public class SysData implements Initializable
 			outer.put("questions", questionsArr);
 		}
 
-		@SuppressWarnings("resource")
 		FileWriter writer;
 		try
 		{
@@ -157,41 +156,34 @@ public class SysData implements Initializable
 		return false;
 
 	}
+	
+	/*
+	 * This method gets Question
+	 * The method will remove the Question from the List 
+	 */
+	private boolean delete_question_from_list(Question q)
+	{
+		return this.questions.remove(q);
+	}
+	
+	
+	/*
+	 * This method gets Question
+	 * The method will remove the Question from the List and JSON
+	 */
+	public boolean delete_question(Question q)
+	{
+		if(delete_question_from_list(q))
+		{
+			return write_questions(questions);
+		}
+		return false;
+	}
 
 	
 	
-	
-	// Game Zone // 
-	
-	/*
-	 * This method get File
-	 * This method is save the game to JSON File
-	 */
-	public void saveGameToFile(File file)
-	{
-		try
-		{
-			PrintWriter writer;
-			writer = new PrintWriter(file);
-			//writer.println(game.getSavedGameString()); //To do in game class//  // 
-			writer.close();
-		} catch (IOException ex)
-		{
-			ex.printStackTrace();
-		}
-	}
-	
-	/*
-	 * This method is load games from JSON File
-	 * 
-	 * TO DO after create game java class
-	 */
-	public void loadGamesHistory()
-	{
-		//TO DO - after game class create
-	}
-	
-	
+	// Score Zone // 
+
 	
 	
 	
