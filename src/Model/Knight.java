@@ -38,7 +38,9 @@ public class Knight extends Piece{
 		
 		// now we have two arrays, each of them has locations of the placements, first array is the Row and the second is the Column, now we will check if the place is empty
 		
-		for(int i=0;i<8;i++)
+		for(int i=0;i<8;i++) {
+			possibleMoves[possibleNewRow[i]][possibleNewCol[i]] = new Square("noColor", false);
+			
 			if((possibleNewRow[i] >=0 && possibleNewRow[i] <8 && possibleNewCol[i] >=0 && possibleNewCol[i]<8))
 			{
 				if(king != null)
@@ -56,6 +58,7 @@ public class Knight extends Piece{
 					}
 				}
 			}
+		}
 		
 		return possibleMoves;
 

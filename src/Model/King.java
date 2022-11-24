@@ -19,7 +19,8 @@ public class King extends Piece{
 		Square[][] possibleMoves = new Square[8][8];
 		int possibleNewRow[]={this.getRow(),this.getRow(),this.getRow()+1,this.getRow()+1,this.getRow()+1,this.getRow()-1,this.getRow()-1,this.getRow()-1};
 		int possibleNewCol[]={this.getCol()-1,this.getCol()+1,this.getCol()-1,this.getCol(),this.getCol()+1,this.getCol()-1,this.getCol(),this.getCol()+1};
-		for(int i=0;i<8;i++)
+		for(int i=0;i<8;i++){
+			possibleMoves[possibleNewRow[i]][possibleNewCol[i]] = new Square("noColor", false);
 			if((possibleNewRow[i] >= 0 && possibleNewRow[i] <8 && possibleNewCol[i] >=0 && possibleNewCol[i] <8))
 			{
 				// king can't step on blocked Square
@@ -27,7 +28,8 @@ public class King extends Piece{
 				{
 					possibleMoves[possibleNewRow[i]][possibleNewCol[i]].setCanVisit(true);
 				}
-			}			
+			}	
+		}
 		return possibleMoves;
 	}
 
