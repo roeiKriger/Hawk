@@ -2,6 +2,7 @@ package Control.ViewLogic;
 
 import java.io.IOException;
 
+import Control.SysData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,8 @@ public class InsertNickname {
     
     @FXML
     private TextField nickname;
+    
+    private SysData sd = SysData.getInstance();
 
     @FXML
     void onStartGame(ActionEvent event) throws IOException {
@@ -30,6 +33,9 @@ public class InsertNickname {
 			alert.showAndWait();
 			return;
     	}
+    	
+    	// save nick name in sysdata
+    	sd.setNickname(nick);
     	
     	// Move to game screen
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/GameScreen.fxml"));

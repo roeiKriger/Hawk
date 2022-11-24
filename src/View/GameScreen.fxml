@@ -25,6 +25,11 @@
       </Label>
       <Label fx:id="playPauseLabel" layoutX="742.0" layoutY="12.0" onMouseClicked="#playPause" style="-fx-border-color: black; -fx-border-radius: 20; -fx-padding: 5;" text="Pause" />
       <AnchorPane fx:id="boardWrapper" layoutX="139.0" layoutY="69.0" prefHeight="520.0" prefWidth="520.0" />
-      <Button layoutX="14.0" layoutY="91.0" mnemonicParsing="false" onAction="#openQuestionModal" style="-fx-background-radius: 20;" text="open modal question" />
+      <Button layoutX="9.0" layoutY="94.0" mnemonicParsing="false" onAction="#openQuestionModal" style="-fx-background-radius: 20;" text="open modal question" />
+      <Label fx:id="nicknameLabel" layoutX="14.0" layoutY="47.0" text="Hello Nickname">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

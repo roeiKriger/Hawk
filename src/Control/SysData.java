@@ -33,6 +33,8 @@ public class SysData implements Initializable
 	private static List<Game> games;
 	//public static ObservableList<Question> observableQuestions;
 	
+	private String nickname;
+	
 	// static method to create instance of Singleton class
 	public static SysData getInstance()
 	{
@@ -46,9 +48,18 @@ public class SysData implements Initializable
 		return instance;
 	}
 	
+	// getters & setters
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	
 	
 	// Questions Zone // 
-	
+
 	/*
 	 * This method do import JSON to Question array
 	 */

@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import Control.SysData;
 import Model.Constants;
 import Model.Game;
 import Model.Square;
@@ -52,6 +53,9 @@ public class GameScreen implements Initializable {
     private Label levelLabel;
     
     @FXML
+    private Label nicknameLabel;
+    
+    @FXML
     private Label pointsLabel;
     
     @FXML
@@ -60,10 +64,13 @@ public class GameScreen implements Initializable {
     
     public Pane[][] boardView = null;
     
+    private SysData sd = SysData.getInstance();
+    
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		// TODO get nickname 
-		Game currentGame = new Game("nickname", new Date());
+		String nickname = sd.getNickname();
+		nicknameLabel.setText("Hello " + nickname);
+		Game currentGame = new Game(nickname, new Date());
 		currentGame.createBoardLevelOne();
 		Square[][] currentBoard = currentGame.getBoard();
 		drawBoard(currentBoard, currentGame);
