@@ -21,9 +21,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -33,7 +31,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -100,7 +98,7 @@ public class GameScreen implements Initializable {
 		
 		for (int row=0; row<8; row++) {
 			for (int col=0; col<8; col++) {
-				Paint color = getTileColor(row, col, currentBoard[row][col].getSquareType());
+				Color color = getTileColor(row, col, currentBoard[row][col].getSquareType());
 				StackPane tileView = new StackPane();
 				tileView.setPrefSize(Constants.TILE_SIZE, Constants.TILE_SIZE);
 				tileView.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -136,14 +134,14 @@ public class GameScreen implements Initializable {
 	/*
 	 * get background color of tile by type or position 
 	 */
-	private Paint getTileColor(int i, int j, String tileType) {
-		// TODO - change color by tile type
-		Paint color;
+	private Color getTileColor(int i, int j, String tileType) {
+		Color color;
+		// TODO - change color by tile type 
 		if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
-			color = Paint.valueOf(Constants.LIGHT_TILE);
+			color = Color.WHITE;
 		}
 		else {
-			color = Paint.valueOf(Constants.DARK_TILE);
+			color = Color.BLACK;
 		}
 		return color;
 	}
@@ -161,36 +159,41 @@ public class GameScreen implements Initializable {
 		if (pieceType == "knight") {
 			
 			actorImg.setStyle("-fx-cursor: hand");
-			// TODO possible moves
-			// start drag
-			actorImg.setOnDragDetected(event -> {
+			// TODO possible moves - change rowPossible & colPossible from Model
+			int rowPossible = 1; //! mock
+			int colPossible = 1; //! mock
+			actorImg.setOnMouseClicked(event -> {
+				Pane tilePossibleView = boardView[rowPossible][colPossible];
+				tilePossibleView.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+				
+				// save tileView before moving
 				int oldCol = (int) (event.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
 				int oldRow = (int) (event.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
 				tileBeforeMove = boardView[oldRow][oldCol];
-			});
-			// end drag
-			actorImg.setOnMouseReleased(event -> {
-				int newCol = (int) (event.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
-				int newRow = (int) (event.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
 				
-				// Handle Exceptions of position
-				if ((event.getSceneX() < boardWrapper.getLayoutX()) || (event.getSceneX() > (boardWrapper.getLayoutX() + Constants.TILE_SIZE*8))
-						|| (event.getSceneY() < boardWrapper.getLayoutY()) || (event.getSceneY() > boardWrapper.getLayoutY() + Constants.TILE_SIZE*8)) {
-					this.pause();
-					Alert alert = new Alert(AlertType.WARNING);
-					alert.setTitle("Out of bounds location");
-					alert.setHeaderText("Please select a location within the board");
-					alert.showAndWait();
-					this.play();
-					return;
-				}
-				tileBeforeMove.getChildren().clear();
-				Pane tileAfterMove = boardView[newRow][newCol];
-				tileAfterMove.getChildren().clear();
-				tileAfterMove.getChildren().add(actorImg);
+				// add listener to press on possible move
+				tilePossibleView.setOnMouseClicked(event2 -> {
+					// TODO - add cases of question, random, etc;
+					
+					// clear old tile from pieces
+					tileBeforeMove.getChildren().clear();
+					
+					// move knight to new tile
+					ImageView knight = new ImageView(new Image("/Assets/knight.png"));
+					knight.setStyle("-fx-cursor: hand");
+					knight.setFitWidth(Constants.GAME_PIECES_SIZE);
+					knight.setFitHeight(Constants.GAME_PIECES_SIZE);
+					
+					tilePossibleView.getChildren().add(knight);
+					
+					// change color of new tile
+					int newCol = (int) (event2.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
+					int newRow = (int) (event2.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
+					Color color = getTileColor(rowPossible, colPossible, "");
+					boardView[newRow][newCol].setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+				});
+
 			});
-			
-			// TODO - try to move the game piece while dragging
 		}
 		
 		tile.getChildren().clear();
