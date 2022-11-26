@@ -29,7 +29,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -60,26 +59,27 @@ public class GameScreen implements Initializable {
     private Label playPauseLabel;
     private String playPauseMode = "pause";
     
-    public Pane[][] boardView = null;
+    public StackPane[][] boardView = null;
     
     private SysData sd = SysData.getInstance();
     
+    private Game currentGame;
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		String nickname = sd.getNickname();
 		nicknameLabel.setText("Hello " + nickname);
-		Game currentGame = new Game(nickname, new Date());
+		currentGame = new Game(nickname, new Date());
 		currentGame.createBoardLevelOne();
 		Square[][] currentBoard = currentGame.getBoard();
-		drawBoard(currentBoard, currentGame);
+		drawBoard(currentBoard);
 		initializeTimer();
 	}
 	
 	/*
-	 *  draw board in fxml, in given board and game for pieces
+	 *  draw board in fxml, in given board 
 	 */
-	private void drawBoard(Square[][] currentBoard, Game currentGame) {
-		boardView = new Pane[8][8];
+	private void drawBoard(Square[][] currentBoard) {
+		boardView = new StackPane[8][8];
 		
 		// get position of game pieces
 		int knightRow = -1, knightCol = -1, queenRow = -1, queenCol = -1, kingRow = -1, kingCol = -1;
@@ -150,49 +150,48 @@ public class GameScreen implements Initializable {
 	 * function that add game piece to tile in view
 	 * tileBeforeMove is global variable for save the initial tile before player move
 	 */
-	private Pane tileBeforeMove;
 	private void drawGamePiece(StackPane tile, String pieceType) {
 		ImageView actorImg = new ImageView(new Image("/Assets/" + pieceType + ".png"));
 		actorImg.setFitWidth(Constants.GAME_PIECES_SIZE);
 		actorImg.setFitHeight(Constants.GAME_PIECES_SIZE);
 		
 		if (pieceType == "knight") {
-			
 			actorImg.setStyle("-fx-cursor: hand");
-			// TODO possible moves - change rowPossible & colPossible from Model
-			int rowPossible = 1; //! mock
-			int colPossible = 1; //! mock
-			actorImg.setOnMouseClicked(event -> {
-				Pane tilePossibleView = boardView[rowPossible][colPossible];
-				tilePossibleView.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
-				
-				// save tileView before moving
-				int oldCol = (int) (event.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
-				int oldRow = (int) (event.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
-				tileBeforeMove = boardView[oldRow][oldCol];
-				
-				// add listener to press on possible move
-				tilePossibleView.setOnMouseClicked(event2 -> {
-					// TODO - add cases of question, random, etc;
-					
-					// clear old tile from pieces
-					tileBeforeMove.getChildren().clear();
-					
-					// move knight to new tile
-					ImageView knight = new ImageView(new Image("/Assets/knight.png"));
-					knight.setStyle("-fx-cursor: hand");
-					knight.setFitWidth(Constants.GAME_PIECES_SIZE);
-					knight.setFitHeight(Constants.GAME_PIECES_SIZE);
-					
-					tilePossibleView.getChildren().add(knight);
-					
-					// change color of new tile
-					int newCol = (int) (event2.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
-					int newRow = (int) (event2.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
-					Color color = getTileColor(rowPossible, colPossible, "");
-					boardView[newRow][newCol].setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
-				});
+			Square[][] possibleMoves = currentGame.getKnight().move(currentGame.getBoard(), currentGame.getGameLevel(), currentGame.getKing(), currentGame.getQueen());
 
+			actorImg.setOnMouseClicked(eventBefore -> {
+				System.out.println("new turn");
+				for (int i=0; i<8; i++) {
+					for (int j=0; j<8; j++) {
+						if (possibleMoves[i][j]!= null && possibleMoves[i][j].getCanVisit().equals(true)) {
+						// case that this is possible tile
+							int rowPossible = i;
+							int colPossible = j;
+							System.out.println(i + " " + j);
+							
+							// change color of tilePossible
+							StackPane tilePossibleView = boardView[rowPossible][colPossible];
+							tilePossibleView.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+							tilePossibleView.setStyle("-fx-cursor: hand");
+														
+							// add listener to press on possible move
+							tilePossibleView.setOnMouseClicked(eventAfter -> {
+								// TODO - add cases of question, random, etc;
+								
+								int newCol = (int) (eventAfter.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
+								int newRow = (int) (eventAfter.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
+								
+								// update knight position in Model
+								currentGame.getKnight().setRow(newRow);
+								currentGame.getKnight().setCol(newCol);
+																
+								// TODO - pass to enemy turn 
+								// TODO - update another data in Model?
+								drawBoard(currentGame.getBoard());
+							});	
+						}						
+					}
+				}					
 			});
 		}
 		
@@ -200,6 +199,7 @@ public class GameScreen implements Initializable {
 		tile.getChildren().add(actorImg);
 		StackPane.setAlignment(actorImg, Pos.CENTER);
 	}
+	
 	
 	/*
 	 * initalize timer to 1 minute per round
