@@ -1,0 +1,18 @@
+
+
+Version:	3.50
+CmdLine:	C:\Users\Matan\Documents\GitHub\Hawk\hawk_exe.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\Matan\Documents\GitHub\Hawk\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+JRE paths:	C:\Program Files\Java\jdk1.8.0_261
+Check launcher:	C:\Program Files\Java\jdk1.8.0_261\bin\javaw.exe (OK)
+Version string: 1.008.000_261 / 64-Bit (OK)
+Launcher:	C:\Program Files\Java\jdk1.8.0_261\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Matan\Documents\GitHub\Hawk\hawk_exe.exe"
+Args length:	56/32768 chars
+Exit code:	0
