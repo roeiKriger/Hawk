@@ -45,6 +45,7 @@ public class Main extends Application {
 		//SysData.getInstance().import_scores();
 		/*SysData.getInstance().load_questions();
 		System.out.println(SysData.getInstance().get_questions());*/
-		launch(args);
-	}
+		  launch(args);
+		}
+		
 }
