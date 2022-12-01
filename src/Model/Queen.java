@@ -104,8 +104,7 @@ public class Queen extends Piece{
 
 	@Override
 	public Square[][] move(Square[][] board, int currentRow, int currentCol) {
-		// TODO Auto-generated method stub
-		return null;
+		return move(board);
 	}
 
 
