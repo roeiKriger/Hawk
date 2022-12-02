@@ -23,7 +23,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -125,6 +124,8 @@ public class GameScreen implements Initializable {
 				
 				// draw question tile
 				if (currentBoard[row][col].getSquareType() == "question") {
+//					int level = currentBoard[row][col].getQuestion().getQuestionDifficulty();
+//					drawGamePiece(tileView, "question" + level);
 					drawGamePiece(tileView, "question");
 				}
 				// draw question tile
@@ -215,7 +216,7 @@ public class GameScreen implements Initializable {
 															
 								// checking to see if the Knight stepped on a Random Square, if so he will be moved to a new location
 								if (currentGame.checkIfSteppedOnRandomSquare()) {
-									alert("Random Square", "You stood on a random square, the position of the knight will change randomly");
+									SysData.alert("Random Square", "You stood on a random square, the position of the knight will change randomly", AlertType.INFORMATION);
 								}
 								
 								//pass to automatic queen turn 
@@ -228,7 +229,7 @@ public class GameScreen implements Initializable {
 								if(currentGame.checkIfSteppedOnforgettingSquare())
 								{
 									goBackThreeSteps(gamesArrayForForgettingSquareGames);
-									alert("Forgetting Square", "You stood on a forget square, you go back 3 steps in the game");
+									SysData.alert("Forgetting Square", "You stood on a forget square, you go back 3 steps in the game", AlertType.INFORMATION);
 								}
 								
 							});	
@@ -392,17 +393,7 @@ public class GameScreen implements Initializable {
     private void play() {
     	time.play();
     }
-    
-    /*
-     * Show alert generically by title and message
-     */
-    private void alert(String title, String message) { 
-		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle(title);
-		alert.setHeaderText(message);
-		alert.showAndWait();
-		return;
-    }
+ 
     
     /*
      * open question modal, without override the game screen

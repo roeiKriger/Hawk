@@ -10,10 +10,10 @@ import Model.Question;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class QuestionModal implements Initializable{
@@ -38,7 +38,7 @@ public class QuestionModal implements Initializable{
     
     @FXML
     private Label levelLabel;
-    
+        
 
     private SysData sd = SysData.getInstance();
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -63,6 +63,8 @@ public class QuestionModal implements Initializable{
     @FXML
     void onAnswer(ActionEvent event) 
     {
+    	
+    	
     	updateScoreAfterAnswer();
     	//move back to board
     	closeWindow();
@@ -84,6 +86,8 @@ public class QuestionModal implements Initializable{
     			score += Model.Constants.SUCSSED_MIDDLE;
     		if(question.getQuestionDifficulty() == 3)
     			score += Model.Constants.SUCSSED_HARD;
+    		
+    		SysData.alert("Correct Answer ✔️", "Well done, you answered the right question", AlertType.CONFIRMATION);
     	}
     	else
     	{ //wrong answer
@@ -92,7 +96,10 @@ public class QuestionModal implements Initializable{
     		if(question.getQuestionDifficulty() == 2)
     			score += Model.Constants.WORNG_MIDDLE;
     		if(question.getQuestionDifficulty() == 3)
-    			score += Model.Constants.WORNG_HARD; 		
+    			score += Model.Constants.WORNG_HARD; 
+    		
+    		String correctAns = question.getAnswers().get(question.getCorrectAnswerId());
+    		SysData.alert("Wrong Answer ❌", "You were wrong, the correct answer is:\n'" + correctAns + "'", AlertType.CONFIRMATION);
     	}
     	sd.getGame().setScore(score); // updating score
     	//Control.ViewLogic.GameScreen.changeScoreOnScreen();
