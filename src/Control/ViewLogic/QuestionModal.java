@@ -96,6 +96,7 @@ public class QuestionModal implements Initializable{
     	}
     	sd.getGame().setScore(score); // updating score
     	//Control.ViewLogic.GameScreen.changeScoreOnScreen();
+    	System.out.println("Score is " +  sd.getGame().getScore());
     }
     
     @FXML
