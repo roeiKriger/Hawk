@@ -369,7 +369,7 @@ public class Game {
 		return question;
 	}
 	
-	public void checkIfSteppedOnRandomSquare()
+	public boolean checkIfSteppedOnRandomSquare()
 	{
 		//check if knight stepped on Random Square
 		if(this.board[this.knight.getRow()][this.knight.getCol()].getSquareType().equals("randomSquare"))
@@ -382,7 +382,9 @@ public class Game {
 			
 			//create a new random square instead
 			this.board = createNewSquare(this.board, "randomSquare");
+			return true;
 		}
+		return false;
 	}
 	
 	public void changeKnightLocationRandomized() 
