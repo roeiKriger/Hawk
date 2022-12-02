@@ -61,6 +61,14 @@ public class QuestionModal implements Initializable{
     @FXML
     void onAnswer(ActionEvent event) 
     {
+    	updateScoreAfterAnsewr();
+    	//move back to board
+    	
+    }
+    
+    //This method check the answer and update score
+    private void updateScoreAfterAnsewr()
+    {
     	Question question = sd.getCurrentQuestion(); //get correct question
 		RadioButton selectedRadioButton = (RadioButton) answers.getSelectedToggle(); //get Object selected
 		String toogleGroupValue = selectedRadioButton.getText(); // get text of question
@@ -84,8 +92,6 @@ public class QuestionModal implements Initializable{
     			score += Model.Constants.WORNG_HARD; 		
     	}
     	sd.getGame().setScore(score); // updating score
-    	//move back to board
-    	
     }
     
     
