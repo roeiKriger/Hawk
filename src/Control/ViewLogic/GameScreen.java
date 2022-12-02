@@ -70,11 +70,13 @@ public class GameScreen implements Initializable {
 	ArrayList<Game> gamesArrayForForgettingSquareGames = new ArrayList<>();
     
     private Game currentGame;
+    
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		String nickname = sd.getNickname();
 		nicknameLabel.setText("Hello " + nickname);
-		currentGame = new Game(nickname, new Date());
+		sd.setGame(new Game(nickname, new Date()));
+		currentGame = sd.getGame();
 		currentGame.createBoardLevelOne();
 		Square[][] currentBoard = currentGame.getBoard();
 		initGamesArray(gamesArrayForForgettingSquareGames, currentGame);
