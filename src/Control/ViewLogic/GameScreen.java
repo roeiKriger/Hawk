@@ -2,6 +2,7 @@ package Control.ViewLogic;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.channels.NonReadableChannelException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -172,7 +173,7 @@ public class GameScreen implements Initializable {
 			Square[][] possibleMoves = currentGame.getKnight().move(currentGame.getBoard(), currentGame.getGameLevel(), currentGame.getKing(), currentGame.getQueen());
 
 			actorImg.setOnMouseClicked(eventBefore -> {
-				System.out.println("new turn");
+				//System.out.println("new turn");
 				for (int i=0; i<8; i++) {
 					for (int j=0; j<8; j++) {
 						if (possibleMoves[i][j]!= null && possibleMoves[i][j].getCanVisit().equals(true)) {
@@ -218,18 +219,20 @@ public class GameScreen implements Initializable {
 									alert("Random Square", "You stood on a random square, the position of the knight will change randomly");
 								}
 								
+								// update the games array for the forgetting square option
+								updateGamesArray(gamesArrayForForgettingSquareGames, currentGame);
+								
+								if(currentGame.checkIfSteppedOnforgettingSquare())
+								{
+									//goBackThreeSteps(gamesArrayForForgettingSquareGames);
+									//currentGame = gamesArrayForForgettingSquareGames.get(gamesArrayForForgettingSquareGames.size()-1);
+									//drawBoard(currentGame.getBoard());	
+									alert("Forgetting Square", "You stood on a forget square, you go back 3 steps in the game");
+								}
 								//pass to automatic queen turn 
 								queenTurn();
 								
-								drawBoard(currentGame.getBoard());
-								
-								// update the games array for the forgetting square option
-								updateGamesArray(gamesArrayForForgettingSquareGames, currentGame);
-								if(currentGame.checkIfSteppedOnforgettingSquare())
-								{
-									goBackThreeSteps(gamesArrayForForgettingSquareGames);
-									alert("Forgetting Square", "You stood on a forget square, you go back 3 steps in the game");
-								}
+								drawBoard(currentGame.getBoard());							
 								
 							});	
 						}						
@@ -337,6 +340,7 @@ public class GameScreen implements Initializable {
 	// if at the beginning of the game (after one or two steps) you stepped on forgetting Square you will get back to the start of the game, because there were no more possible moves to get back to
 	public void initGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
 	{
+		System.out.println("init array");
 		gamesArrayForForgettingSquareGames.add(currentGame);
 		gamesArrayForForgettingSquareGames.add(currentGame);
 		gamesArrayForForgettingSquareGames.add(currentGame);
@@ -344,11 +348,19 @@ public class GameScreen implements Initializable {
 	
 	public void updateGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
 	{
-		gamesArrayForForgettingSquareGames.add(currentGame);
+		System.out.println("update array");
+		
+		Game newTempGame = new Game(currentGame.getBoard(), currentGame.getScore(), currentGame.getTimer(), currentGame.getGameLevel(), currentGame.getNickname(), currentGame.getDate(), currentGame.getKnight(), currentGame.getQueen(), currentGame.getKing());
+		gamesArrayForForgettingSquareGames.add(newTempGame);
+		for(int i=0; i< gamesArrayForForgettingSquareGames.size(); i++)
+		{
+			System.err.println("arr in index " + i +" is: " + gamesArrayForForgettingSquareGames.get(i));
+		}
 	}
 	
 	public void goBackThreeSteps(ArrayList<Game> gamesArrayForForgettingSquareGames) 
 	{
+		System.out.println("go back three steps");
 		int index = gamesArrayForForgettingSquareGames.size();
 		int counter = 0;
 		if(index > 3) //if we have enough steps to remove

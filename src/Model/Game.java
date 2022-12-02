@@ -73,6 +73,21 @@ public class Game {
 		this.nickname = nickname;
 		this.date = new Date(System.currentTimeMillis());
 	}
+	
+
+	public Game(Square[][] board, int score, Timeline timer, int gameLevel, String nickname, Date date, Knight knight,
+			Queen queen, King king) {
+		super();
+		this.board = board;
+		this.score = score;
+		this.timer = timer;
+		this.gameLevel = gameLevel;
+		this.nickname = nickname;
+		this.date = date;
+		this.knight = knight;
+		this.queen = queen;
+		this.king = king;
+	}
 
 	/*
 	 * Getters and Setters
@@ -178,8 +193,8 @@ public class Game {
 
 		// at level 1 we create at the start 3 Squares which are for random squares and 3 for questions
 		while(numOfSquares < 3)
-		{//this.board = createNewSquare(this.board, "forgetting"); // for debug delete laterrrrrrrr
-			this.board = createNewSquare(this.board, "randomSquare");
+		{this.board = createNewSquare(this.board, "forgetting");this.board = createNewSquare(this.board, "forgetting"); // for debug delete laterrrrrrrr
+			//this.board = createNewSquare(this.board, "randomSquare");
 			this.board = createNewQuestionSquare(this.board, "question", numOfSquares + 1);
 			numOfSquares++;
 		}		
@@ -441,7 +456,8 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return "Game [score=" + score + ", nickname=" + nickname + ", date=" + date + "]";
+		//return "Game [score=" + score + ", nickname=" + nickname + ", date=" + date + "]";
+		return "king loc: " + knight.getRow() +" "+ knight.getCol() + "]";
 	}
 
 
