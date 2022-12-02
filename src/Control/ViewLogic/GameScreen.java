@@ -119,6 +119,10 @@ public class GameScreen implements Initializable {
 				if (currentBoard[row][col].getSquareType() == "question") {
 					drawGamePiece(tileView, "question");
 				}
+				// draw question tile
+				if (currentBoard[row][col].getSquareType() == "blocked") {
+					drawGamePiece(tileView, "blocked");
+				}
 				
 				// set position in fxml
 				tileView.setLayoutX(Constants.TILE_SIZE * col);

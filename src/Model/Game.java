@@ -280,9 +280,15 @@ public class Game {
 			if(board[randRow][randCol].getSquareType().equals("empty") && (randRow!= this.knight.getRow() && randCol!= this.knight.getCol()) && (randRow!= piece.getRow() && randCol != piece.getCol()))
 			{
 				board[randRow][randCol].setSquareType(type);	
+				//for debugging purpose
 				if(type == "randomSquare")
 				{
-					System.out.println("location: row: " + randRow +" , col is: " + randCol);
+					System.out.println("Random location: row: " + randRow +" , col is: " + randCol);
+				}
+				//for debugging purpose
+				if(type == "blocked")
+				{
+					System.out.println("Blocked location: row: " + randRow +" , col is: " + randCol);
 				}
 				isDone = true;
 			}
