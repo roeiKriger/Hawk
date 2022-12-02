@@ -1,9 +1,11 @@
 package Model;
 
+import java.util.List;
 import java.util.Date;
 import java.util.Random;
 import java.util.Timer;
 
+import Control.SysData;
 import javafx.animation.Timeline;
 
 public class Game {
@@ -12,46 +14,46 @@ public class Game {
 	 * Board made of Squares
 	 */
 	private Square[][] board;
-	
+
 	/*
 	 * The score of the player at the moment
 	 */
 	private int score;
-	
+
 	/*
 	 * The timer of the game
 	 */
 	private Timeline timer;
-	
+
 	/*
 	 * The level of the game at the moment
 	 */
 	private int gameLevel;
-	
+
 	/*
 	 * The player nickname
 	 */
 	private String nickname;
-	
+
 	/*
 	 * Date of the game for game history
 	 */
 	private Date date;
-	
+
 	//game pieces
 	private Knight knight;
 	private Queen queen;
 	private King king;
-	
+
 	private int knightRowStarts = 0;
 	private int knightColStarts = 0;
-	
+
 	private int queenRowStarts = 0;
 	private int queenColStarts = 7;
-	
+
 	private int kingRowStarts = 0;
 	private int kingColStarts = 7;
-	
+
 	// Constructor
 	public Game(String nickname, Date date) {
 		this.board = new Square[8][8];
@@ -73,7 +75,7 @@ public class Game {
 	/*
 	 * Getters and Setters
 	 */
-	
+
 	public Square[][] getBoard() {
 		return board;
 	}
@@ -112,7 +114,7 @@ public class Game {
 	public void setGameLevel(int gameLevel) {
 		if(gameLevel <= 4 && gameLevel > 0)
 		{
-		this.gameLevel = gameLevel;	
+			this.gameLevel = gameLevel;	
 		}
 		else 
 		{
@@ -138,8 +140,8 @@ public class Game {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	
+
+
 	public Knight getKnight() {
 		return knight;
 	}
@@ -178,9 +180,9 @@ public class Game {
 			this.board = createNewSquare(this.board, "question");
 			numOfSquares++;
 		}		
-		
+
 	}
-	
+
 	public Square[][] createEmptyBoard(Square[][] board)
 	{
 		for(int i =0; i<8; i++)
@@ -193,7 +195,7 @@ public class Game {
 		}
 		return board;
 	}
-	
+
 	// creating new type of squares in random locations, get the board and the type we want to create.
 	public Square[][] createNewSquare(Square[][] board, String type)
 	{
@@ -201,7 +203,7 @@ public class Game {
 		int randRow = rand.nextInt(8);
 		int randCol = rand.nextInt(8);
 		Boolean isDone = false;
-	
+
 		while(isDone == false)
 		{
 			if(board[randRow][randCol].getSquareType().equals("empty") && (randRow!=0 && randCol!=0))
@@ -211,21 +213,73 @@ public class Game {
 			}
 			else 
 			{
-				 randRow = rand.nextInt(8);
-				 randCol = rand.nextInt(8);
+				randRow = rand.nextInt(8);
+				randCol = rand.nextInt(8);
 			}
 		}
-				
+
 		return board;
 	}
+
+	// creating new type of squares in random locations, get the board and the type we want to create.
+	public Square[][] createNewQuestionSquare(Square[][] board, String type, int level)
+	{
+		Random rand = new Random();
+		int randRow = rand.nextInt(8);
+		int randCol = rand.nextInt(8);
+		Boolean isDone = false;
+
+		while(isDone == false)
+		{
+			if(board[randRow][randCol].getSquareType().equals("empty") && (randRow!=0 && randCol!=0))
+			{
+				board[randRow][randCol].setSquareType(type);	
+				board[randRow][randCol].setQuestion(getOneQuestionByLevel(level));
+				isDone = true;
+			}
+			else 
+			{
+				randRow = rand.nextInt(8);
+				randCol = rand.nextInt(8);
+			}
+		}
+
+		return board;
+	}
+
+	// The method gets a List of Questions (doesn't matter the difficulty and returns a random question from the list), needs to know what level in order to get it from SysData
+	public Question getOneQuestionByLevel(int level)
+	{
+		List<Question> questions = null;
+		// in Question 
+		if(level == 1)
+		{
+			questions = SysData.getInstance().getQuestionsLevel1();
+		}
+		else if(level == 2)
+		{
+			questions = SysData.getInstance().getQuestionsLevel2();
+		}
+		else 
+		{
+			questions = SysData.getInstance().getQuestionsLevel3();
+		}
+
+		Random rand = new Random();
+		int length = questions.size();
+		int randQuestionIndex = rand.nextInt(length);
+		Question question = questions.get(randQuestionIndex);
+		return question;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Game [score=" + score + ", nickname=" + nickname + ", date=" + date + "]";
 	}
-	
-	
-	
-	
+
+
+
+
 
 }
