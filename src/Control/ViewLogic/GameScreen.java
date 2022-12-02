@@ -124,9 +124,8 @@ public class GameScreen implements Initializable {
 				
 				// draw question tile
 				if (currentBoard[row][col].getSquareType() == "question") {
-//					int level = currentBoard[row][col].getQuestion().getQuestionDifficulty();
-//					drawGamePiece(tileView, "question" + level);
-					drawGamePiece(tileView, "question");
+					int level = currentBoard[row][col].getQuestion().getQuestionDifficulty();
+					drawGamePiece(tileView, "question" + level);
 				}
 				// draw question tile
 				if (currentBoard[row][col].getSquareType() == "blocked") {
