@@ -193,7 +193,7 @@ public class Game {
 
 		// at level 1 we create at the start 3 Squares which are for random squares and 3 for questions
 		while(numOfSquares < 3)
-		{this.board = createNewSquare(this.board, "forgetting");this.board = createNewSquare(this.board, "forgetting"); // for debug delete laterrrrrrrr
+		{//this.board = createNewSquare(this.board, "forgetting");this.board = createNewSquare(this.board, "forgetting"); // for debug delete laterrrrrrrr
 			//this.board = createNewSquare(this.board, "randomSquare");
 			this.board = createNewQuestionSquare(this.board, "question", numOfSquares + 1);
 			numOfSquares++;
@@ -457,7 +457,7 @@ public class Game {
 	@Override
 	public String toString() {
 		//return "Game [score=" + score + ", nickname=" + nickname + ", date=" + date + "]";
-		return "kingt loc: " + knight.getRow() +" "+ knight.getCol() + "]";
+		return "kinght loc: " + knight.getRow() +" "+ knight.getCol() + "]";
 	}
 
 
