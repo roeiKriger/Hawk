@@ -183,6 +183,64 @@ public class Game {
 
 	}
 
+	public void createBoardLevelTwo()
+	{
+		this.knight = new Knight(knightRowStarts, knightColStarts);
+		this.queen = new Queen(queenRowStarts, queenColStarts);
+		this.board = createEmptyBoard(this.board);
+		int numOfSquares = 0;
+
+		// at level 1 we create at the start 3 Squares which are for forgetting and 3 for questions
+		while(numOfSquares < 3)
+		{
+			this.board = createNewSquare(this.board, "forgetting");
+			this.board = createNewQuestionSquare(this.board, "question", numOfSquares + 1);
+			numOfSquares++;
+		}		
+
+	}
+
+	public void createBoardLevelThree()
+	{
+		this.knight = new Knight(knightRowStarts, knightColStarts);
+		this.king = new King(kingRowStarts, kingColStarts);
+		this.board = createEmptyBoard(this.board);
+		int numOfSquares = 0;
+
+		// at level 1 we create at the start 2 Squares which are for random squares and 3 for questions
+		while(numOfSquares < 2)
+		{
+			this.board = createNewSquare(this.board, "forgetting");
+			this.board = createNewSquare(this.board, "randomSquare");
+			this.board = createNewQuestionSquare(this.board, "question", numOfSquares + 1);
+			numOfSquares++;
+		}
+		// we need three questions not only two, so extra question here
+		this.board = createNewQuestionSquare(this.board, "question", numOfSquares + 1);
+
+	}
+
+	public void createBoardLevelFour()
+	{
+		this.knight = new Knight(knightRowStarts, knightColStarts);
+		this.king = new King(kingRowStarts, kingColStarts);
+		this.board = createEmptyBoard(this.board);
+		int numOfSquares = 0;
+
+		// at level 1 we create at the start 2 Squares which are for random squares and 3 for questions
+		while(numOfSquares < 8)
+		{
+			this.board = createNewSquare(this.board, "blocked");
+			if(numOfSquares < 3)
+			{
+				this.board = createNewQuestionSquare(this.board, "question", numOfSquares + 1);
+			}
+			numOfSquares++;
+		}
+
+	}
+
+
 	public Square[][] createEmptyBoard(Square[][] board)
 	{
 		for(int i =0; i<8; i++)
@@ -203,10 +261,21 @@ public class Game {
 		int randRow = rand.nextInt(8);
 		int randCol = rand.nextInt(8);
 		Boolean isDone = false;
+		Piece piece = null;
+
+		// always one of them is not null
+		if(this.king!= null)
+		{
+			piece = this.king;
+		}
+		else 
+		{
+			piece = this.queen;
+		}
 
 		while(isDone == false)
 		{
-			if(board[randRow][randCol].getSquareType().equals("empty") && (randRow!=0 && randCol!=0))
+			if(board[randRow][randCol].getSquareType().equals("empty") && (randRow!= this.knight.getRow() && randCol!= this.knight.getCol()) && (randRow!= piece.getRow() && randCol != piece.getCol()))
 			{
 				board[randRow][randCol].setSquareType(type);			
 				isDone = true;
@@ -228,10 +297,21 @@ public class Game {
 		int randRow = rand.nextInt(8);
 		int randCol = rand.nextInt(8);
 		Boolean isDone = false;
+		Piece piece = null;
+
+		// always one of them is not null
+		if(this.king!= null)
+		{
+			piece = this.king;
+		}
+		else 
+		{
+			piece = this.queen;
+		}
 
 		while(isDone == false)
 		{
-			if(board[randRow][randCol].getSquareType().equals("empty") && (randRow!=0 && randCol!=0))
+			if(board[randRow][randCol].getSquareType().equals("empty") && (randRow!= this.knight.getRow() && randCol!= this.knight.getCol()) && (randRow!= piece.getRow() && randCol != piece.getCol()))
 			{
 				board[randRow][randCol].setSquareType(type);	
 				board[randRow][randCol].setQuestion(getOneQuestionByLevel(level));
