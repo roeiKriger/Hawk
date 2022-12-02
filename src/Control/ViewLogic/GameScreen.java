@@ -219,6 +219,11 @@ public class GameScreen implements Initializable {
 								
 								// update the games array for the forgetting square option
 								updateGamesArray(gamesArrayForForgettingSquareGames, currentGame);
+								if(currentGame.checkIfSteppedOnforgettingSquare())
+								{
+									goBackThreeSteps(gamesArrayForForgettingSquareGames);
+								}
+								
 							});	
 						}						
 					}
@@ -325,18 +330,38 @@ public class GameScreen implements Initializable {
 	// if at the beginning of the game (after one or two steps) you stepped on forgetting Square you will get back to the start of the game, because there were no more possible moves to get back to
 	public void initGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
 	{
-		gamesArrayForForgettingSquareGames[0] = currentGame;
-		gamesArrayForForgettingSquareGames[1] = currentGame;
-		gamesArrayForForgettingSquareGames[2] = currentGame;
+		gamesArrayForForgettingSquareGames.add(currentGame);
+		gamesArrayForForgettingSquareGames.add(currentGame);
+		gamesArrayForForgettingSquareGames.add(currentGame);
 	}
 	
 	public void updateGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
 	{
-		// We assume that the first and oldest moves is in the first cell, cell 0
-		// and the most new move and current board is in the last cell, cell 2
-		gamesArrayForForgettingSquareGames[0] = gamesArrayForForgettingSquareGames[1];
-		gamesArrayForForgettingSquareGames[1] = gamesArrayForForgettingSquareGames[2];
-		gamesArrayForForgettingSquareGames[2] = currentGame;
+		gamesArrayForForgettingSquareGames.add(currentGame);
+	}
+	
+	public void goBackThreeSteps(ArrayList<Game> gamesArrayForForgettingSquareGames) 
+	{
+		int index = gamesArrayForForgettingSquareGames.size();
+		int counter = 0;
+		if(index > 3) //if we have enough steps to remove
+		{
+			while (counter < 2)
+			{
+				// we are going back three steps, so we are removing the last two forward steps
+				index --;
+				gamesArrayForForgettingSquareGames.set(index, null);
+				counter++;
+			}
+			
+		}
+		else // if not enough steps, then it means we have only two steps done or one in our game, and we want to get back to the first one, also we recreate the 3 first cells to the first one
+		{
+			gamesArrayForForgettingSquareGames.add(0, gamesArrayForForgettingSquareGames.get(0));
+			gamesArrayForForgettingSquareGames.add(1,gamesArrayForForgettingSquareGames.get(0));
+			gamesArrayForForgettingSquareGames.add(2, gamesArrayForForgettingSquareGames.get(0));
+		}
+
 	}
 	
 	/*

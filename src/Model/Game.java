@@ -177,7 +177,7 @@ public class Game {
 
 		// at level 1 we create at the start 3 Squares which are for random squares and 3 for questions
 		while(numOfSquares < 3)
-		{
+		{//this.board = createNewSquare(this.board, "forgetting"); // for debug delete laterrrrrrrr
 			this.board = createNewSquare(this.board, "randomSquare");
 			this.board = createNewQuestionSquare(this.board, "question", numOfSquares + 1);
 			numOfSquares++;
@@ -289,6 +289,11 @@ public class Game {
 				if(type == "blocked")
 				{
 					System.out.println("Blocked location: row: " + randRow +" , col is: " + randCol);
+				}
+				//for debugging purpose
+				if(type == "forgetting")
+				{
+					System.out.println("Forgetting location: row: " + randRow +" , col is: " + randCol);
 				}
 				isDone = true;
 			}
@@ -416,6 +421,20 @@ public class Game {
 		
 	}
 
+	public Boolean checkIfSteppedOnforgettingSquare()
+	{
+		//check if knight stepped on Random Square
+		if(this.board[this.knight.getRow()][this.knight.getCol()].getSquareType().equals("forgetting"))
+		{
+			// deleting the randomized Square from the board
+			this.board[this.knight.getRow()][this.knight.getCol()].setSquareType("empty");
+			
+			//create a new forgetting square instead
+			this.board = createNewSquare(this.board, "forgetting");
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public String toString() {
