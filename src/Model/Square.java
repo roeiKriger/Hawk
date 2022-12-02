@@ -13,7 +13,7 @@ public class Square {
 	private String squareType;
 	
 	/**
-	 * indicate if the player can visit this square now or not
+	 * indicate if the player can visit this square now or not, for example if it is blocked square, or queen or king on it
 	 */
 	private Boolean canVisit; 
 	
@@ -21,6 +21,11 @@ public class Square {
 	 * Boolean which indicates if player stepped on this square or not
 	 */
 	private Boolean isVisited;
+	
+	/**
+	 *  in case the square will need to contain a question then we will want to add a Question for it
+	 */
+	private Question question;
 
 	// Constructor 
 	public Square(String color, Boolean isVisited) {
@@ -28,9 +33,9 @@ public class Square {
 		this.squareType = "empty";
 		this.isVisited = false;
 		this.canVisit = false;
+		this.question = null;
 	}
 
-	
 	/*
 	 * Getters and Setters
 	 */
@@ -64,14 +69,24 @@ public class Square {
 		return canVisit;
 	}
 
-
 	public void setCanVisit(Boolean canVisit) {
 		this.canVisit = canVisit;
 	}
+	
+	public Question getQuestion() {
+		return question;
+	}
+
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+	
 
 	@Override
 	public String toString() {
-		return "Square [color=" + color + ", squareType=" + squareType + ", isVisited=" + isVisited +", canVisit=" + canVisit + "]";
+		return "Square [color=" + color + ", squareType=" + squareType + ", canVisit=" + canVisit + ", isVisited="
+				+ isVisited + ", question=" + question + "]";
 	}
 	
 	// Returns string which tells you on which type of square you stepped on
@@ -79,8 +94,5 @@ public class Square {
 		return "You stepped on a special square from " + squareType + "type!";
 	}
 
-
-
-	
 
 }
