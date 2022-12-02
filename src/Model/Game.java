@@ -177,7 +177,7 @@ public class Game {
 		while(numOfSquares < 3)
 		{
 			this.board = createNewSquare(this.board, "randomSquare");
-			this.board = createNewSquare(this.board, "question");
+			this.board = createNewQuestionSquare(this.board, "question", numOfSquares + 1);
 			numOfSquares++;
 		}		
 
