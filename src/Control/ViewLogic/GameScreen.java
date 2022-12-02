@@ -2,6 +2,7 @@ package Control.ViewLogic;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -64,6 +65,8 @@ public class GameScreen implements Initializable {
     
     private SysData sd = SysData.getInstance();
     
+	ArrayList<Game> gamesArrayForForgettingSquareGames = new ArrayList<>();
+    
     private Game currentGame;
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
@@ -72,6 +75,7 @@ public class GameScreen implements Initializable {
 		currentGame = new Game(nickname, new Date());
 		currentGame.createBoardLevelOne();
 		Square[][] currentBoard = currentGame.getBoard();
+		initGamesArray(gamesArrayForForgettingSquareGames, currentGame);
 		drawBoard(currentBoard);
 		initializeTimer();
 	}
@@ -212,6 +216,9 @@ public class GameScreen implements Initializable {
 								queenTurn();
 								
 								drawBoard(currentGame.getBoard());
+								
+								// update the games array for the forgetting square option
+								updateGamesArray(gamesArrayForForgettingSquareGames, currentGame);
 							});	
 						}						
 					}
@@ -313,6 +320,23 @@ public class GameScreen implements Initializable {
 		});
 		time.getKeyFrames().add(frame);
 		time.playFromStart();
+	}
+	
+	// if at the beginning of the game (after one or two steps) you stepped on forgetting Square you will get back to the start of the game, because there were no more possible moves to get back to
+	public void initGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
+	{
+		gamesArrayForForgettingSquareGames[0] = currentGame;
+		gamesArrayForForgettingSquareGames[1] = currentGame;
+		gamesArrayForForgettingSquareGames[2] = currentGame;
+	}
+	
+	public void updateGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
+	{
+		// We assume that the first and oldest moves is in the first cell, cell 0
+		// and the most new move and current board is in the last cell, cell 2
+		gamesArrayForForgettingSquareGames[0] = gamesArrayForForgettingSquareGames[1];
+		gamesArrayForForgettingSquareGames[1] = gamesArrayForForgettingSquareGames[2];
+		gamesArrayForForgettingSquareGames[2] = currentGame;
 	}
 	
 	/*
