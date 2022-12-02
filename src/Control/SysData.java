@@ -19,6 +19,7 @@ import org.json.simple.Jsoner;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import Exceptions.QuestionEmptyException;
 import Model.Game;
 import Model.Question;
 import javafx.collections.ObservableList;
@@ -98,14 +99,29 @@ public class SysData implements Initializable
 				List<String> answers =  (List<String>) currItem.get("answers");
 				Long correct = (Long) currItem.get("correct_ans");
 				int correctAnswerId = correct.intValue();
-				
-				Question q = new Question(questionDifficulty, questionContent, answers, correctAnswerId);
-				SysData.questions.add(q);
+				if(questionDifficulty > 0 && questionContent.length()>0 && correctAnswerId >0 && correctAnswerId <5)
+				{
+					Question q = new Question(questionDifficulty, questionContent, answers, correctAnswerId);
+					if(q == null)
+					{
+						throw new QuestionEmptyException();
+					}
+					SysData.questions.add(q);
+				}
+				else
+				{
+					throw new QuestionEmptyException();
+				}
+									
 			}
 			filterQuestionsByLevels();
 //			System.out.println(this.questions);
 			return true;
 		} catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch(QuestionEmptyException e)
 		{
 			e.printStackTrace();
 		}
