@@ -44,37 +44,37 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GameScreen implements Initializable {
-	
-    @FXML
-    private AnchorPane mainPane;
 
-    @FXML
-    private AnchorPane boardWrapper;
-    
-    @FXML
-    private Label countDownLabel;
-    
-    @FXML
-    private Label levelLabel;
-    
-    @FXML
-    private Label nicknameLabel;
-    
-  /*  @FXML
+	@FXML
+	private AnchorPane mainPane;
+
+	@FXML
+	private AnchorPane boardWrapper;
+
+	@FXML
+	private Label countDownLabel;
+
+	@FXML
+	private Label levelLabel;
+
+	@FXML
+	private Label nicknameLabel;
+
+	/*  @FXML
     private static Label pointsLabel;*/
-    
-    @FXML
-    private Label playPauseLabel;
-    private String playPauseMode = "pause";
-    
-    public StackPane[][] boardView = null;
-    
-    private SysData sd = SysData.getInstance();
-    
+
+	@FXML
+	private Label playPauseLabel;
+	private String playPauseMode = "pause";
+
+	public StackPane[][] boardView = null;
+
+	private SysData sd = SysData.getInstance();
+
 	ArrayList<Game> gamesArrayForForgettingSquareGames = new ArrayList<>();
-    
-    private Game currentGame;
-    
+
+	private Game currentGame;
+
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		String nickname = sd.getNickname();
@@ -87,13 +87,13 @@ public class GameScreen implements Initializable {
 		drawBoard(currentBoard);
 		initializeTimer();
 	}
-	
+
 	/*
 	 *  draw board in fxml, in given board 
 	 */
 	private void drawBoard(Square[][] currentBoard) {
 		boardView = new StackPane[8][8];
-		
+
 		// get position of game pieces
 		int knightRow = -1, knightCol = -1, queenRow = -1, queenCol = -1, kingRow = -1, kingCol = -1;
 		if (currentGame.getKnight() != null) {
@@ -108,14 +108,14 @@ public class GameScreen implements Initializable {
 			kingRow = currentGame.getKing().getRow();
 			kingCol = currentGame.getKing().getCol();
 		}
-		
+
 		for (int row=0; row<8; row++) {
 			for (int col=0; col<8; col++) {
 				Color color = getTileColor(row, col, currentBoard[row][col].getSquareType());
 				StackPane tileView = new StackPane();
 				tileView.setPrefSize(Constants.TILE_SIZE, Constants.TILE_SIZE);
 				tileView.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
-				
+
 				// draw game pieces
 				if (row == knightRow && col == knightCol) {
 					drawGamePiece(tileView, "knight");
@@ -126,7 +126,7 @@ public class GameScreen implements Initializable {
 				if (row == kingRow && col == kingCol) {
 					drawGamePiece(tileView, "king");
 				}
-				
+
 				// draw question tile
 				if (currentBoard[row][col].getSquareType() == "question") {
 					int level = currentBoard[row][col].getQuestion().getQuestionDifficulty();
@@ -136,7 +136,7 @@ public class GameScreen implements Initializable {
 				if (currentBoard[row][col].getSquareType() == "blocked") {
 					drawGamePiece(tileView, "blocked");
 				}
-				
+
 				// set position in fxml
 				tileView.setLayoutX(Constants.TILE_SIZE * col);
 				tileView.setLayoutY(Constants.TILE_SIZE * row);
@@ -147,7 +147,7 @@ public class GameScreen implements Initializable {
 			}
 		}
 	}
-	
+
 	/*
 	 * get background color of tile by type or position 
 	 */
@@ -162,7 +162,7 @@ public class GameScreen implements Initializable {
 		}
 		return color;
 	}
-	
+
 	/*
 	 * function that add game piece to tile in view
 	 * tileBeforeMove is global variable for save the initial tile before player move
@@ -171,7 +171,7 @@ public class GameScreen implements Initializable {
 		ImageView actorImg = new ImageView(new Image("/Assets/" + pieceType + ".png"));
 		actorImg.setFitWidth(Constants.GAME_PIECES_SIZE);
 		actorImg.setFitHeight(Constants.GAME_PIECES_SIZE);
-		
+
 		if (pieceType == "knight") {
 			actorImg.setStyle("-fx-cursor: hand");
 			Square[][] possibleMoves = currentGame.getKnight().move(currentGame.getBoard(), currentGame.getGameLevel(), currentGame.getKing(), currentGame.getQueen());
@@ -181,23 +181,23 @@ public class GameScreen implements Initializable {
 				for (int i=0; i<8; i++) {
 					for (int j=0; j<8; j++) {
 						if (possibleMoves[i][j]!= null && possibleMoves[i][j].getCanVisit().equals(true)) {
-						// case that this is possible tile
+							// case that this is possible tile
 							int rowPossible = i;
 							int colPossible = j;
-//							System.out.println(i + " " + j);
-							
+							//							System.out.println(i + " " + j);
+
 							// change color of tilePossible
 							StackPane tilePossibleView = boardView[rowPossible][colPossible];
 							tilePossibleView.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
 							tilePossibleView.setStyle("-fx-cursor: hand");
-														
+
 							// add listener to press on possible move
 							tilePossibleView.setOnMouseClicked(eventAfter -> {
 								// TODO - add cases of question, random, etc;
-								
+
 								int newCol = (int) (eventAfter.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
 								int newRow = (int) (eventAfter.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
-								
+
 								// case of question tile
 								if (currentGame.getBoard()[newRow][newCol].getSquareType().equals("question")) {
 									try {
@@ -209,100 +209,105 @@ public class GameScreen implements Initializable {
 									} catch (IOException e) {
 										e.printStackTrace();
 									}
-									
+
 									// replace position of question
 									replaceQuestionPosition(newRow, newCol);
 								}
-								
+
 								// update knight position in Model
 								currentGame.getKnight().setRow(newRow);
 								currentGame.getKnight().setCol(newCol);
-															
+
 								// checking to see if the Knight stepped on a Random Square, if so he will be moved to a new location
 								if (currentGame.checkIfSteppedOnRandomSquare()) {
 									SysData.alert("Random Square", "You stood on a random square, the position of the knight will change randomly", AlertType.INFORMATION);
 								}
-								
+
 								// update the games array for the forgetting square option
 								updateGamesArray(gamesArrayForForgettingSquareGames, currentGame);
-								
+
 								if(currentGame.checkIfSteppedOnforgettingSquare())
 								{
-									//goBackThreeSteps(gamesArrayForForgettingSquareGames);
-									//currentGame = gamesArrayForForgettingSquareGames.get(gamesArrayForForgettingSquareGames.size()-1);
-									//drawBoard(currentGame.getBoard());	
+									goBackThreeSteps(gamesArrayForForgettingSquareGames);
+									System.out.println(gamesArrayForForgettingSquareGames);
+									currentGame = gamesArrayForForgettingSquareGames.get(gamesArrayForForgettingSquareGames.size()-1);
+									System.out.println(currentGame);
+									drawBoard(currentGame.getBoard());	
 									SysData.alert("Forgetting Square", "You stood on a forget square, you go back 3 steps in the game", AlertType.INFORMATION);
 								}
-								//pass to automatic queen turn 
-								queenTurn();
-								
+								else // if the player moves back three turns we want to let him play again, because he can fall right to the queen line of fire
+								{
+									//pass to automatic queen turn 
+									queenTurn();
+
+								}
 								drawBoard(currentGame.getBoard());							
-								
+
 							});	
 						}						
 					}
 				}					
 			});
 		}
-		
+
 		tile.getChildren().clear();
 		tile.getChildren().add(actorImg);
 		StackPane.setAlignment(actorImg, Pos.CENTER);
 	}
-	
+
 	/*
 	 * Changing the position of a question square after the knight stands on it
 	 */
 	private void replaceQuestionPosition(int oldRow, int oldCol) {
 		Question currentQuestion = currentGame.getBoard()[oldRow][oldCol].getQuestion();
 		int level = currentQuestion.getQuestionDifficulty();
-		
+
 		// new question square
 		currentGame.createNewQuestionSquare(currentGame.getBoard(), "question", level);
-				
+
 		// reset current question square
 		currentGame.getBoard()[oldRow][oldCol].setSquareType("empty");
 		currentGame.getBoard()[oldRow][oldCol].setQuestion(null);
 	}
-	
-	
+
+
 	private void queenTurn() {
 		//get possible next moves for the queen
 		Square[][] possibleMoves = currentGame.getQueen().move(currentGame.getBoard());
-		
+
 		//current knight location
 		int knightRow = currentGame.getKnight().getRow();
 		int knightCol = currentGame.getKnight().getCol();
-		
-//		System.out.println("new turn");
+
+		//		System.out.println("new turn");
 		double shortestDistance = Constants.LONGEST_DISTANCE_BETWEEN_TWO_PIECES;
 		//row and col that will save closest tile to knight
 		int bestRowToCatchKnight=0;
 		int bestColToCatchKnight=0;
-			
+
 		for (int i=0; i<8; i++) {
 			for (int j=0; j<8; j++) {
 				if (possibleMoves[i][j]!= null && possibleMoves[i][j].getCanVisit().equals(true)) {
-				// case that this is possible tile
+					// case that this is possible tile
 					int rowPossible = i;
 					int colPossible = j;
-//					System.out.println(i + " " + j);
-					
+					//					System.out.println(i + " " + j);
+
 					//choose a possible tile that is closest to knight's location
 					//compare tiles by euclidean distance from knight's tile 
 					//sqrt((Ax-Bx)^2-(Ay-By)^2)
 					double distanceRow = Math.pow(Double.valueOf(rowPossible-knightRow),2.0);
 					double distanceCol = Math.pow(Double.valueOf(colPossible-knightCol),2.0);
 					double distanceBetweenPossibleAndKnight = Math.sqrt(distanceCol + distanceRow);
-					
-					
+
+
 					//if a closer tile than the one currently saved was found, save the new tile instead
 					if (distanceBetweenPossibleAndKnight < shortestDistance) {
 						bestRowToCatchKnight = rowPossible;
 						bestColToCatchKnight = colPossible;
 						shortestDistance = distanceBetweenPossibleAndKnight;
 					}
-						
+
 					// update queen position in Model
 					currentGame.getQueen().setRow(bestRowToCatchKnight);
 					currentGame.getQueen().setCol(bestColToCatchKnight);								
@@ -311,8 +316,8 @@ public class GameScreen implements Initializable {
 			}
 		}						
 	}
-	
-	
+
+
 	/*
 	 * initalize timer to 1 minute per round
 	 * seconds and time are global variables for changing them after as subject
@@ -340,20 +345,67 @@ public class GameScreen implements Initializable {
 		time.getKeyFrames().add(frame);
 		time.playFromStart();
 	}
-	
+
 	// if at the beginning of the game (after one or two steps) you stepped on forgetting Square you will get back to the start of the game, because there were no more possible moves to get back to
 	public void initGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
 	{
 		System.out.println("init array");
-		//gamesArrayForForgettingSquareGames.add(currentGame);
-	//	gamesArrayForForgettingSquareGames.add(currentGame);
-		//gamesArrayForForgettingSquareGames.add(currentGame);
+		Game g1 = createGameClone(currentGame);
+		Game g2 = createGameClone(currentGame);
+		Game g3 = createGameClone(currentGame);
+		gamesArrayForForgettingSquareGames.add(g1);
+		gamesArrayForForgettingSquareGames.add(g2);
+		gamesArrayForForgettingSquareGames.add(g3);
 	}
-	
+
 	public void updateGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
 	{
 		System.out.println("update array");
-		
+
+		Game newTempGame = createGameClone(currentGame);
+		int index = gamesArrayForForgettingSquareGames.size()-2;
+		System.out.println("current: " +currentGame);
+		System.out.println("the last cell? "+ gamesArrayForForgettingSquareGames.get(index));
+		//check for duplicates and ignore
+		if(newTempGame.getKnight().getRow()!= (gamesArrayForForgettingSquareGames.get(index).getKnight().getRow()) && newTempGame.getKnight().getCol()!= (gamesArrayForForgettingSquareGames.get(index).getKnight().getCol()))
+		{
+			System.out.println(gamesArrayForForgettingSquareGames.size());
+			gamesArrayForForgettingSquareGames.add(gamesArrayForForgettingSquareGames.size(), newTempGame);
+		}
+		for(int i=0; i< gamesArrayForForgettingSquareGames.size(); i++)
+		{
+			System.err.println("arr in index " + i +" is: " + gamesArrayForForgettingSquareGames.get(i));
+		}
+	}
+
+	public void goBackThreeSteps(ArrayList<Game> gamesArrayForForgettingSquareGames) 
+	{
+		System.out.println("go back three steps");
+		int index = gamesArrayForForgettingSquareGames.size();
+		int counter = 0;
+		if(index > 3) //if we have enough steps to remove
+		{
+			while (counter < 3)
+			{
+				// we are going back three steps, so we are removing the last two forward steps
+				index --;
+				gamesArrayForForgettingSquareGames.remove(index);
+				counter++;
+			}
+
+		}
+		else // if not enough steps, then it means we have only two steps done or one in our game, and we want to get back to the first one, also we recreate the 3 first cells to the first one
+		{
+			gamesArrayForForgettingSquareGames.add(0, gamesArrayForForgettingSquareGames.get(0));
+			gamesArrayForForgettingSquareGames.add(1,gamesArrayForForgettingSquareGames.get(0));
+			gamesArrayForForgettingSquareGames.add(2, gamesArrayForForgettingSquareGames.get(0));
+		}
+
+	}
+
+	// in order to save the Game objects we need to create a brand new object from scratch, or else the arraylist of games will be duplicates of the same current games, which are all a refernce to the same object
+	public Game createGameClone(Game currentGame)
+	{
 		Game newTempGame = new Game("Roei");
 		Square[][] board1 = currentGame.getBoard();
 		int score = currentGame.getScore(); 
@@ -372,8 +424,8 @@ public class GameScreen implements Initializable {
 			Queen queen = new Queen(currentGame.getQueen().getRow(), currentGame.getQueen().getCol());
 			newTempGame.setQueen(queen);
 		}
-		
-		
+
+
 		newTempGame.setBoard(board1);
 		newTempGame.setScore(score);
 		newTempGame.setTimer(timer);
@@ -381,91 +433,62 @@ public class GameScreen implements Initializable {
 		newTempGame.setNickname(nickname);
 		newTempGame.setDate(date);
 		newTempGame.setKnight(knight);
-		
-		gamesArrayForForgettingSquareGames.add(newTempGame);
-		for(int i=0; i< gamesArrayForForgettingSquareGames.size(); i++)
-		{
-			System.err.println("arr in index " + i +" is: " + gamesArrayForForgettingSquareGames.get(i));
-		}
-	}
-	
-	public void goBackThreeSteps(ArrayList<Game> gamesArrayForForgettingSquareGames) 
-	{
-		System.out.println("go back three steps");
-		int index = gamesArrayForForgettingSquareGames.size();
-		int counter = 0;
-		if(index > 3) //if we have enough steps to remove
-		{
-			while (counter < 2)
-			{
-				// we are going back three steps, so we are removing the last two forward steps
-				index --;
-				gamesArrayForForgettingSquareGames.set(index, null);
-				counter++;
-			}
-			
-		}
-		else // if not enough steps, then it means we have only two steps done or one in our game, and we want to get back to the first one, also we recreate the 3 first cells to the first one
-		{
-			gamesArrayForForgettingSquareGames.add(0, gamesArrayForForgettingSquareGames.get(0));
-			gamesArrayForForgettingSquareGames.add(1,gamesArrayForForgettingSquareGames.get(0));
-			gamesArrayForForgettingSquareGames.add(2, gamesArrayForForgettingSquareGames.get(0));
-		}
 
+		return newTempGame;
 	}
-	
+
 	/*
 	 * function that responsible to play and pause the game
 	 */
-    @FXML
-    void playPause(MouseEvent event) {
-    	if (playPauseMode == "pause") {
-    		pause();
-    		playPauseLabel.setText("Play");
-    		playPauseMode = "play";
-    	} else {
-    		play();
-    		playPauseLabel.setText("Pause");
-    		playPauseMode = "pause";
-    	}
-    }
-    private void pause() {
-    	time.pause();
-    }
-    private void play() {
-    	time.play();
-    }
-    
-    
-    /*
-     * open question modal, without override the game screen
-     */
-    @FXML
-    void openQuestionModal(MouseEvent event) throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/View/QuestionModal.fxml"));
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.setTitle("Question");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(
-            ((Node)event.getSource()).getScene().getWindow() );
-        stage.show();
-    }
+	@FXML
+	void playPause(MouseEvent event) {
+		if (playPauseMode == "pause") {
+			pause();
+			playPauseLabel.setText("Play");
+			playPauseMode = "play";
+		} else {
+			play();
+			playPauseLabel.setText("Pause");
+			playPauseMode = "pause";
+		}
+	}
+	private void pause() {
+		time.pause();
+	}
+	private void play() {
+		time.play();
+	}
 
-    /*
-     * exit the game
-     */
-    @FXML
-    void returnToHomePage(ActionEvent event) throws IOException {
+
+	/*
+	 * open question modal, without override the game screen
+	 */
+	@FXML
+	void openQuestionModal(MouseEvent event) throws IOException {
+		Stage stage = new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("/View/QuestionModal.fxml"));
+		stage.setScene(new Scene(root));
+		stage.setResizable(false);
+		stage.setTitle("Question");
+		stage.initModality(Modality.WINDOW_MODAL);
+		stage.initOwner(
+				((Node)event.getSource()).getScene().getWindow() );
+		stage.show();
+	}
+
+	/*
+	 * exit the game
+	 */
+	@FXML
+	void returnToHomePage(ActionEvent event) throws IOException {
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);
 		primaryStage.setTitle("Knight's Move");
 		primaryStage.show();
-    }
-    
- /*   //Not Working yet
+	}
+
+	/*   //Not Working yet
     @FXML
     public static void changeScoreOnScreen()
     {
