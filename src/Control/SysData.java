@@ -37,6 +37,7 @@ public class SysData implements Initializable
 	//public static ObservableList<Question> observableQuestions;
 	
 	private String nickname;
+	private Question currentQuestion;
 	
 	// static method to create instance of Singleton class
 	public static SysData getInstance()
@@ -58,6 +59,14 @@ public class SysData implements Initializable
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+	
+	public Question getCurrentQuestion() {
+		return currentQuestion;
+	}
+
+	public void setCurrentQuestion(Question currentQuestion) {
+		this.currentQuestion = currentQuestion;
 	}
 	
 	

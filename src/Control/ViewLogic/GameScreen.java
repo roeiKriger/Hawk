@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import Control.SysData;
 import Model.Constants;
 import Model.Game;
+import Model.Question;
 import Model.Square;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -166,7 +167,7 @@ public class GameScreen implements Initializable {
 						// case that this is possible tile
 							int rowPossible = i;
 							int colPossible = j;
-							System.out.println(i + " " + j);
+//							System.out.println(i + " " + j);
 							
 							// change color of tilePossible
 							StackPane tilePossibleView = boardView[rowPossible][colPossible];
@@ -183,6 +184,10 @@ public class GameScreen implements Initializable {
 								// case of question tile
 								if (currentGame.getBoard()[newRow][newCol].getSquareType().equals("question")) {
 									try {
+										// save current question in sysdata
+										Question currentQuestion = currentGame.getBoard()[newRow][newCol].getQuestion();
+										sd.setCurrentQuestion(currentQuestion);
+
 										openQuestionModal(eventAfter);
 									} catch (IOException e) {
 										e.printStackTrace();
@@ -216,9 +221,12 @@ public class GameScreen implements Initializable {
 	 * Changing the position of a question square after the knight stands on it
 	 */
 	private void replaceQuestionPosition(int oldRow, int oldCol) {
-		// TODO - refer to the level of a question
-		currentGame.createNewSquare(currentGame.getBoard(), "question");
+		Question currentQuestion = currentGame.getBoard()[oldRow][oldCol].getQuestion();
+		int level = currentQuestion.getQuestionDifficulty();
 		
+		// new question square
+		currentGame.createNewQuestionSquare(currentGame.getBoard(), "question", level);
+				
 		// reset current question square
 		currentGame.getBoard()[oldRow][oldCol].setSquareType("empty");
 		currentGame.getBoard()[oldRow][oldCol].setQuestion(null);
@@ -233,7 +241,7 @@ public class GameScreen implements Initializable {
 		int knightRow = currentGame.getKnight().getRow();
 		int knightCol = currentGame.getKnight().getCol();
 		
-		System.out.println("new turn");
+//		System.out.println("new turn");
 		double shortestDistance = Constants.LONGEST_DISTANCE_BETWEEN_TWO_PIECES;
 		//row and col that will save closest tile to knight
 		int bestRowToCatchKnight=0;
@@ -245,7 +253,7 @@ public class GameScreen implements Initializable {
 				// case that this is possible tile
 					int rowPossible = i;
 					int colPossible = j;
-					System.out.println(i + " " + j);
+//					System.out.println(i + " " + j);
 					
 					//choose a possible tile that is closest to knight's location
 					//compare tiles by euclidean distance from knight's tile 

@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.QuestionModal">
    <children>
       <Label fx:id="questionLabel" layoutX="69.0" layoutY="76.0" text="questionLabel" />
@@ -25,5 +24,6 @@
             <Font size="15.0" />
          </font>
       </Button>
+      <Label fx:id="levelLabel" layoutX="68.0" layoutY="39.0" text="levelLabel" />
    </children>
 </AnchorPane>
