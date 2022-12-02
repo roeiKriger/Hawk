@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class QuestionModal implements Initializable{
 
@@ -60,11 +61,11 @@ public class QuestionModal implements Initializable{
     
     
     @FXML
-    void onAnswer(MouseEvent event) 
+    void onAnswer(ActionEvent event) 
     {
     	updateScoreAfterAnswer();
     	//move back to board
-    	
+    	closeWindow();
     	
     }
     
@@ -96,6 +97,12 @@ public class QuestionModal implements Initializable{
     	sd.getGame().setScore(score); // updating score
     }
     
-    
+    @FXML
+    private void closeWindow(){
+        // get a handle to the stage
+        Stage stage = (Stage) answer1.getScene().getWindow();
+        // do what you have to do
+        stage.close();
+    }
 
 }
