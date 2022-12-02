@@ -29,6 +29,9 @@ public class SysData implements Initializable
 {
 	private static SysData instance = null;
 	private static List<Question> questions;
+	private List<Question> questionsLevel1;
+	private List<Question> questionsLevel2;
+	private List<Question> questionsLevel3;
 	private Game game;
 	private static List<Game> games;
 	//public static ObservableList<Question> observableQuestions;
@@ -90,13 +93,35 @@ public class SysData implements Initializable
 				Question q = new Question(questionDifficulty, questionContent, answers, correctAnswerId);
 				SysData.questions.add(q);
 			}
-			System.out.println(this.questions);
+			filterQuestionsByLevels();
+//			System.out.println(this.questions);
 			return true;
 		} catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	/*
+	 * create questions arrays by levels
+	 */
+	private void filterQuestionsByLevels() {
+		// init arrays of questions
+		this.questionsLevel1 = new ArrayList<>();
+		this.questionsLevel2 = new ArrayList<>();
+		this.questionsLevel3 = new ArrayList<>();
+		
+		
+		for (Question question : this.get_questions()) {
+			if (question.getQuestionDifficulty() == 1) {
+				this.questionsLevel1.add(question);
+			} else if (question.getQuestionDifficulty() == 2) {
+				this.questionsLevel2.add(question);
+			} else { // level 3
+				this.questionsLevel3.add(question);
+			}
+		}
 	}
 	
 	
@@ -183,9 +208,22 @@ public class SysData implements Initializable
 		return new ArrayList<Question>();
 	}
 	
+	public List<Question> getQuestionsLevel1() {
+		return questionsLevel1;
+	}
+
+	public List<Question> getQuestionsLevel2() {
+		return questionsLevel2;
+	}
+
+	public List<Question> getQuestionsLevel3() {
+		return questionsLevel3;
+	}
+	
+
 	
 	// Score Zone // 
-	
+
 	//this method add game to list
 	public boolean add_game_to_list(Game g)
 	{
@@ -256,7 +294,7 @@ public class SysData implements Initializable
 				String gameDayOnString = (String) currItem.get("date");
 				Date gameDay = new Date(gameDayOnString);
 				game.setDate(gameDay);
-				System.out.println(game);
+//				System.out.println(game);
 			}	
 			return true;
 		} catch (FileNotFoundException e)
