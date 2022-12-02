@@ -29,7 +29,7 @@ public class QuestionModal implements Initializable{
     private RadioButton answer4;
 
     @FXML
-    private ToggleGroup answers;
+    private ToggleGroup answers; // will save the answers chosen from radio button 
 
     @FXML
     private Label questionLabel;
@@ -61,7 +61,31 @@ public class QuestionModal implements Initializable{
     @FXML
     void onAnswer(ActionEvent event) 
     {
-    	Question question = sd.getCurrentQuestion();
+    	Question question = sd.getCurrentQuestion(); //get correct question
+		RadioButton selectedRadioButton = (RadioButton) answers.getSelectedToggle(); //get Object selected
+		String toogleGroupValue = selectedRadioButton.getText(); // get text of question
+    	int score = sd.getGame().getScore();
+    	if(question.checkCorrectAnswer(toogleGroupValue))
+    	{ // correct answer
+    		if(question.getQuestionDifficulty() == 1)
+    			score += Model.Constants.SUCSSED_EASY;
+    		if(question.getQuestionDifficulty() == 2)
+    			score += Model.Constants.SUCSSED_MIDDLE;
+    		if(question.getQuestionDifficulty() == 3)
+    			score += Model.Constants.SUCSSED_HARD;
+    	}
+    	else
+    	{ //wrong answer
+    		if(question.getQuestionDifficulty() == 1)
+    			score += Model.Constants.WORNG_EASY;
+    		if(question.getQuestionDifficulty() == 2)
+    			score += Model.Constants.WORNG_MIDDLE;
+    		if(question.getQuestionDifficulty() == 3)
+    			score += Model.Constants.WORNG_HARD; 		
+    	}
+    	sd.getGame().setScore(score); // updating score
+    	//move back to board
+    	
     }
     
     
