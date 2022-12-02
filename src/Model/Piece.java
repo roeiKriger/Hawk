@@ -49,6 +49,8 @@ public abstract class Piece {
 	 */
 	public abstract Square[][] move(Square[][] board,int currentRow,int currentCol);
 	
+	
+	
 	@Override
 	public String toString() {
 		return "Piece [row=" + row + ", col=" + col + "]";

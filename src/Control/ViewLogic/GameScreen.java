@@ -357,5 +357,5 @@ public class GameScreen implements Initializable {
 		primaryStage.setTitle("Knight's Move");
 		primaryStage.show();
     }
-    
+     
 }
