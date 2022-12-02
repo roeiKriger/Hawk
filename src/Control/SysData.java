@@ -119,10 +119,6 @@ public class SysData implements Initializable
 				if(questionDifficulty > 0 && questionDifficulty < 5 &&questionContent.length()>0 && correctAnswerId >0 && correctAnswerId <5)
 				{
 					Question q = new Question(questionDifficulty, questionContent, answers, correctAnswerId);
-					if(q == null)
-					{
-						throw new QuestionEmptyException();
-					}
 					SysData.questions.add(q);
 				}
 				else
