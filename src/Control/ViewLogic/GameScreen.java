@@ -116,7 +116,6 @@ public class GameScreen implements Initializable {
 				
 				// draw question tile
 				if (currentBoard[row][col].getSquareType() == "question") {
-					// TODO check what happens if there is override
 					drawGamePiece(tileView, "question");
 				}
 				
@@ -181,12 +180,25 @@ public class GameScreen implements Initializable {
 								int newCol = (int) (eventAfter.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
 								int newRow = (int) (eventAfter.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
 								
+								// case of question tile
+								if (currentGame.getBoard()[newRow][newCol].getSquareType().equals("question")) {
+									try {
+										openQuestionModal(eventAfter);
+									} catch (IOException e) {
+										e.printStackTrace();
+									}
+									
+									// replace position of question
+									replaceQuestionPosition(newRow, newCol);
+								}
+								
 								// update knight position in Model
 								currentGame.getKnight().setRow(newRow);
 								currentGame.getKnight().setCol(newCol);
-																
+																														
 								//pass to automatic queen turn 
 								queenTurn();
+								
 								drawBoard(currentGame.getBoard());
 							});	
 						}						
@@ -198,6 +210,18 @@ public class GameScreen implements Initializable {
 		tile.getChildren().clear();
 		tile.getChildren().add(actorImg);
 		StackPane.setAlignment(actorImg, Pos.CENTER);
+	}
+	
+	/*
+	 * Changing the position of a question square after the knight stands on it
+	 */
+	private void replaceQuestionPosition(int oldRow, int oldCol) {
+		// TODO - refer to the level of a question
+		currentGame.createNewSquare(currentGame.getBoard(), "question");
+		
+		// reset current question square
+		currentGame.getBoard()[oldRow][oldCol].setSquareType("empty");
+		currentGame.getBoard()[oldRow][oldCol].setQuestion(null);
 	}
 	
 	
@@ -302,10 +326,11 @@ public class GameScreen implements Initializable {
      * open question modal, without override the game screen
      */
     @FXML
-    void openQuestionModal(ActionEvent event) throws IOException {
+    void openQuestionModal(MouseEvent event) throws IOException {
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/View/QuestionModal.fxml"));
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.setTitle("Question");
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(
