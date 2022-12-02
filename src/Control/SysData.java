@@ -107,7 +107,7 @@ public class SysData implements Initializable
 				Long correct = (Long) currItem.get("correct_ans");
 				int correctAnswerId = correct.intValue();
 				//checking if values are correct to create Question object
-				if(questionDifficulty > 0 && questionContent.length()>0 && correctAnswerId >0 && correctAnswerId <5)
+				if(questionDifficulty > 0 && questionDifficulty < 5 &&questionContent.length()>0 && correctAnswerId >0 && correctAnswerId <5)
 				{
 					Question q = new Question(questionDifficulty, questionContent, answers, correctAnswerId);
 					if(q == null)
