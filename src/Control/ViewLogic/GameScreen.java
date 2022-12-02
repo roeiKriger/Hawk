@@ -10,6 +10,9 @@ import java.util.ResourceBundle;
 import Control.SysData;
 import Model.Constants;
 import Model.Game;
+import Model.King;
+import Model.Knight;
+import Model.Queen;
 import Model.Question;
 import Model.Square;
 import javafx.animation.KeyFrame;
@@ -342,16 +345,43 @@ public class GameScreen implements Initializable {
 	public void initGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
 	{
 		System.out.println("init array");
-		gamesArrayForForgettingSquareGames.add(currentGame);
-		gamesArrayForForgettingSquareGames.add(currentGame);
-		gamesArrayForForgettingSquareGames.add(currentGame);
+		//gamesArrayForForgettingSquareGames.add(currentGame);
+	//	gamesArrayForForgettingSquareGames.add(currentGame);
+		//gamesArrayForForgettingSquareGames.add(currentGame);
 	}
 	
 	public void updateGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
 	{
 		System.out.println("update array");
 		
-		Game newTempGame = new Game(currentGame.getBoard(), currentGame.getScore(), currentGame.getTimer(), currentGame.getGameLevel(), currentGame.getNickname(), currentGame.getDate(), currentGame.getKnight(), currentGame.getQueen(), currentGame.getKing());
+		Game newTempGame = new Game("Roei");
+		Square[][] board1 = currentGame.getBoard();
+		int score = currentGame.getScore(); 
+		Timeline timer = currentGame.getTimer(); 
+		int gameLevel = currentGame.getGameLevel();
+		String nickname = currentGame.getNickname(); 
+		Date date = currentGame.getDate(); 
+		Knight knight = new Knight(currentGame.getKnight().getRow(), currentGame.getKnight().getCol());
+		if(currentGame.getKing()!= null)
+		{
+			King king = new King(currentGame.getKing().getRow(), currentGame.getKing().getCol());
+			newTempGame.setKing(king);
+		}
+		else 
+		{
+			Queen queen = new Queen(currentGame.getQueen().getRow(), currentGame.getQueen().getCol());
+			newTempGame.setQueen(queen);
+		}
+		
+		
+		newTempGame.setBoard(board1);
+		newTempGame.setScore(score);
+		newTempGame.setTimer(timer);
+		newTempGame.setGameLevel(gameLevel);
+		newTempGame.setNickname(nickname);
+		newTempGame.setDate(date);
+		newTempGame.setKnight(knight);
+		
 		gamesArrayForForgettingSquareGames.add(newTempGame);
 		for(int i=0; i< gamesArrayForForgettingSquareGames.size(); i++)
 		{
