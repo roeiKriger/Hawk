@@ -99,8 +99,14 @@ public class SysData implements Initializable
 				int questionDifficulty = difficulty.intValue();
 				String questionContent = (String) currItem.get("question");
 				List<String> answers =  (List<String>) currItem.get("answers");
+				//checking answers is not empty and have 4 answers
+				if(answers.isEmpty() || answers.get(0).isEmpty() || answers.get(1).isEmpty()|| answers.get(2).isEmpty()|| answers.get(3).isEmpty())
+				{
+					throw new QuestionEmptyException();
+				}
 				Long correct = (Long) currItem.get("correct_ans");
 				int correctAnswerId = correct.intValue();
+				//checking if values are correct to create Question object
 				if(questionDifficulty > 0 && questionContent.length()>0 && correctAnswerId >0 && correctAnswerId <5)
 				{
 					Question q = new Question(questionDifficulty, questionContent, answers, correctAnswerId);
