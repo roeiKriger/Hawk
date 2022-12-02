@@ -55,7 +55,7 @@ public class GameScreen implements Initializable {
     private Label nicknameLabel;
     
     @FXML
-    private Label pointsLabel;
+    private static Label pointsLabel;
     
     @FXML
     private Label playPauseLabel;
@@ -415,5 +415,13 @@ public class GameScreen implements Initializable {
 		primaryStage.setTitle("Knight's Move");
 		primaryStage.show();
     }
-     
+    
+    //Not Working yet
+    @FXML
+    public static void changeScoreOnScreen()
+    {
+    	pointsLabel.setText(SysData.getInstance().getGame().getScore() + " Points");
+    }
+
+
 }

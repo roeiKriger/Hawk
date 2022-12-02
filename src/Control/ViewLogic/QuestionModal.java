@@ -95,6 +95,7 @@ public class QuestionModal implements Initializable{
     			score += Model.Constants.WORNG_HARD; 		
     	}
     	sd.getGame().setScore(score); // updating score
+    	//Control.ViewLogic.GameScreen.changeScoreOnScreen();
     }
     
     @FXML
