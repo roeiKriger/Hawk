@@ -382,6 +382,18 @@ public class SysData implements Initializable
 	}
 	
 	
+    /*
+     * Show alert generically by title and message
+     */
+    public static void alert(String title, String message, AlertType alertType) { 
+		Alert alert = new Alert(alertType);
+		alert.setTitle(title);
+		alert.setHeaderText(message);
+		alert.showAndWait();
+		return;
+    }
+
+	
 	
 	
 
