@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.Random;
 import java.util.Timer;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import Control.SysData;
 import javafx.animation.Timeline;
 
@@ -277,7 +279,11 @@ public class Game {
 		{
 			if(board[randRow][randCol].getSquareType().equals("empty") && (randRow!= this.knight.getRow() && randCol!= this.knight.getCol()) && (randRow!= piece.getRow() && randCol != piece.getCol()))
 			{
-				board[randRow][randCol].setSquareType(type);			
+				board[randRow][randCol].setSquareType(type);	
+				if(type == "randomSquare")
+				{
+					System.out.println("location: row: " + randRow +" , col is: " + randCol);
+				}
 				isDone = true;
 			}
 			else 
@@ -350,6 +356,58 @@ public class Game {
 		int randQuestionIndex = rand.nextInt(length);
 		Question question = questions.get(randQuestionIndex);
 		return question;
+	}
+	
+	public void checkIfSteppedOnRandomSquare()
+	{
+		//check if knight stepped on Random Square
+		if(this.board[this.knight.getRow()][this.knight.getCol()].getSquareType().equals("randomSquare"))
+		{
+			// deleting the randomized Square from the board
+			this.board[this.knight.getRow()][this.knight.getCol()].setSquareType("empty");
+			
+			//change the location of the knight
+			changeKnightLocationRandomized();
+			
+			//create a new random square instead
+			this.board = createNewSquare(this.board, "randomSquare");
+		}
+	}
+	
+	public void changeKnightLocationRandomized() 
+	{
+		Random rand = new Random();
+		int randRow = rand.nextInt(8);
+		int randCol = rand.nextInt(8);
+		Boolean isDone = false;
+		Piece piece = null;
+
+		// always one of them is not null
+		if(this.king!= null)
+		{
+			piece = this.king;
+		}
+		else 
+		{
+			piece = this.queen;
+		}
+	
+		while(isDone == false)
+		{
+			if(board[randRow][randCol].getSquareType().equals("empty") && (randRow!= this.knight.getRow() && randCol!= this.knight.getCol()) && (randRow!= piece.getRow() && randCol != piece.getCol()))
+			{
+				this.knight.setRow(randRow);
+				this.knight.setCol(randCol);
+				isDone = true;
+			}
+			else 
+			{
+				randRow = rand.nextInt(8);
+				randCol = rand.nextInt(8);
+			}
+		}
+		
+		
 	}
 
 

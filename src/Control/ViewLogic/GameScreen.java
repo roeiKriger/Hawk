@@ -200,7 +200,9 @@ public class GameScreen implements Initializable {
 								// update knight position in Model
 								currentGame.getKnight().setRow(newRow);
 								currentGame.getKnight().setCol(newCol);
-																														
+																
+								currentGame.checkIfSteppedOnRandomSquare();
+								
 								//pass to automatic queen turn 
 								queenTurn();
 								
