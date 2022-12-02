@@ -65,7 +65,7 @@ public class Knight extends Piece{
 	}
 
 	@Override
-	public Square[][] move(Square[][] board, int currentRow, int currentCol) 
+	public Square[][] move(Square[][] board) 
 	{
 		return null;
 	}

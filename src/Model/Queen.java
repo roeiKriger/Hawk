@@ -11,6 +11,7 @@ public class Queen extends Piece{
 	 * Move method, the queen can moves in
 	 */
 
+	@Override
 	public Square[][] move(Square[][] board) 
 	{
 		Square[][] possibleMoves = new Square[8][8];
@@ -102,11 +103,5 @@ public class Queen extends Piece{
 		return possibleMoves;
 	}
 
-	@Override
-	public Square[][] move(Square[][] board, int currentRow, int currentCol) {
-		return move(board);
-	}
-
-
-
+	
 }

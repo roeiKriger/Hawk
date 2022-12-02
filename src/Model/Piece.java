@@ -47,7 +47,7 @@ public abstract class Piece {
 	/**
 	 * Move function, gets current board, returns the new board after the piece movement
 	 */
-	public abstract Square[][] move(Square[][] board,int currentRow,int currentCol);
+	public abstract Square[][] move(Square[][] board);
 	
 	
 	

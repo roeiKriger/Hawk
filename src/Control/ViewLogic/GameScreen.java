@@ -200,7 +200,8 @@ public class GameScreen implements Initializable {
 								// update knight position in Model
 								currentGame.getKnight().setRow(newRow);
 								currentGame.getKnight().setCol(newCol);
-																
+															
+								// checking to see if the Knight stepped on a Random Square, if so he will be moved to a new location
 								currentGame.checkIfSteppedOnRandomSquare();
 								
 								//pass to automatic queen turn 
@@ -237,7 +238,7 @@ public class GameScreen implements Initializable {
 	
 	private void queenTurn() {
 		//get possible next moves for the queen
-		Square[][] possibleMoves = currentGame.getQueen().move(currentGame.getBoard(),0,0);
+		Square[][] possibleMoves = currentGame.getQueen().move(currentGame.getBoard());
 		
 		//current knight location
 		int knightRow = currentGame.getKnight().getRow();

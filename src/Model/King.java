@@ -13,6 +13,7 @@ public class King extends Piece{
 
 	}
 
+	@Override
 	public Square[][] move(Square[][] board) 
 	{
 		//King can move only one step each turn. So all the possible 8 Squares have been considered
@@ -39,12 +40,6 @@ public class King extends Piece{
 
 	public void setSpeed(double speed) {
 		this.speed = speed;
-	}
-
-	@Override
-	public Square[][] move(Square[][] board, int currentRow, int currentCol) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 
