@@ -126,7 +126,8 @@ public class GameScreen implements Initializable {
 				
 				// draw question tile
 				if (currentBoard[row][col].getSquareType() == "question") {
-					drawGamePiece(tileView, "question");
+					int level = currentBoard[row][col].getQuestion().getQuestionDifficulty();
+					drawGamePiece(tileView, "question" + level);
 				}
 				// draw question tile
 				if (currentBoard[row][col].getSquareType() == "blocked") {
@@ -216,7 +217,7 @@ public class GameScreen implements Initializable {
 															
 								// checking to see if the Knight stepped on a Random Square, if so he will be moved to a new location
 								if (currentGame.checkIfSteppedOnRandomSquare()) {
-									alert("Random Square", "You stood on a random square, the position of the knight will change randomly");
+									SysData.alert("Random Square", "You stood on a random square, the position of the knight will change randomly", AlertType.INFORMATION);
 								}
 								
 								// update the games array for the forgetting square option
@@ -227,7 +228,7 @@ public class GameScreen implements Initializable {
 									//goBackThreeSteps(gamesArrayForForgettingSquareGames);
 									//currentGame = gamesArrayForForgettingSquareGames.get(gamesArrayForForgettingSquareGames.size()-1);
 									//drawBoard(currentGame.getBoard());	
-									alert("Forgetting Square", "You stood on a forget square, you go back 3 steps in the game");
+									SysData.alert("Forgetting Square", "You stood on a forget square, you go back 3 steps in the game", AlertType.INFORMATION);
 								}
 								//pass to automatic queen turn 
 								queenTurn();
@@ -405,16 +406,6 @@ public class GameScreen implements Initializable {
     	time.play();
     }
     
-    /*
-     * Show alert generically by title and message
-     */
-    private void alert(String title, String message) { 
-		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle(title);
-		alert.setHeaderText(message);
-		alert.showAndWait();
-		return;
-    }
     
     /*
      * open question modal, without override the game screen
