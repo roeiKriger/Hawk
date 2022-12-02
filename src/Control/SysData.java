@@ -72,8 +72,17 @@ public class SysData implements Initializable
 		this.currentQuestion = currentQuestion;
 	}
 	
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
 	
 	// Questions Zone // 
+
 
 	/*
 	 * This method do import JSON to Question array

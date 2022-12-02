@@ -36,7 +36,7 @@ public class QuestionModal implements Initializable{
     
     @FXML
     private Label levelLabel;
-      
+    
 
     private SysData sd = SysData.getInstance();
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -59,7 +59,11 @@ public class QuestionModal implements Initializable{
     
     
     @FXML
-    void onAnswer(ActionEvent event) {
+    void onAnswer(ActionEvent event) 
+    {
+    	Question question = sd.getCurrentQuestion();
     }
+    
+    
 
 }
