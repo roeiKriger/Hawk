@@ -24,6 +24,8 @@ import Model.Game;
 import Model.Question;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 
 public class SysData implements Initializable
@@ -119,13 +121,21 @@ public class SysData implements Initializable
 			return true;
 		} catch (FileNotFoundException e)
 		{
-			e.printStackTrace();
+			getAlertForException(e);
 		}
 		catch(QuestionEmptyException e)
 		{
-			e.printStackTrace();
+			getAlertForException(e);
 		}
 		return false;
+	}
+	
+	private void getAlertForException(Exception e)
+	{
+		Alert alert = new Alert(AlertType.ERROR,e.getMessage());
+		alert.setHeaderText("Something Failed!");
+		alert.setTitle("Something Failed!");
+		alert.showAndWait();
 	}
 	
 	/*
