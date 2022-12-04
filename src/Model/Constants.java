@@ -16,5 +16,13 @@ public class Constants {
 	public static final int WORNG_EASY = -2;
 	public static final int WORNG_MIDDLE = -3;
 	public static final int WORNG_HARD = -4;
+	
+	//change king speed at the x seconds mark
+	public static final int FIRST_SPEED = 59;
+	public static final int SECOND_SPEED = 49;
+	public static final int THIRD_SPEED = 39;
+	public static final int FOURTH_SPEED = 29;
+	public static final int FIFTH_SPEED = 19;
+	public static final int SIXTH_SPEED = 9;
 
 }

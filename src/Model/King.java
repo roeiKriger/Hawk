@@ -7,11 +7,12 @@ public class King extends Piece{
 	/*
 	 * King speed is increasing every 10 seconds
 	 */
-	private double speed;
+	private int speed;
 
 	public King(int row, int col) 
 	{
 		super(row, col);
+		this.speed = 2;
 
 	}
 
@@ -39,11 +40,11 @@ public class King extends Piece{
 
 	
 	
-	public double getSpeed() {
+	public int getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(double speed) {
+	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
 

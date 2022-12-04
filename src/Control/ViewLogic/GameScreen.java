@@ -6,6 +6,9 @@ import java.nio.channels.NonReadableChannelException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import Control.SysData;
 import Model.Constants;
@@ -17,6 +20,7 @@ import Model.Question;
 import Model.Square;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -87,6 +91,9 @@ public class GameScreen implements Initializable {
 		initGamesArray(gamesArrayForForgettingSquareGames, currentGame);
 		drawBoard(currentBoard);
 		initializeTimer();
+		initializeKingSpeed();
+
+
 	}
 
 	/*
@@ -172,7 +179,7 @@ public class GameScreen implements Initializable {
 		ImageView actorImg = new ImageView(new Image("/Assets/" + pieceType + ".png"));
 		actorImg.setFitWidth(Constants.GAME_PIECES_SIZE);
 		actorImg.setFitHeight(Constants.GAME_PIECES_SIZE);
-
+		
 		if (pieceType == "knight") {
 			actorImg.setStyle("-fx-cursor: hand");
 			Square[][] possibleMoves = currentGame.getKnight().move(currentGame.getBoard(), currentGame.getGameLevel(), currentGame.getKing(), currentGame.getQueen());
@@ -240,7 +247,7 @@ public class GameScreen implements Initializable {
 								{
 									//pass to automatic queen turn 
 									//singleQueenTurn();
-									singleKingTurn();
+										
 
 								}
 								drawBoard(currentGame.getBoard());							
@@ -271,8 +278,11 @@ public class GameScreen implements Initializable {
 		currentGame.getBoard()[oldRow][oldCol].setSquareType("empty");
 		currentGame.getBoard()[oldRow][oldCol].setQuestion(null);
 	}
+	
 
-
+	/*
+	 * a single turn of a queen piece
+	 */
 	private void singleQueenTurn() {
 		//get possible next moves for the queen
 		Square[][] possibleMoves = currentGame.getQueen().move(currentGame.getBoard());
@@ -319,8 +329,9 @@ public class GameScreen implements Initializable {
 		}						
 	}
 	
-	//--------------------------------------------------------------------
-	
+	/*
+	 * a single turn of a king piece
+	 */
 	private void singleKingTurn() {
 		//get possible next moves for the king
 		Square[][] possibleMoves = currentGame.getKing().move(currentGame.getBoard());
@@ -365,10 +376,88 @@ public class GameScreen implements Initializable {
 					drawBoard(currentGame.getBoard());
 				}						
 			}
-		}						
+		}	
+		
+		//System.out.println("played king turn - time: " + seconds);
 	}
 
-	//--------------------------------------------------------------------
+	
+	//play given number of king moves automatically
+	private static int count = 0;
+	private void automaticKingMovement(int moves) {
+		int i;
+		Timer kingSpeedTimer = new Timer();	
+		kingSpeedTimer.scheduleAtFixedRate( new TimerTask(){
+			    public void run() {
+			    	Platform.runLater(() -> {
+		    	    count++;
+		    	    
+		    	    //stop timer after the number of desired moves was reached
+		    	     if (count >= moves) {
+		    	    	 kingSpeedTimer.cancel();
+		    	    	 kingSpeedTimer.purge();
+		    	         return;
+		    	     }
+			    	
+		    	    //play a turn only if the game is not paused
+			    	if(playPauseMode == "pause")
+			    		singleKingTurn();	
+			    		
+			    	});
+			    	
+			    }
+			  /*  divide number of moves in a 10 second span
+			   *  for example: if moves = 5
+			   *  10 seconds / 5 moves = king will move every 2 seconds
+			   */
+			 }, 0, (10*1000)/moves);
+	
+		count = 0;	
+	}
+		
+	
+	//increase king movement speed every 10 seconds
+	private void initializeKingSpeed() {
+		KeyFrame frame = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				switch (seconds) {
+				case Constants.FIRST_SPEED:
+					automaticKingMovement(currentGame.getKing().getSpeed());
+					currentGame.getKing().setSpeed(currentGame.getKing().getSpeed()+1);
+					break;
+
+				case Constants.SECOND_SPEED:
+					automaticKingMovement(currentGame.getKing().getSpeed());
+					currentGame.getKing().setSpeed(currentGame.getKing().getSpeed()+1);
+					break;
+
+				case Constants.THIRD_SPEED:
+					automaticKingMovement(currentGame.getKing().getSpeed());
+					currentGame.getKing().setSpeed(currentGame.getKing().getSpeed()+1);
+					break;
+					
+				case Constants.FOURTH_SPEED:
+					automaticKingMovement(currentGame.getKing().getSpeed());
+					currentGame.getKing().setSpeed(currentGame.getKing().getSpeed()+1);
+					break;
+					
+				case Constants.FIFTH_SPEED:
+					automaticKingMovement(currentGame.getKing().getSpeed());
+					currentGame.getKing().setSpeed(currentGame.getKing().getSpeed()+1);
+					break;
+					
+				case Constants.SIXTH_SPEED:
+					automaticKingMovement(currentGame.getKing().getSpeed());
+					currentGame.getKing().setSpeed(currentGame.getKing().getSpeed()+1);
+					break;
+				}
+			}
+		});
+		time.getKeyFrames().add(frame);
+		time.playFromStart();
+	}
+	
 
 	/*
 	 * initalize timer to 1 minute per round
@@ -391,6 +480,7 @@ public class GameScreen implements Initializable {
 				countDownLabel.setText("00:" + secondsStr);
 				if (seconds <= 0) {
 					time.stop();
+					//kingSpeedTimer.cancel();
 				}
 			}
 		});
