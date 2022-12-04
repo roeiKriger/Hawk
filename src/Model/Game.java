@@ -60,7 +60,7 @@ public class Game {
 	public Game(String nickname, Date date) {
 		this.board = new Square[8][8];
 		this.score = 0;
-		this.gameLevel = 1;
+		this.gameLevel = 2;
 		this.nickname = nickname;
 		this.date = date;
 	}

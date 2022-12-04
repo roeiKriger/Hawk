@@ -13,9 +13,9 @@ public class Knight extends Piece{
 	 * The method will return a board of possible moves, which the type of the possible squares will be "possible".
 	 */
 
-	public Square[][] move(Square[][] board, int level, King king, Queen queen) 
-	{
-		// initiate variables.
+	@Override
+	public Square[][] move(int level) {
+		// initiate variables
 		Square[][] possibleMoves = new Square[8][8];
 		int possibleNewRow[] = new int[8];
 		int possibleNewCol[] = new int[8];
@@ -29,72 +29,37 @@ public class Knight extends Piece{
 		// in other levels the knight moves regularly 
 		else
 		{
-			possibleNewRow = possibleRowMovesLevelDefault(possibleNewRow, this.getRow());
-			possibleNewCol = possibleColMovesDefault(possibleNewCol, this.getCol());
+			possibleNewRow = possibleRowMovesLevelDefault();
+			possibleNewCol = possibleColMovesDefault();
 		}
 
 		possibleNewRow = minusTurnsToPlusLocation(possibleNewRow);
 		possibleNewCol = minusTurnsToPlusLocation(possibleNewCol);
 		
 		// now we have two arrays, each of them has locations of the placements, first array is the Row and the second is the Column, now we will check if the place is empty
-		
 		for(int i=0;i<8;i++) {
 			possibleMoves[possibleNewRow[i]][possibleNewCol[i]] = new Square("noColor", false);
-			
 			if((possibleNewRow[i] >=0 && possibleNewRow[i] <8 && possibleNewCol[i] >=0 && possibleNewCol[i]<8))
-			{
-				if(king != null)
-				{
-					if(possibleNewRow[i] != king.getRow() && possibleNewCol[i] != king.getCol() && (!board[possibleNewRow[i]][possibleNewCol[i]].getSquareType().equals("blocked")))
-					{
-						possibleMoves[possibleNewRow[i]][possibleNewCol[i]].setCanVisit(true);
-					}
-				}
-				else 
-				{
-					if(possibleNewRow[i] != queen.getRow() && possibleNewCol[i] != queen.getCol() && (!board[possibleNewRow[i]][possibleNewCol[i]].getSquareType().equals("blocked")))
-					{
-						possibleMoves[possibleNewRow[i]][possibleNewCol[i]].setCanVisit(true);
-					}
-				}
-			}
+				possibleMoves[possibleNewRow[i]][possibleNewCol[i]].setCanVisit(true);	
 		}
 		
 		return possibleMoves;
 
 	}
 
-	@Override
-	public Square[][] move(Square[][] board) 
-	{
-		return null;
-	}
-
 	// possible row moves according to chess regular rules
-	public int[] possibleRowMovesLevelDefault(int possibleNewRow[], int currentRow)
-	{
-		possibleNewRow[0]= currentRow+1;
-		possibleNewRow[1]= currentRow+1;
-		possibleNewRow[2]= currentRow+2;
-		possibleNewRow[3]= currentRow+2;
-		possibleNewRow[4]= currentRow-1;
-		possibleNewRow[5]= currentRow-1;
-		possibleNewRow[6]= currentRow-2;
-		possibleNewRow[7]= currentRow-2;
+	public int[] possibleRowMovesLevelDefault() {
+		int currentRow = getRow();
+		int possibleNewRow[] = {currentRow-1,currentRow+1,currentRow-2,currentRow+2,currentRow-2,
+				currentRow+2,currentRow-1,currentRow+1};
 		return possibleNewRow;
 	}
 	
 	// possible column moves according to chess regular rules
-	public int[] possibleColMovesDefault(int possibleNewCol[], int currentCol)
-	{
-		possibleNewCol[0]= currentCol-2;
-		possibleNewCol[1]= currentCol+2;
-		possibleNewCol[2]= currentCol-1;
-		possibleNewCol[3]= currentCol+1;
-		possibleNewCol[4]= currentCol-2;
-		possibleNewCol[5]= currentCol+2;
-		possibleNewCol[6]= currentCol-1;
-		possibleNewCol[7]= currentCol+1;
+	public int[] possibleColMovesDefault() {
+		int currentCol = getCol();
+		int possibleNewCol[] = {currentCol-2,currentCol-2,currentCol-1,currentCol-1,currentCol+1,
+				currentCol+1,currentCol+2,currentCol+2};
 		return possibleNewCol;
 	}
 

@@ -12,7 +12,7 @@ public class Queen extends Piece{
 	 */
 
 	@Override
-	public Square[][] move(Square[][] board) 
+	public Square[][] move(int level) 
 	{
 		Square[][] possibleMoves = new Square[8][8];
 

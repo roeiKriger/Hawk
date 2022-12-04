@@ -15,6 +15,7 @@ public abstract class Piece {
 	 * integer which indicates the player column location
 	 */
 	private int col;
+	
 
 
 	
@@ -45,9 +46,9 @@ public abstract class Piece {
 
 
 	/**
-	 * Move function, gets current board, returns the new board after the piece movement
+	 * Move function returns possible moves according to each of the pieces movement rules
 	 */
-	public abstract Square[][] move(Square[][] board);
+	public abstract Square[][] move(int level);
 	
 	
 	

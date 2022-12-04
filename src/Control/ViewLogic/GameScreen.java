@@ -182,17 +182,18 @@ public class GameScreen implements Initializable {
 		
 		if (pieceType == "knight") {
 			actorImg.setStyle("-fx-cursor: hand");
-			Square[][] possibleMoves = currentGame.getKnight().move(currentGame.getBoard(), currentGame.getGameLevel(), currentGame.getKing(), currentGame.getQueen());
+			Square[][] possibleMoves = currentGame.getKnight().move(currentGame.getGameLevel());
 
 			actorImg.setOnMouseClicked(eventBefore -> {
 				//System.out.println("new turn");
 				for (int i=0; i<8; i++) {
 					for (int j=0; j<8; j++) {
-						if (possibleMoves[i][j]!= null && possibleMoves[i][j].getCanVisit().equals(true)) {
+						if (possibleMoves[i][j]!= null && possibleMoves[i][j].getCanVisit().equals(true)
+								&& !currentGame.getBoard()[i][j].getSquareType().equals("blocked")) {
 							// case that this is possible tile
 							int rowPossible = i;
 							int colPossible = j;
-							//							System.out.println(i + " " + j);
+							//System.out.println(i + " " + j);
 
 							// change color of tilePossible
 							StackPane tilePossibleView = boardView[rowPossible][colPossible];
@@ -246,7 +247,8 @@ public class GameScreen implements Initializable {
 								else // if the player moves back three turns we want to let him play again, because he can fall right to the queen line of fire
 								{
 									//pass to automatic queen turn 
-									singleQueenTurn();
+									//singleQueenTurn();
+									System.out.println("level: " + currentGame.getGameLevel());
 										
 
 								}
@@ -285,7 +287,7 @@ public class GameScreen implements Initializable {
 	 */
 	private void singleQueenTurn() {
 		//get possible next moves for the queen
-		Square[][] possibleMoves = currentGame.getQueen().move(currentGame.getBoard());
+		Square[][] possibleMoves = currentGame.getQueen().move(currentGame.getGameLevel());
 
 		//current knight location
 		int knightRow = currentGame.getKnight().getRow();
@@ -334,7 +336,7 @@ public class GameScreen implements Initializable {
 	 */
 	private void singleKingTurn() {
 		//get possible next moves for the king
-		Square[][] possibleMoves = currentGame.getKing().move(currentGame.getBoard());
+		Square[][] possibleMoves = currentGame.getKing().move(currentGame.getGameLevel());
 
 		//current knight location
 		int knightRow = currentGame.getKnight().getRow();
