@@ -72,7 +72,7 @@ public class QuestionModal implements Initializable{
     	}
         catch(NullPointerException e)
     	{
-    		SysData.alert("Please insert a ansewer","Please insert a ansewer" , AlertType.ERROR);
+    		SysData.alert("Please insert a answer","Please insert a answer" , AlertType.ERROR);
     	}
     	
     }
