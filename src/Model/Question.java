@@ -34,6 +34,11 @@ public class Question
 	 */
 	private int correctAnswerId;
 	
+	/*
+	 * Save if the Question is show on the game
+	 */
+	private boolean isShowed;
+	
 	// Constructor
 	public Question(int questionId ,int questionDifficulty, String questionContent, List<String> answers, int correctAnswerId)
 	{
@@ -42,6 +47,7 @@ public class Question
 		this.questionContent = questionContent;
 		this.answers = answers;
 		this.correctAnswerId = correctAnswerId;
+		this.isShowed = false; //always false because is new Question
 	}
 	// Constructor
 	public Question(int questionDifficulty, String questionContent, List<String> answers, int correctAnswerId)
@@ -51,6 +57,19 @@ public class Question
 		this.questionContent = questionContent;
 		this.answers = answers;
 		this.correctAnswerId = correctAnswerId;
+		this.isShowed = false; //always false because is new Question
+	}
+	
+	//Constructor
+	public Question(int questionId, int questionDifficulty, String questionContent, List<String> answers,
+			int correctAnswerId, boolean isShowed) 
+	{
+		this.questionId = questionId;
+		this.questionDifficulty = questionDifficulty;
+		this.questionContent = questionContent;
+		this.answers = answers;
+		this.correctAnswerId = correctAnswerId;
+		this.isShowed = isShowed;
 	}
 	/*
 	 * Getters and Setters
