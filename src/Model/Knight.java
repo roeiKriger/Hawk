@@ -19,25 +19,27 @@ public class Knight extends Piece{
 		Square[][] possibleMoves = new Square[8][8];
 		int possibleNewRow[] = new int[8];
 		int possibleNewCol[] = new int[8];
+		int numberOfPossibleSquares = Constants.SQUARES_DEFAULT;
 
 		// when the level is 2 then knight moves differently, due to game rules.
 		if(level == 2)
 		{
-			possibleNewRow = possibleRowMovesLevelTwo(possibleNewRow, this.getRow());
-			possibleNewCol = possibleColMovesTwo(possibleNewCol, this.getCol());
+			numberOfPossibleSquares = Constants.SQUARES_LEVEL_TWO;
+			possibleNewRow = possibleRowMovesLevelTwo();
+			possibleNewCol = possibleColMovesLevelTwo();
 		}
 		// in other levels the knight moves regularly 
 		else
 		{
 			possibleNewRow = possibleRowMovesLevelDefault();
-			possibleNewCol = possibleColMovesDefault();
+			possibleNewCol = possibleColMovesLevelDefault();
 		}
 
 		possibleNewRow = minusTurnsToPlusLocation(possibleNewRow);
 		possibleNewCol = minusTurnsToPlusLocation(possibleNewCol);
 		
 		// now we have two arrays, each of them has locations of the placements, first array is the Row and the second is the Column, now we will check if the place is empty
-		for(int i=0;i<8;i++) {
+		for(int i=0;i<numberOfPossibleSquares;i++) {
 			possibleMoves[possibleNewRow[i]][possibleNewCol[i]] = new Square("noColor", false);
 			if((possibleNewRow[i] >=0 && possibleNewRow[i] <8 && possibleNewCol[i] >=0 && possibleNewCol[i]<8))
 				possibleMoves[possibleNewRow[i]][possibleNewCol[i]].setCanVisit(true);	
@@ -56,53 +58,32 @@ public class Knight extends Piece{
 	}
 	
 	// possible column moves according to chess regular rules
-	public int[] possibleColMovesDefault() {
+	public int[] possibleColMovesLevelDefault() {
 		int currentCol = getCol();
 		int possibleNewCol[] = {currentCol-2,currentCol-2,currentCol-1,currentCol-1,currentCol+1,
 				currentCol+1,currentCol+2,currentCol+2};
 		return possibleNewCol;
 	}
 
-	// possible row moves according to level 2 rules
-	public int[] possibleRowMovesLevelTwo(int possibleNewRow[], int currentRow)
-	{
-		// Two rows straight then one diagonal (one diagonal is also an extra row)
-		possibleNewRow[0]= currentRow+3;
-		possibleNewRow[1]= currentRow+3;
-
-		// Two rows back then one diagonal (one diagonal is also an extra row)
-		possibleNewRow[2]= currentRow-3;
-		possibleNewRow[3]= currentRow-3;
-
-		// Two Diagonal forward and one straight
-		possibleNewRow[4]= currentRow+3;
-		possibleNewRow[5]= currentRow+3;
-
-		// Two Diagonal back and one straight
-		possibleNewRow[6]= currentRow-3;
-		possibleNewRow[7]= currentRow-3;
-
+	//possible row moves according to level 2 rules
+	//two squares straight then one diagonal or two squares diagonal then one straight
+	public int[] possibleRowMovesLevelTwo() {
+		int currentRow = getRow();
+		int possibleNewRow[] = {currentRow-2,currentRow-1,currentRow+1,currentRow+2,currentRow-3,currentRow+3,
+				currentRow-3,currentRow+3,currentRow-3,currentRow+3,currentRow-3,currentRow+3,
+				currentRow-2,currentRow-1,currentRow+1,currentRow+2};
+	
 		return possibleNewRow;
 	}
 	
-	// possible column moves according to level 2 rules
-	public int[] possibleColMovesTwo(int possibleNewCol[], int currentCol)
-	{
-		// Two rows straight then one diagonal (one diagonal is also an extra row)
-		possibleNewCol[0]= currentCol-1;
-		possibleNewCol[1]= currentCol+1;
-
-		// Two rows back then one diagonal (one diagonal is also an extra row)
-		possibleNewCol[2]= currentCol-1;
-		possibleNewCol[3]= currentCol+1;
-
-		// Two Diagonal forward and one straight
-		possibleNewCol[4]= currentCol-2;
-		possibleNewCol[5]= currentCol+2;
-
-		possibleNewCol[6]= currentCol+2;
-		possibleNewCol[7]= currentCol-2;
-
+	//possible column moves according to level 2 rules
+	//two squares straight then one diagonal or two squares diagonal then one straight
+	public int[] possibleColMovesLevelTwo() {		
+		int currentCol = getCol();
+		int possibleNewCol[] = {currentCol-3,currentCol-3,currentCol-3,currentCol-3,currentCol-2,currentCol-2,
+				currentCol-1,currentCol-1,currentCol+1,currentCol+1,currentCol+2,currentCol+2,
+				currentCol+3,currentCol+3,currentCol+3,currentCol+3};
+		
 		return possibleNewCol;
 	}
 

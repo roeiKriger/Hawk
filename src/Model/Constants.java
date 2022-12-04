@@ -24,5 +24,9 @@ public class Constants {
 	public static final int FOURTH_SPEED = 29;
 	public static final int FIFTH_SPEED = 19;
 	public static final int SIXTH_SPEED = 9;
+	
+	//number of knight possible squares
+	public static final int SQUARES_DEFAULT = 8;
+	public static final int SQUARES_LEVEL_TWO = 16;
 
 }

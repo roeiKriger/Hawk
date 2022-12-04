@@ -247,8 +247,7 @@ public class GameScreen implements Initializable {
 								else // if the player moves back three turns we want to let him play again, because he can fall right to the queen line of fire
 								{
 									//pass to automatic queen turn 
-									//singleQueenTurn();
-									System.out.println("level: " + currentGame.getGameLevel());
+									singleQueenTurn();
 										
 
 								}
