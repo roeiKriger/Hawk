@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.GameHistory">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.GameHistory">
    <children>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToHomePage" style="-fx-background-radius: 20;" text="Back" />
       <Label layoutX="329.0" layoutY="94.0" text="Game History" textAlignment="CENTER" underline="true">
@@ -15,12 +15,12 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <TableView layoutX="171.0" layoutY="149.0" prefHeight="407.0" prefWidth="478.0">
+      <TableView fx:id="tbData" layoutX="171.0" layoutY="149.0" prefHeight="407.0" prefWidth="478.0">
         <columns>
-          <TableColumn prefWidth="104.44448852539062" text="Nickname" />
-          <TableColumn prefWidth="129.77774047851562" text="Time" />
-            <TableColumn prefWidth="112.22222900390625" text="Score" />
-            <TableColumn prefWidth="130.6666259765625" text="Level Reached" />
+          <TableColumn fx:id="nickName" prefWidth="104.44448852539062" text="Nickname" />
+          <TableColumn fx:id="time" prefWidth="129.77774047851562" text="Time" />
+            <TableColumn fx:id="score" prefWidth="112.22222900390625" text="Score" />
+            <TableColumn fx:id="level" prefWidth="130.6666259765625" text="Level Reached" />
         </columns>
       </TableView>
    </children>

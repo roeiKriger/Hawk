@@ -409,7 +409,16 @@ public class SysData implements Initializable
     	
     	return this.write_questions(questions);
     }
+
+	public List<Game> getGames() {
+		return games;
+	}
+
+	public static void setGames(List<Game> games) {
+		SysData.games = games;
+	}
 	
+    
 	
 
 
