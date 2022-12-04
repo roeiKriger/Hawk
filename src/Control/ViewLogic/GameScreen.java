@@ -85,13 +85,13 @@ public class GameScreen implements Initializable {
 		nicknameLabel.setText("Hello " + nickname);
 		sd.setGame(new Game(nickname, new Date()));
 		currentGame = sd.getGame();
-		//currentGame.createBoardLevelOne();
-		currentGame.createBoardLevelThree();
+		currentGame.createBoardLevelOne();
 		Square[][] currentBoard = currentGame.getBoard();
 		initGamesArray(gamesArrayForForgettingSquareGames, currentGame);
 		drawBoard(currentBoard);
 		initializeTimer();
-		initializeKingSpeed();
+		//currentGame.createBoardLevelThree();
+		//initializeKingSpeed();
 
 
 	}
@@ -246,7 +246,7 @@ public class GameScreen implements Initializable {
 								else // if the player moves back three turns we want to let him play again, because he can fall right to the queen line of fire
 								{
 									//pass to automatic queen turn 
-									//singleQueenTurn();
+									singleQueenTurn();
 										
 
 								}
