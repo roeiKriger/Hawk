@@ -64,17 +64,22 @@ public class QuestionModal implements Initializable{
     void onAnswer(ActionEvent event) 
     {
     	
-    	
-    	updateScoreAfterAnswer();
-    	//move back to board
-    	closeWindow();
+    	try 
+    	{
+	    	updateScoreAfterAnswer();
+	    	//move back to board
+	    	closeWindow();
+    	}
+        catch(NullPointerException e)
+    	{
+    		SysData.alert("Please insert a ansewer","Please insert a ansewer" , AlertType.ERROR);
+    	}
     	
     }
     
     //This method check the answer and update score
-    private void updateScoreAfterAnswer()
+    private void updateScoreAfterAnswer() throws NullPointerException
     {
-    	try {
     	Question question = sd.getCurrentQuestion(); //get correct question
 		RadioButton selectedRadioButton = (RadioButton) answers.getSelectedToggle(); //get Object selected
 		String toogleGroupValue = selectedRadioButton.getText(); // get text of question
@@ -106,11 +111,7 @@ public class QuestionModal implements Initializable{
     	//Control.ViewLogic.GameScreen.changeScoreOnScreen();
     	System.out.println("Score is " +  sd.getGame().getScore());
     }
-    catch(NullPointerException e)
-    	{
-    		SysData.alert("Please insert a ansewer","Please insert a ansewer" , AlertType.ERROR);
-    	}
-    }
+
     
     @FXML
     private void closeWindow(){
