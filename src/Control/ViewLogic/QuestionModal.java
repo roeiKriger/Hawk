@@ -74,6 +74,7 @@ public class QuestionModal implements Initializable{
     //This method check the answer and update score
     private void updateScoreAfterAnswer()
     {
+    	try {
     	Question question = sd.getCurrentQuestion(); //get correct question
 		RadioButton selectedRadioButton = (RadioButton) answers.getSelectedToggle(); //get Object selected
 		String toogleGroupValue = selectedRadioButton.getText(); // get text of question
@@ -87,7 +88,7 @@ public class QuestionModal implements Initializable{
     		if(question.getQuestionDifficulty() == 3)
     			score += Model.Constants.SUCSSED_HARD;
     		
-    		SysData.alert("Correct Answer ✔️", "Well done, you answered the right question", AlertType.CONFIRMATION);
+    		SysData.alert("Correct Answer", "Well done, you answered the right question", AlertType.CONFIRMATION);
     	}
     	else
     	{ //wrong answer
@@ -99,11 +100,16 @@ public class QuestionModal implements Initializable{
     			score += Model.Constants.WORNG_HARD; 
     		
     		String correctAns = question.getAnswers().get(question.getCorrectAnswerId());
-    		SysData.alert("Wrong Answer ❌", "You were wrong, the correct answer is:\n'" + correctAns + "'", AlertType.CONFIRMATION);
+    		SysData.alert("Wrong Answer", "You were wrong, the correct answer is:\n'" + correctAns + "'", AlertType.CONFIRMATION);
     	}
     	sd.getGame().setScore(score); // updating score
     	//Control.ViewLogic.GameScreen.changeScoreOnScreen();
     	System.out.println("Score is " +  sd.getGame().getScore());
+    }
+    catch(NullPointerException e)
+    	{
+    		SysData.alert("Please insert a ansewer","Please insert a ansewer" , AlertType.ERROR);
+    	}
     }
     
     @FXML
