@@ -81,7 +81,8 @@ public class GameScreen implements Initializable {
 		nicknameLabel.setText("Hello " + nickname);
 		sd.setGame(new Game(nickname, new Date()));
 		currentGame = sd.getGame();
-		currentGame.createBoardLevelOne();
+		//currentGame.createBoardLevelOne();
+		currentGame.createBoardLevelThree();
 		Square[][] currentBoard = currentGame.getBoard();
 		initGamesArray(gamesArrayForForgettingSquareGames, currentGame);
 		drawBoard(currentBoard);
@@ -238,7 +239,8 @@ public class GameScreen implements Initializable {
 								else // if the player moves back three turns we want to let him play again, because he can fall right to the queen line of fire
 								{
 									//pass to automatic queen turn 
-									queenTurn();
+									//singleQueenTurn();
+									singleKingTurn();
 
 								}
 								drawBoard(currentGame.getBoard());							
@@ -271,7 +273,7 @@ public class GameScreen implements Initializable {
 	}
 
 
-	private void queenTurn() {
+	private void singleQueenTurn() {
 		//get possible next moves for the queen
 		Square[][] possibleMoves = currentGame.getQueen().move(currentGame.getBoard());
 
@@ -316,7 +318,57 @@ public class GameScreen implements Initializable {
 			}
 		}						
 	}
+	
+	//--------------------------------------------------------------------
+	
+	private void singleKingTurn() {
+		//get possible next moves for the king
+		Square[][] possibleMoves = currentGame.getKing().move(currentGame.getBoard());
 
+		//current knight location
+		int knightRow = currentGame.getKnight().getRow();
+		int knightCol = currentGame.getKnight().getCol();
+
+		//System.out.println("new turn");
+		double shortestDistance = Constants.LONGEST_DISTANCE_BETWEEN_TWO_PIECES;
+		//row and col that will save closest tile to knight
+		int bestRowToCatchKnight=0;
+		int bestColToCatchKnight=0;
+
+		for (int i=0; i<8; i++) {
+			for (int j=0; j<8; j++) {
+				if (possibleMoves[i][j]!= null && possibleMoves[i][j].getCanVisit().equals(true)
+						&& !currentGame.getBoard()[i][j].getSquareType().equals("blocked")) {
+					//case that this is possible tile
+					int rowPossible = i;
+					int colPossible = j;
+					//System.out.println(i + " " + j);
+
+					//choose a possible tile that is closest to knight's location
+					//compare tiles by euclidean distance from knight's tile 
+					//sqrt((Ax-Bx)^2-(Ay-By)^2)
+					double distanceRow = Math.pow(Double.valueOf(rowPossible-knightRow),2.0);
+					double distanceCol = Math.pow(Double.valueOf(colPossible-knightCol),2.0);
+					double distanceBetweenPossibleAndKnight = Math.sqrt(distanceCol + distanceRow);
+
+
+					//if a closer tile than the one currently saved was found, save the new tile instead
+					if (distanceBetweenPossibleAndKnight < shortestDistance) {
+						bestRowToCatchKnight = rowPossible;
+						bestColToCatchKnight = colPossible;
+						shortestDistance = distanceBetweenPossibleAndKnight;
+					}
+
+					// update king position in Model
+					currentGame.getKing().setRow(bestRowToCatchKnight);
+					currentGame.getKing().setCol(bestColToCatchKnight);								
+					drawBoard(currentGame.getBoard());
+				}						
+			}
+		}						
+	}
+
+	//--------------------------------------------------------------------
 
 	/*
 	 * initalize timer to 1 minute per round
