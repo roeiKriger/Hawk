@@ -393,8 +393,32 @@ public class SysData implements Initializable
 		return;
     }
 
+	/*
+	 * This method add the end game to Scores.json
+	 */
+    public boolean addGameToHistory()
+    {
+    	if(game == null)
+    	{
+    		return false;
+    	}
+    	if(!games.add(game))
+    	{
+    		return false;
+    	}
+    	
+    	return this.write_questions(questions);
+    }
+
+	public List<Game> getGames() {
+		return games;
+	}
+
+	public static void setGames(List<Game> games) {
+		SysData.games = games;
+	}
 	
-	
+    
 	
 
 
