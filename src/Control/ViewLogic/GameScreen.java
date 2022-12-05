@@ -2,13 +2,11 @@ package Control.ViewLogic;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.channels.NonReadableChannelException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 import Control.SysData;
 import Model.Constants;
@@ -31,7 +29,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -64,8 +61,8 @@ public class GameScreen implements Initializable {
 	@FXML
 	private Label nicknameLabel;
 
-	/*  @FXML
-    private static Label pointsLabel;*/
+	@FXML
+    private Label pointsLabel;
 
 	@FXML
 	private Label playPauseLabel;
@@ -218,7 +215,7 @@ public class GameScreen implements Initializable {
 									} catch (IOException e) {
 										e.printStackTrace();
 									}
-
+									
 									// replace position of question
 									replaceQuestionPosition(newRow, newCol);
 								}
@@ -624,12 +621,13 @@ public class GameScreen implements Initializable {
 		primaryStage.show();
 	}
 
-	/*   //Not Working yet
-    @FXML
-    public static void changeScoreOnScreen()
-    {
-    	pointsLabel.setText(SysData.getInstance().getGame().getScore() + " Points");
-    }*/
 
+	/*
+	 * event listener that update the score
+	 */
+   @FXML
+    void changeScoreOnScreen(MouseEvent event) {
+		pointsLabel.setText("Points: " + currentGame.getScore());
+    }
 
 }
