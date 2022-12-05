@@ -61,7 +61,7 @@ public abstract class Piece {
 	}
 	
 	
-	// method in case the knight wants to go from one side of the board to the other
+	// method in case the piece needs to go from one side of the board to the other
 	public int[] minusTurnsToPlusLocation(int possibleLoc[])
 	{
 		for(int i=0; i<possibleLoc.length; i++)
