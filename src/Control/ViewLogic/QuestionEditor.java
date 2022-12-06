@@ -11,6 +11,7 @@ import Control.SysData;
 import Exceptions.JsonException;
 import Model.Game;
 import Model.Question;
+import Model.Zoo;
 import Utils.Difficulty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,9 +55,10 @@ public class QuestionEditor implements Initializable {
 	private SysData sd = SysData.getInstance();
 	private ObservableList<Question> questions;
 
-	// ObservableList<Question> questions = FXCollections.observableArrayList();
-
-	List<Question> q;
+	
+	/*
+	 * initialize comboBox with difficulty and table with values of Question
+	 */
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
@@ -83,6 +85,20 @@ public class QuestionEditor implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	/*
+	 * Filter for question difficulty
+	 */
+	@FXML
+    void doingFilter(ActionEvent event)
+    {
+		if(difficultyComboBox.getValue().equals(Difficulty.Easy)) // choosing easy in the filter
+			questionsTable.setItems(FXCollections.observableArrayList(sd.getQuestionsLevel1()));
+		if(difficultyComboBox.getValue().equals(Difficulty.Medium)) // choosing medium in the filter
+			questionsTable.setItems(FXCollections.observableArrayList(sd.getQuestionsLevel2()));
+		if(difficultyComboBox.getValue().equals(Difficulty.Hard)) // choosing hard in the filter
+			questionsTable.setItems(FXCollections.observableArrayList(sd.getQuestionsLevel3()));	
+    }
 
 	@FXML
 	void returnToHomePage(ActionEvent event) throws IOException {

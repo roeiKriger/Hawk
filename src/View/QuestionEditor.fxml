@@ -39,7 +39,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <ComboBox fx:id="difficultyComboBox" layoutX="192.0" layoutY="149.0" prefHeight="25.0" prefWidth="198.0" promptText="Choose difficulty" />
+      <ComboBox fx:id="difficultyComboBox" layoutX="192.0" layoutY="149.0" onAction="#doingFilter" prefHeight="25.0" prefWidth="198.0" promptText="Choose difficulty" />
       <Label layoutX="41.0" layoutY="149.0" text="Filter by difficulty:" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
