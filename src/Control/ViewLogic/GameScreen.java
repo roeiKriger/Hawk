@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 import Control.SysData;
 import Model.Constants;
 import Model.Game;
@@ -83,6 +85,7 @@ public class GameScreen implements Initializable {
 		sd.setGame(new Game(nickname, new Date()));
 		currentGame = sd.getGame();
 		currentGame.createBoardLevelOne();
+		currentGame.getBoard()[Constants.INITIAL_LOCATION][Constants.INITIAL_LOCATION].setIsVisited(true);
 		//currentGame.createBoardLevelThree();
 		Square[][] currentBoard = currentGame.getBoard();
 		initGamesArray(gamesArrayForForgettingSquareGames, currentGame);
@@ -196,13 +199,15 @@ public class GameScreen implements Initializable {
 							StackPane tilePossibleView = boardView[rowPossible][colPossible];
 							tilePossibleView.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
 							tilePossibleView.setStyle("-fx-cursor: hand");
-
+							
 							// add listener to press on possible move
 							tilePossibleView.setOnMouseClicked(eventAfter -> {
 								// TODO - add cases of question, random, etc;
 
 								int newCol = (int) (eventAfter.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
 								int newRow = (int) (eventAfter.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
+								//set each squre the knight steps on as visited
+								currentGame.getBoard()[newRow][newCol].setIsVisited(true);
 
 								// case of question tile
 								if (currentGame.getBoard()[newRow][newCol].getSquareType().equals("question")) {
@@ -251,7 +256,20 @@ public class GameScreen implements Initializable {
 							});	
 						}						
 					}
-				}					
+				}
+				
+				//squares that were visited by the knight, will be marked in a different color
+				for(int i=0;i<8;i++) {
+					for(int j=0;j<8;j++) {
+						if (currentGame.getBoard()[i][j].getIsVisited().equals(true)) {
+							StackPane tilePossibleView = boardView[i][j];
+							tilePossibleView.setBackground(new Background(new BackgroundFill(Color.ORCHID, CornerRadii.EMPTY, Insets.EMPTY)));
+							tilePossibleView.setStyle("-fx-cursor: hand");
+							
+							
+						}
+					}
+				}
 			});
 		}
 

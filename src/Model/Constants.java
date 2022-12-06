@@ -8,6 +8,8 @@ public class Constants {
 	public static final int ROUND_TIME = 60; // in seconds	
 	
 	public static final int LONGEST_DISTANCE_BETWEEN_TWO_PIECES = 10;
+	public static final int INITIAL_LOCATION = 0;
+	
 	
     //score adding after answer a question
 	public static final int SUCSSED_EASY = 1;
