@@ -11,7 +11,6 @@ import Control.SysData;
 import Exceptions.JsonException;
 import Model.Game;
 import Model.Question;
-import Model.Zoo;
 import Utils.Difficulty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
