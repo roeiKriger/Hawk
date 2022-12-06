@@ -35,35 +35,25 @@ public class GameHistory {
 	@FXML
 	public TableColumn<Game, String> score;
 
-	@FXML
-	public TableColumn<Game, String> level;
-	
 	private ObservableList<Game> gamesHistory;
-
 
 	@FXML
 	public void initialize() {
-		try 
-		{
-			if(!sd.import_scores())
+		try {
+			if (!sd.import_scores()) // import not successful
 				throw new JsonException();
-			gamesHistory = FXCollections
-					.observableArrayList(FXCollections.observableArrayList(sd.getGames()));
+			gamesHistory = FXCollections.observableArrayList(FXCollections.observableArrayList(sd.getGames()));
 			nickName.setCellValueFactory(new PropertyValueFactory<>("nickname"));
 			time.setCellValueFactory(new PropertyValueFactory<>("date"));
 			score.setCellValueFactory(new PropertyValueFactory<>("score"));
 			tbData.setItems(gamesHistory);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JsonException e) {
-			// TODO Auto-generated catch block
 			SysData.alert(e.getMessage(), e.getMessage(), AlertType.ERROR);
 		}
+	}// ending initialize
 
-	}
-
-	
 	@FXML
 	void returnToHomePage(ActionEvent event) throws IOException {
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
