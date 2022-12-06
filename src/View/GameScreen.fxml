@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#changeScoreOnScreen" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.GameScreen">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#changeScoreOnScreen" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Control.ViewLogic.GameScreen">
    <children>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToHomePage" style="-fx-background-radius: 20;" text="Exit" />
       <Label fx:id="countDownLabel" layoutX="364.0" layoutY="24.0" text="01:00">
