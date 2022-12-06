@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Question 
 {
-	private static int count = 0; //the counter will use for question id
+	private static int count = 1; //the counter will use for question id
 	/**
 	 * ID of a question
 	 */
