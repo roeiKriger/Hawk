@@ -53,7 +53,6 @@ public class GameHistory {
 			time.setCellValueFactory(new PropertyValueFactory<>("date"));
 			score.setCellValueFactory(new PropertyValueFactory<>("score"));
 			tbData.setItems(gamesHistory);
-			System.out.println(gamesHistory);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
