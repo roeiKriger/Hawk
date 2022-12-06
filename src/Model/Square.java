@@ -35,6 +35,63 @@ public class Square {
 		this.canVisit = false;
 		this.question = null;
 	}
+	
+	
+
+	public Square(String color, Boolean isVisited , String squareType) 
+	{
+		super();
+		this.color = color;
+		this.isVisited = isVisited;
+		this.squareType = squareType;
+		this.canVisit = false;
+		this.question = null;	
+	}
+	
+	//for Question Square
+	public Square(String color, Boolean isVisited , String squareType, Question question) 
+	{
+		super();
+		this.color = color;
+		this.isVisited = isVisited;
+		this.squareType = squareType;
+		this.canVisit = false;
+		this.question = question;	
+	}
+	
+	public Square(String color , String squareType) 
+	{
+		super();
+		this.color = color;
+		this.isVisited = false;
+		this.squareType = squareType;
+		this.canVisit = false;
+		this.question = null;	
+	}
+	
+	//for Question Square
+	public Square(String color , String squareType, Question question) 
+	{
+		super();
+		this.color = color;
+		this.isVisited = false;
+		this.squareType = squareType;
+		this.canVisit = false;
+		this.question = question;	
+	}
+	
+	public Square(String color) {
+		this.color = color;
+		this.squareType = "empty";
+		this.isVisited = false;
+		this.canVisit = false;
+		this.question = null;
+	}
+	
+	
+	
+
+
 
 	/*
 	 * Getters and Setters
