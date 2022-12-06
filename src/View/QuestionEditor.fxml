@@ -18,10 +18,10 @@
       </Label>
       <TableView fx:id="questionsTable" layoutX="38.0" layoutY="191.0" prefHeight="323.0" prefWidth="714.0">
         <columns>
-          <TableColumn prefWidth="93.11107635498047" text="No." />
-          <TableColumn prefWidth="125.55563354492188" text="Difficulty" />
-            <TableColumn prefWidth="407.55560302734375" text="Question" />
-            <TableColumn prefWidth="85.55560302734375" text="Correct&#10;Answer" />
+          <TableColumn fx:id="numb" prefWidth="93.11107635498047" text="No." />
+          <TableColumn fx:id="diff" prefWidth="125.55563354492188" text="Difficulty" />
+            <TableColumn fx:id="cont" prefWidth="407.55560302734375" text="Question" />
+            <TableColumn fx:id="correct" prefWidth="85.55560302734375" text="Correct&#10;Answer" />
         </columns>
       </TableView>
       <Button layoutX="188.0" layoutY="525.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Add">
