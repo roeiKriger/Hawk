@@ -17,10 +17,9 @@
       </Label>
       <TableView fx:id="tbData" layoutX="171.0" layoutY="149.0" prefHeight="407.0" prefWidth="478.0">
         <columns>
-          <TableColumn fx:id="nickName" prefWidth="104.44448852539062" text="Nickname" />
-          <TableColumn fx:id="time" prefWidth="129.77774047851562" text="Time" />
-            <TableColumn fx:id="score" prefWidth="112.22222900390625" text="Score" />
-            <TableColumn fx:id="level" prefWidth="130.6666259765625" text="Level Reached" />
+          <TableColumn fx:id="nickName" prefWidth="168.0" text="Nickname" />
+          <TableColumn fx:id="time" prefWidth="196.0" text="Time" />
+            <TableColumn fx:id="score" prefWidth="113.0" text="Score" />
         </columns>
       </TableView>
    </children>

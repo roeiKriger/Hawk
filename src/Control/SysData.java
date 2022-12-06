@@ -341,6 +341,7 @@ public class SysData implements Initializable
 				Date gameDay = new Date(gameDayOnString);
 				game.setDate(gameDay);
 //				System.out.println(game);
+				this.games.add(game);
 			}	
 			return true;
 		} catch (FileNotFoundException e)

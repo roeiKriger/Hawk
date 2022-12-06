@@ -1,5 +1,7 @@
 package Model;
-
+/*
+ * Design Pattern - Factory Pattern
+ */
 public class PieceFactory 
 {
 	public Piece getPiece(String peiceType, int row, int col)

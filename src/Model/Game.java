@@ -456,8 +456,8 @@ public class Game {
 
 	@Override
 	public String toString() {
-		//return "Game [score=" + score + ", nickname=" + nickname + ", date=" + date + "]";
-		return "kinght loc: " + knight.getRow() +" "+ knight.getCol() + "]";
+		return "Game [score=" + score + ", nickname=" + nickname + ", date=" + date + "]";
+		//return "kinght loc: " + knight.getRow() +" "+ knight.getCol() + "]";
 	}
 
 

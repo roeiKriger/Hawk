@@ -35,19 +35,26 @@ public class GameHistory {
 
 	@FXML
 	public TableColumn<Game, String> level;
+	
+	private ObservableList<Game> gamesHistory;
+
 
 	@FXML
 	public void initialize() {
 		try {
-			sd.import_scores();
+			boolean flag = sd.import_scores();
+			System.out.println(flag);
+			//System.out.println(sd.getGames());
 			// System.out.println("Test");
 			// myList.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(sd.getGames())));
-
-			nickName.setCellValueFactory(new PropertyValueFactory<>("nickName"));
-			time.setCellValueFactory(new PropertyValueFactory<>("time"));
+			gamesHistory = FXCollections
+					.observableArrayList(FXCollections.observableArrayList(sd.getGames()));
+			nickName.setCellValueFactory(new PropertyValueFactory<>("nickname"));
+			time.setCellValueFactory(new PropertyValueFactory<>("date"));
 			score.setCellValueFactory(new PropertyValueFactory<>("score"));
-			level.setCellValueFactory(new PropertyValueFactory<>("level"));
+			//level.setCellValueFactory(new PropertyValueFactory<>("level"));
 			tbData.setItems(gamesHistory);
+			System.out.println(gamesHistory);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,9 +62,7 @@ public class GameHistory {
 
 	}
 
-	private ObservableList<Game> gamesHistory = FXCollections
-			.observableArrayList(FXCollections.observableArrayList(sd.getGames()));
-
+	
 	@FXML
 	void returnToHomePage(ActionEvent event) throws IOException {
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
