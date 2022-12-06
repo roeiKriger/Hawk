@@ -44,15 +44,11 @@ public class GameHistory {
 		try {
 			boolean flag = sd.import_scores();
 			System.out.println(flag);
-			//System.out.println(sd.getGames());
-			// System.out.println("Test");
-			// myList.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(sd.getGames())));
 			gamesHistory = FXCollections
 					.observableArrayList(FXCollections.observableArrayList(sd.getGames()));
 			nickName.setCellValueFactory(new PropertyValueFactory<>("nickname"));
 			time.setCellValueFactory(new PropertyValueFactory<>("date"));
 			score.setCellValueFactory(new PropertyValueFactory<>("score"));
-			//level.setCellValueFactory(new PropertyValueFactory<>("level"));
 			tbData.setItems(gamesHistory);
 			System.out.println(gamesHistory);
 		} catch (ParseException e) {
