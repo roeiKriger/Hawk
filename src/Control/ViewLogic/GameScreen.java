@@ -86,14 +86,17 @@ public class GameScreen implements Initializable {
 		sd.setGame(new Game(nickname, new Date()));
 		currentGame = sd.getGame();
 		currentGame.createBoardLevelOne();
+		//currentGame.createBoardLevelTwo();
 		//currentGame.createBoardLevelThree();
+		//currentGame.createBoardLevelFour();
+		
 		currentGame.getBoard()[Constants.INITIAL_LOCATION][Constants.INITIAL_LOCATION].setIsVisited(true);
 		Square[][] currentBoard = currentGame.getBoard();
 		initGamesArray(gamesArrayForForgettingSquareGames, currentGame);
 		drawBoard(currentBoard);
 		initializeTimer();
-		//initializeKingSpeed();
-
+		levelLabel.setText("Level " + currentGame.getGameLevel());
+		
 	}
 	
 	/*
@@ -268,7 +271,10 @@ public class GameScreen implements Initializable {
 								else // if the player moves back three turns we want to let him play again, because he can fall right to the queen line of fire
 								{
 									//pass to automatic queen turn 
-									singleQueenTurn();
+									if(currentGame.getQueen() != null) 
+										singleQueenTurn();
+										
+										
 								}
 								drawBoard(currentGame.getBoard());							
 
@@ -403,7 +409,7 @@ public class GameScreen implements Initializable {
 			}
 		}
 		
-		//if the queen caught the knight
+		//if the king caught the knight
 		if(currentGame.getKing().getRow() == currentGame.getKnight().getRow()
 				&& currentGame.getKing().getCol() == currentGame.getKnight().getCol()) {
 			time.stop();
@@ -651,7 +657,7 @@ public class GameScreen implements Initializable {
 	}
 	
 	
-	
+	//start the next level or end the game, based on the score at the end of the level
 	void oneMinutePassedAndLevelEnded() {
 		//score is higher than 15 points
 		if(currentGame.getScore() > Constants.MIN_SCORE_TO_WIN_LEVEL) {
@@ -670,10 +676,29 @@ public class GameScreen implements Initializable {
 		
 	}
 	
-	
+	//initialize next level's board
 	void switchToNextLevel() {
-		//initialize board of next level
-		
+		int previousLevel = currentGame.getGameLevel();
+		//create board of the next level
+		switch (previousLevel) {
+		case Constants.LEVEL_ONE:
+			currentGame.createBoardLevelTwo();
+			break;
+		case Constants.LEVEL_TWO:
+			currentGame.createBoardLevelThree();
+			initializeKingSpeed();
+			break;
+		case Constants.LEVEL_THREE:
+			currentGame.createBoardLevelFour();
+			initializeKingSpeed();
+			break;
+		}
+		//display the new board
+		drawBoard(currentGame.getBoard());
+		levelLabel.setText("Level " + currentGame.getGameLevel());
+		//reset the 60 seconds game timer
+		seconds = Constants.ROUND_TIME;
+		initializeTimer();
 	}
 	
 	//game over once the queen/king catches the knight, or a level ended with less than 15 points
@@ -690,6 +715,9 @@ public class GameScreen implements Initializable {
 			SysData.gameOverAlert("Winner!", "You got over 200 points and won a trophy", AlertType.INFORMATION);
 		else
 			SysData.gameOverAlert("Winner!", "Congrats, you won the game", AlertType.INFORMATION);
+	
+		//TODO exit game screen
+	
 	}
 	
 	

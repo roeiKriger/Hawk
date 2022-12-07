@@ -33,5 +33,12 @@ public class Constants {
 	//number of knight possible squares
 	public static final int SQUARES_DEFAULT = 8;
 	public static final int SQUARES_LEVEL_TWO = 16;
+	
+	//levels
+	public static final int LEVEL_ONE = 1;
+	public static final int LEVEL_TWO = 2;
+	public static final int LEVEL_THREE = 3;
+	public static final int LEVEL_FOUR = 4;
+	
 
 }
