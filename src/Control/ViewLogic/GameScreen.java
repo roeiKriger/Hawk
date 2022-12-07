@@ -199,6 +199,12 @@ public class GameScreen implements Initializable {
 							StackPane tilePossibleView = boardView[rowPossible][colPossible];
 							tilePossibleView.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
 							tilePossibleView.setStyle("-fx-cursor: hand");
+							//squares that were visited by the knight, will be marked in a different color
+							if (currentGame.getBoard()[rowPossible][colPossible].getIsVisited().equals(true)) {
+								 tilePossibleView = boardView[i][j];
+								tilePossibleView.setBackground(new Background(new BackgroundFill(Color.TEAL, CornerRadii.EMPTY, Insets.EMPTY)));
+								tilePossibleView.setStyle("-fx-cursor: hand");
+							}	
 							
 							// add listener to press on possible move
 							tilePossibleView.setOnMouseClicked(eventAfter -> {
@@ -270,22 +276,9 @@ public class GameScreen implements Initializable {
 						}						
 					}
 				}
-				
-				//squares that were visited by the knight, will be marked in a different color
-				for(int i=0;i<8;i++) {
-					for(int j=0;j<8;j++) {
-						if (currentGame.getBoard()[i][j].getIsVisited().equals(true)) {
-							StackPane tilePossibleView = boardView[i][j];
-							tilePossibleView.setBackground(new Background(new BackgroundFill(Color.ORCHID, CornerRadii.EMPTY, Insets.EMPTY)));
-							tilePossibleView.setStyle("-fx-cursor: hand");
-							
-							
-						}
-					}
-				}
 			});
 		}
-
+		
 		tile.getChildren().clear();
 		tile.getChildren().add(actorImg);
 		StackPane.setAlignment(actorImg, Pos.CENTER);
