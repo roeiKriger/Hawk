@@ -22,6 +22,7 @@ import org.json.simple.parser.ParseException;
 import Exceptions.QuestionEmptyException;
 import Model.Game;
 import Model.Question;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -393,6 +394,20 @@ public class SysData implements Initializable
 		alert.showAndWait();
 		return;
     }
+    
+    /*
+     * Show game over alert generically by title and message
+     */
+    public static void gameOverAlert(String title, String message, AlertType alertType) { 
+  		Alert alert = new Alert(alertType);
+	    alert.setTitle(title);
+	    alert.setHeaderText(message);
+	    alert.show();
+	    return;
+      }
+      
+    
+    
 
 	/*
 	 * This method add the end game to Scores.json

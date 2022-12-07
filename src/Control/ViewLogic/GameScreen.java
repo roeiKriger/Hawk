@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 
 import Control.SysData;
 import Model.Constants;
@@ -32,6 +32,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -85,13 +86,12 @@ public class GameScreen implements Initializable {
 		sd.setGame(new Game(nickname, new Date()));
 		currentGame = sd.getGame();
 		currentGame.createBoardLevelOne();
-		currentGame.getBoard()[Constants.INITIAL_LOCATION][Constants.INITIAL_LOCATION].setIsVisited(true);
 		//currentGame.createBoardLevelThree();
+		currentGame.getBoard()[Constants.INITIAL_LOCATION][Constants.INITIAL_LOCATION].setIsVisited(true);
 		Square[][] currentBoard = currentGame.getBoard();
 		initGamesArray(gamesArrayForForgettingSquareGames, currentGame);
 		drawBoard(currentBoard);
 		initializeTimer();
-	
 		//initializeKingSpeed();
 
 	}
@@ -342,10 +342,18 @@ public class GameScreen implements Initializable {
 					currentGame.getQueen().setRow(bestRowToCatchKnight);
 					currentGame.getQueen().setCol(bestColToCatchKnight);								
 					drawBoard(currentGame.getBoard());
-					
+										
 				}						
 			}
-		}						
+		}
+		
+		//if the queen caught the knight
+		if(currentGame.getQueen().getRow() == currentGame.getKnight().getRow()
+				&& currentGame.getQueen().getCol() == currentGame.getKnight().getCol()) {
+			time.stop();
+			gameOver("The Knight was caught by the queen");
+						
+		}
 	}
 	
 	/*
@@ -393,7 +401,14 @@ public class GameScreen implements Initializable {
 					drawBoard(currentGame.getBoard());
 				}						
 			}
-		}	
+		}
+		
+		//if the queen caught the knight
+		if(currentGame.getKing().getRow() == currentGame.getKnight().getRow()
+				&& currentGame.getKing().getCol() == currentGame.getKnight().getCol()) {
+			time.stop();
+			gameOver("The Knight was caught by the king");
+		}
 	}
 
 	
@@ -408,12 +423,13 @@ public class GameScreen implements Initializable {
 		    	    count++;
 		    	    
 		    	    //stop timer after the number of desired moves was reached
-		    	     if (count >= moves) {
+		    	    //if the king caught the knight stop automatic movement
+		    	     if (count >= moves || (currentGame.getKing().getRow() == currentGame.getKnight().getRow()
+		    					&& currentGame.getKing().getCol() == currentGame.getKnight().getCol())) {
 		    	    	 kingSpeedTimer.cancel();
 		    	    	 kingSpeedTimer.purge();
 		    	         return;
 		    	     }
-			    	
 		    	    //play a turn only if the game is not paused
 			    	if(playPauseMode == "pause")
 			    		singleKingTurn();	
@@ -495,7 +511,8 @@ public class GameScreen implements Initializable {
 				countDownLabel.setText("00:" + secondsStr);
 				if (seconds <= 0) {
 					time.stop();
-					//kingSpeedTimer.cancel();
+					oneMinutePassedAndLevelEnded();
+					
 				}
 			}
 		});
@@ -632,6 +649,50 @@ public class GameScreen implements Initializable {
 				((Node)event.getSource()).getScene().getWindow() );
 		stage.show();
 	}
+	
+	
+	
+	void oneMinutePassedAndLevelEnded() {
+		//score is higher than 15 points
+		if(currentGame.getScore() > Constants.MIN_SCORE_TO_WIN_LEVEL) {
+			
+			//player won level 4
+			if(currentGame.getGameLevel() == 4) 
+				gameWon();
+			//player won level 1/2/3, so the next level will open on screen
+			else 
+				switchToNextLevel();
+		}
+		//score is 15 points or less
+		else {
+			gameOver("You need more than 15 points, to move to the next level");
+		}
+		
+	}
+	
+	
+	void switchToNextLevel() {
+		//initialize board of next level
+		
+	}
+	
+	//game over once the queen/king catches the knight, or a level ended with less than 15 points
+	void gameOver(String reason){
+		SysData.gameOverAlert("Game Over ):", reason, AlertType.WARNING);
+		
+		//TODO exit game screen
+		
+	}
+	
+	//once a player ends level 4 with over 15 points
+	void gameWon() {
+		if(currentGame.getScore() >= Constants.TROPHY)
+			SysData.gameOverAlert("Winner!", "You got over 200 points and won a trophy", AlertType.INFORMATION);
+		else
+			SysData.gameOverAlert("Winner!", "Congrats, you won the game", AlertType.INFORMATION);
+	}
+	
+	
 
 	/*
 	 * exit the game
@@ -644,6 +705,14 @@ public class GameScreen implements Initializable {
 		primaryStage.setTitle("Knight's Move");
 		primaryStage.show();
 	}
+	
+	void startANewGame(ActionEvent event) throws IOException {
+		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/InsertNickname.fxml"));
+		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
+		primaryStage.getScene().setRoot(newRoot);
+		primaryStage.setTitle("Insert Nickname");
+		primaryStage.show();
+    }
 
 
 	/*
