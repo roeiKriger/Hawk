@@ -55,6 +55,9 @@ public class Game {
 
 	private int kingRowStarts = 0;
 	private int kingColStarts = 7;
+	
+	//for factory pattern
+	PieceFactory p = new PieceFactory();
 
 	// Constructor
 	public Game(String nickname, Date date) {
@@ -164,7 +167,8 @@ public class Game {
 		return knight;
 	}
 
-	public void setKnight(Knight knight) {
+	public void setKnight(Knight knight) 
+	{
 		this.knight = knight;
 	}
 
@@ -186,8 +190,15 @@ public class Game {
 
 	public void createBoardLevelOne()
 	{
-		this.knight = new Knight(knightRowStarts, knightColStarts);
-		this.queen = new Queen(queenRowStarts, queenColStarts);
+		/*
+		 * adding for DP Factory
+		 */
+		this.knight = (Knight) p.getPiece("KNIGHT", knightRowStarts, knightColStarts);
+		this.queen =(Queen) p.getPiece("QUEEN",queenRowStarts, queenColStarts);
+		
+		/*this.knight = new Knight(knightRowStarts, knightColStarts);
+		this.queen = new Queen(queenRowStarts, queenColStarts);*/
+		
 		this.board = createEmptyBoard(this.board);
 		int numOfSquares = 0;
 
@@ -203,8 +214,13 @@ public class Game {
 
 	public void createBoardLevelTwo()
 	{
-		this.knight = new Knight(knightRowStarts, knightColStarts);
-		this.queen = new Queen(queenRowStarts, queenColStarts);
+		/*
+		 * adding for DP Factory
+		 */
+		this.knight = (Knight) p.getPiece("KNIGHT", knightRowStarts, knightColStarts);
+		this.queen =(Queen) p.getPiece("QUEEN",queenRowStarts, queenColStarts);
+		/*this.knight = new Knight(knightRowStarts, knightColStarts);
+		this.queen = new Queen(queenRowStarts, queenColStarts);*/
 		this.board = createEmptyBoard(this.board);
 		int numOfSquares = 0;
 
@@ -220,8 +236,13 @@ public class Game {
 
 	public void createBoardLevelThree()
 	{
-		this.knight = new Knight(knightRowStarts, knightColStarts);
-		this.king = new King(kingRowStarts, kingColStarts);
+		/*
+		 * adding for DP Factory
+		 */
+		this.knight = (Knight) p.getPiece("KNIGHT", knightRowStarts, knightColStarts);
+		this.king =(King) p.getPiece("KING",kingRowStarts, kingColStarts);
+		/*this.knight = new Knight(knightRowStarts, knightColStarts);
+		this.king = new King(kingRowStarts, kingColStarts);*/
 		this.board = createEmptyBoard(this.board);
 		int numOfSquares = 0;
 
@@ -240,8 +261,13 @@ public class Game {
 
 	public void createBoardLevelFour()
 	{
-		this.knight = new Knight(knightRowStarts, knightColStarts);
-		this.king = new King(kingRowStarts, kingColStarts);
+		/*
+		 * adding for DP Factory
+		 */
+		this.knight = (Knight) p.getPiece("KNIGHT", knightRowStarts, knightColStarts);
+		this.king =(King) p.getPiece("KING",kingRowStarts, kingColStarts);
+		/*this.knight = new Knight(knightRowStarts, knightColStarts);
+		this.king = new King(kingRowStarts, kingColStarts);*/
 		this.board = createEmptyBoard(this.board);
 		int numOfSquares = 0;
 
