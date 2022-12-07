@@ -14,20 +14,19 @@ public class Knight extends Piece{
 		int currentRow = getRow();
 		int possibleNewRow[];
 		
+		//possible row moves according to chess regular rules
+		if(level==1) {
+			possibleNewRow = new int[] {currentRow-1,currentRow+1,currentRow-2,currentRow+2,currentRow-2,
+					currentRow+2,currentRow-1,currentRow+1};	
+		}
 		//possible row moves according to level 2 rules
 		//two squares straight then one diagonal or two squares diagonal then one straight
-		if(level==2) {
-			possibleNewRow = new int[] {currentRow-2,currentRow-1,currentRow+1,currentRow+2,currentRow-3,currentRow+3,
-				currentRow-3,currentRow+3,currentRow-3,currentRow+3,currentRow-3,currentRow+3,
-				currentRow-2,currentRow-1,currentRow+1,currentRow+2};
-			
-		}
-		//possible row moves according to chess regular rules
 		else {
-			possibleNewRow = new int[] {currentRow-1,currentRow+1,currentRow-2,currentRow+2,currentRow-2,
-					currentRow+2,currentRow-1,currentRow+1};
-		}
-		
+			possibleNewRow = new int[] {currentRow-2,currentRow-1,currentRow+1,currentRow+2,currentRow-3,currentRow+3,
+					currentRow-3,currentRow+3,currentRow-3,currentRow+3,currentRow-3,currentRow+3,
+					currentRow-2,currentRow-1,currentRow+1,currentRow+2};
+		}		
+			
 		return possibleNewRow;
 
 	}
@@ -38,18 +37,17 @@ public class Knight extends Piece{
 		int currentCol = getCol();
 		int possibleNewCol[];
 		
-		//possible column moves according to level 2 rules
-		//two squares straight then one diagonal or two squares diagonal then one straight
-		if(level==2) {
-			possibleNewCol = new int[] {currentCol-3,currentCol-3,currentCol-3,currentCol-3,currentCol-2,currentCol-2,
-				currentCol-1,currentCol-1,currentCol+1,currentCol+1,currentCol+2,currentCol+2,
-				currentCol+3,currentCol+3,currentCol+3,currentCol+3};
-			
-		}
-		//possible column moves according to chess regular rules
-		else {
+		//possible column moves according to chess regular rules 
+		if(level==1) {
 			possibleNewCol = new int[] {currentCol-2,currentCol-2,currentCol-1,currentCol-1,currentCol+1,
 					currentCol+1,currentCol+2,currentCol+2};
+		}
+		//possible column moves according to level 2/3/4 rules
+		//two squares straight then one diagonal or two squares diagonal then one straight
+		else {
+			possibleNewCol = new int[] {currentCol-3,currentCol-3,currentCol-3,currentCol-3,currentCol-2,currentCol-2,
+					currentCol-1,currentCol-1,currentCol+1,currentCol+1,currentCol+2,currentCol+2,
+					currentCol+3,currentCol+3,currentCol+3,currentCol+3};
 		}
 		
 		return possibleNewCol;
