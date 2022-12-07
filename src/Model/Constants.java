@@ -9,6 +9,7 @@ public class Constants {
 	
 	public static final int LONGEST_DISTANCE_BETWEEN_TWO_PIECES = 10;
 	public static final int INITIAL_LOCATION = 0;
+	public static final int POINT = 1;
 	
 	
     //score adding after answer a question

@@ -95,7 +95,7 @@ public class GameScreen implements Initializable {
 		//initializeKingSpeed();
 
 	}
-
+	
 	/*
 	 *  draw board in fxml, in given board 
 	 */
@@ -206,9 +206,22 @@ public class GameScreen implements Initializable {
 
 								int newCol = (int) (eventAfter.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
 								int newRow = (int) (eventAfter.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
-								//set each squre the knight steps on as visited
-								currentGame.getBoard()[newRow][newCol].setIsVisited(true);
-
+								
+								
+								//update score based on visited/unvisited square	
+								if (currentGame.getBoard()[newRow][newCol].getIsVisited().equals(false)) {
+									//set each tile the knight steps on as visited
+									currentGame.getBoard()[newRow][newCol].setIsVisited(true);
+									//if player chose an unvisited tile -> add one point to the score
+									currentGame.setScore(currentGame.getScore()+Constants.POINT);
+								}
+								//if player chose a tile that was already visited -> subtract one point from the score
+								else 
+									currentGame.setScore(currentGame.getScore()-Constants.POINT);
+								//update score on screen
+								pointsLabel.setText("Points: " + currentGame.getScore());
+									
+								
 								// case of question tile
 								if (currentGame.getBoard()[newRow][newCol].getSquareType().equals("question")) {
 									try {
@@ -500,7 +513,7 @@ public class GameScreen implements Initializable {
 	// if at the beginning of the game (after one or two steps) you stepped on forgetting Square you will get back to the start of the game, because there were no more possible moves to get back to
 	public void initGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
 	{
-		System.out.println("init array");
+		//System.out.println("init array");
 		Game g1 = createGameClone(currentGame);
 		Game g2 = createGameClone(currentGame);
 		Game g3 = createGameClone(currentGame);
@@ -511,21 +524,21 @@ public class GameScreen implements Initializable {
 
 	public void updateGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
 	{
-		System.out.println("update array");
+		//System.out.println("update array");
 
 		Game newTempGame = createGameClone(currentGame);
 		int index = gamesArrayForForgettingSquareGames.size()-2;
-		System.out.println("current: " +currentGame);
-		System.out.println("the last cell? "+ gamesArrayForForgettingSquareGames.get(index));
+		//System.out.println("current: " +currentGame);
+		//System.out.println("the last cell? "+ gamesArrayForForgettingSquareGames.get(index));
 		//check for duplicates and ignore
 		if(newTempGame.getKnight().getRow()!= (gamesArrayForForgettingSquareGames.get(index).getKnight().getRow()) && newTempGame.getKnight().getCol()!= (gamesArrayForForgettingSquareGames.get(index).getKnight().getCol()))
 		{
-			System.out.println(gamesArrayForForgettingSquareGames.size());
+			//System.out.println(gamesArrayForForgettingSquareGames.size());
 			gamesArrayForForgettingSquareGames.add(gamesArrayForForgettingSquareGames.size(), newTempGame);
 		}
 		for(int i=0; i< gamesArrayForForgettingSquareGames.size(); i++)
 		{
-			System.err.println("arr in index " + i +" is: " + gamesArrayForForgettingSquareGames.get(i));
+			//System.err.println("arr in index " + i +" is: " + gamesArrayForForgettingSquareGames.get(i));
 		}
 	}
 
