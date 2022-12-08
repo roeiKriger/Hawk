@@ -32,7 +32,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -85,6 +84,7 @@ public class GameScreen implements Initializable {
 		nicknameLabel.setText("Hello " + nickname);
 		sd.setGame(new Game(nickname, new Date()));
 		currentGame = sd.getGame();
+		
 		currentGame.createBoardLevelOne();
 		//currentGame.createBoardLevelTwo();
 		//currentGame.createBoardLevelThree();
@@ -92,7 +92,7 @@ public class GameScreen implements Initializable {
 		
 		currentGame.getBoard()[Constants.INITIAL_LOCATION][Constants.INITIAL_LOCATION].setIsVisited(true);
 		Square[][] currentBoard = currentGame.getBoard();
-		initGamesArray(gamesArrayForForgettingSquareGames, currentGame);
+		initGamesArray();
 		drawBoard(currentBoard);
 		initializeTimer();
 		levelLabel.setText("Level " + currentGame.getGameLevel());
@@ -188,7 +188,6 @@ public class GameScreen implements Initializable {
 			Square[][] possibleMoves = currentGame.getKnight().move(currentGame.getGameLevel());
 
 			actorImg.setOnMouseClicked(eventBefore -> {
-				//System.out.println("new turn");
 				for (int i=0; i<8; i++) {
 					for (int j=0; j<8; j++) {
 						if (possibleMoves[i][j]!= null && possibleMoves[i][j].getCanVisit().equals(true)
@@ -196,7 +195,6 @@ public class GameScreen implements Initializable {
 							// case that this is possible tile
 							int rowPossible = i;
 							int colPossible = j;
-							//System.out.println(i + " " + j);
 
 							// change color of tilePossible
 							StackPane tilePossibleView = boardView[rowPossible][colPossible];
@@ -256,25 +254,25 @@ public class GameScreen implements Initializable {
 									SysData.alert("Random Square", "You stood on a random square, the position of the knight will change randomly", AlertType.INFORMATION);
 								}
 
-								// update the games array for the forgetting square option
-								updateGamesArray(gamesArrayForForgettingSquareGames, currentGame);
+								// add current game to the forgetting square game history
+								updateGamesArray();
 
-								if(currentGame.checkIfSteppedOnforgettingSquare())
-								{
-									goBackThreeSteps(gamesArrayForForgettingSquareGames);
-									System.out.println(gamesArrayForForgettingSquareGames);
-									currentGame = gamesArrayForForgettingSquareGames.get(gamesArrayForForgettingSquareGames.size()-1);
-									System.out.println(currentGame);
-									drawBoard(currentGame.getBoard());	
-									SysData.alert("Forgetting Square", "You stood on a forget square, you go back 3 steps in the game", AlertType.INFORMATION);
+								//if knight got to a forgetting square
+								if(currentGame.checkIfSteppedOnforgettingSquare()) {
+									if(gamesArrayForForgettingSquareGames.size() > Constants.MAX_GAMES_FOR_FORGETTING_SQUARE) {
+										//delete 3 last games from the game history
+										goBackThreeSteps();
+										//change current game back to the game from 3 steps ago
+										currentGame = createGameClone(gamesArrayForForgettingSquareGames.get(gamesArrayForForgettingSquareGames.size()-1));
+										drawBoard(currentGame.getBoard());	
+										SysData.alert("Forgetting Square", "You stood on a forget square, going back 3 steps in the game", AlertType.INFORMATION);	
+									}
 								}
 								else // if the player moves back three turns we want to let him play again, because he can fall right to the queen line of fire
 								{
 									//pass to automatic queen turn 
 									if(currentGame.getQueen() != null) 
 										singleQueenTurn();
-										
-										
 								}
 								drawBoard(currentGame.getBoard());							
 
@@ -527,9 +525,7 @@ public class GameScreen implements Initializable {
 	}
 
 	// if at the beginning of the game (after one or two steps) you stepped on forgetting Square you will get back to the start of the game, because there were no more possible moves to get back to
-	public void initGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
-	{
-		//System.out.println("init array");
+	public void initGamesArray() {
 		Game g1 = createGameClone(currentGame);
 		Game g2 = createGameClone(currentGame);
 		Game g3 = createGameClone(currentGame);
@@ -538,29 +534,14 @@ public class GameScreen implements Initializable {
 		gamesArrayForForgettingSquareGames.add(g3);
 	}
 
-	public void updateGamesArray(ArrayList<Game> gamesArrayForForgettingSquareGames, Game currentGame) 
-	{
-		//System.out.println("update array");
-
+	//add current game to array of games for the forgetting square
+	public void updateGamesArray() {
 		Game newTempGame = createGameClone(currentGame);
-		int index = gamesArrayForForgettingSquareGames.size()-2;
-		//System.out.println("current: " +currentGame);
-		//System.out.println("the last cell? "+ gamesArrayForForgettingSquareGames.get(index));
-		//check for duplicates and ignore
-		if(newTempGame.getKnight().getRow()!= (gamesArrayForForgettingSquareGames.get(index).getKnight().getRow()) && newTempGame.getKnight().getCol()!= (gamesArrayForForgettingSquareGames.get(index).getKnight().getCol()))
-		{
-			//System.out.println(gamesArrayForForgettingSquareGames.size());
-			gamesArrayForForgettingSquareGames.add(gamesArrayForForgettingSquareGames.size(), newTempGame);
-		}
-		for(int i=0; i< gamesArrayForForgettingSquareGames.size(); i++)
-		{
-			//System.err.println("arr in index " + i +" is: " + gamesArrayForForgettingSquareGames.get(i));
-		}
+		gamesArrayForForgettingSquareGames.add(gamesArrayForForgettingSquareGames.size(), newTempGame);
 	}
-
-	public void goBackThreeSteps(ArrayList<Game> gamesArrayForForgettingSquareGames) 
-	{
-		System.out.println("go back three steps");
+	
+	
+	public void goBackThreeSteps() {
 		int index = gamesArrayForForgettingSquareGames.size();
 		int counter = 0;
 		if(index > 3) //if we have enough steps to remove
@@ -580,13 +561,12 @@ public class GameScreen implements Initializable {
 			gamesArrayForForgettingSquareGames.add(1,gamesArrayForForgettingSquareGames.get(0));
 			gamesArrayForForgettingSquareGames.add(2, gamesArrayForForgettingSquareGames.get(0));
 		}
-
+		
 	}
-
+	
 	// in order to save the Game objects we need to create a brand new object from scratch, or else the arraylist of games will be duplicates of the same current games, which are all a refernce to the same object
-	public Game createGameClone(Game currentGame)
-	{
-		Game newTempGame = new Game("Roei");
+	public Game createGameClone(Game currentGame) {
+		Game newTempGame = new Game("clone");
 		Square[][] board1 = currentGame.getBoard();
 		int score = currentGame.getScore(); 
 		Timeline timer = currentGame.getTimer(); 

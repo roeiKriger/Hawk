@@ -6,6 +6,16 @@ public class Knight extends Piece{
 	{
 		super(row, col);	
 	}
+	
+	
+
+
+	@Override
+	public String toString() {
+		return "row: " + getRow() + ", col: " + getCol();
+	}
+
+
 
 
 	//possible row moves according to knight rules

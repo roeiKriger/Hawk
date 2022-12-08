@@ -12,6 +12,7 @@ public class Constants {
 	public static final int POINT = 1;
 	public static final int MIN_SCORE_TO_WIN_LEVEL = 15;
 	public static final int TROPHY = 200;
+	public static final int MAX_GAMES_FOR_FORGETTING_SQUARE = 3;
 	
 	
     //score adding after answer a question
