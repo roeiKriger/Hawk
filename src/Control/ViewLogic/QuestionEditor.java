@@ -2,14 +2,12 @@ package Control.ViewLogic;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import org.json.simple.parser.ParseException;
 
 import Control.SysData;
 import Exceptions.JsonException;
-import Model.Game;
 import Model.Question;
 import Utils.Difficulty;
 import javafx.collections.FXCollections;
@@ -98,6 +96,39 @@ public class QuestionEditor implements Initializable {
 		if(difficultyComboBox.getValue().equals(Difficulty.Hard)) // choosing hard in the filter
 			questionsTable.setItems(FXCollections.observableArrayList(sd.getQuestionsLevel3()));	
     }
+	
+    @FXML
+    void onAddQuestion(ActionEvent event) throws IOException {
+    	// change addEditFlag in sysdata
+    	sd.setAddEditFlag("add");
+    	
+    	moveToAddEditScreen();
+
+    }
+
+    @FXML
+    void onEditQuestion(ActionEvent event) throws IOException {
+    	// change addEditFlag in sysdata
+    	sd.setAddEditFlag("edit");
+    	
+    	// save question in sysdata
+    	sd.setEditedQuestion(sd.get_questions().get(0)); // TODO - change this to selected question
+    	moveToAddEditScreen();
+    }
+    
+    @FXML
+    void onDeleteQuestion(ActionEvent event) {
+
+    }
+    
+    void moveToAddEditScreen() throws IOException {
+		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/QuestionAddEdit.fxml"));
+		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
+		primaryStage.getScene().setRoot(newRoot);
+		primaryStage.setTitle(sd.getAddEditFlag() == "add" ? "Add Question" : "Edit Question");
+		primaryStage.show();
+    }
+
 
 	@FXML
 	void returnToHomePage(ActionEvent event) throws IOException {

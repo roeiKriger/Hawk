@@ -15,33 +15,33 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <ComboBox fx:id="correctAnsComboBox" layoutX="217.0" layoutY="467.0" prefHeight="25.0" prefWidth="168.0" promptText="Choose correct answer" />
-      <Label layoutX="59.0" layoutY="466.0" text="Correct answer:" textAlignment="CENTER">
+      <ComboBox fx:id="correctAnsComboBox" layoutX="204.0" layoutY="482.0" prefHeight="25.0" prefWidth="168.0" promptText="Choose correct answer" />
+      <Label layoutX="204.0" layoutY="444.0" text="Correct answer:" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="59.0" layoutY="135.0" text="Question content:">
+      <Label layoutX="55.0" layoutY="123.0" text="Question content:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="59.0" layoutY="213.0" text="Answer 1:">
+      <Label layoutX="55.0" layoutY="201.0" text="Answer 1:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="59.0" layoutY="391.0" text="Answer 4:">
+      <Label layoutX="55.0" layoutY="379.0" text="Answer 4:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="59.0" layoutY="331.0" text="Answer 3:">
+      <Label layoutX="55.0" layoutY="319.0" text="Answer 3:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="59.0" layoutY="273.0" text="Answer 2:">
+      <Label layoutX="55.0" layoutY="261.0" text="Answer 2:">
          <font>
             <Font size="18.0" />
          </font>
@@ -51,30 +51,36 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="question" layoutX="208.0" layoutY="126.0" prefHeight="45.0" prefWidth="573.0" promptText="Enter a question" style="-fx-border-color: black;">
+      <TextField fx:id="question" layoutX="204.0" layoutY="114.0" prefHeight="45.0" prefWidth="573.0" promptText="Enter a question" style="-fx-border-color: black;">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="answer1" layoutX="208.0" layoutY="204.0" prefHeight="45.0" prefWidth="573.0" promptText="Enter first answer">
+      <TextField fx:id="answer1" layoutX="204.0" layoutY="192.0" prefHeight="45.0" prefWidth="573.0" promptText="Enter first answer">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="answer2" layoutX="208.0" layoutY="264.0" prefHeight="45.0" prefWidth="573.0" promptText="Enter second answer">
+      <TextField fx:id="answer2" layoutX="204.0" layoutY="252.0" prefHeight="45.0" prefWidth="573.0" promptText="Enter second answer">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="answer3" layoutX="208.0" layoutY="322.0" prefHeight="45.0" prefWidth="573.0" promptText="Enter third answer">
+      <TextField fx:id="answer3" layoutX="204.0" layoutY="310.0" prefHeight="45.0" prefWidth="573.0" promptText="Enter third answer">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="answer4" layoutX="208.0" layoutY="382.0" prefHeight="45.0" prefWidth="573.0" promptText="Enter fourth answer">
+      <TextField fx:id="answer4" layoutX="204.0" layoutY="370.0" prefHeight="45.0" prefWidth="573.0" promptText="Enter fourth answer">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
+      <ComboBox fx:id="difficultyComboBox" layoutX="435.0" layoutY="482.0" prefHeight="25.0" prefWidth="168.0" promptText="Choose correct answer" />
+      <Label layoutX="435.0" layoutY="444.0" text="Dificulty question:" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

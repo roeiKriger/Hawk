@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Control.ViewLogic.QuestionEditor">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.QuestionEditor">
    <children>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToHomePage" style="-fx-background-radius: 20;" text="Log Out" />
       <Label layoutX="323.0" layoutY="88.0" text="Questions" textAlignment="CENTER" underline="true">
@@ -24,17 +24,17 @@
             <TableColumn fx:id="correct" prefWidth="85.55560302734375" text="Correct&#10;Answer" />
         </columns>
       </TableView>
-      <Button layoutX="188.0" layoutY="525.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Add">
+      <Button layoutX="188.0" layoutY="525.0" mnemonicParsing="false" onAction="#onAddQuestion" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Add">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="346.0" layoutY="525.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Edit">
+      <Button layoutX="346.0" layoutY="525.0" mnemonicParsing="false" onAction="#onEditQuestion" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Edit">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="504.0" layoutY="525.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Delete">
+      <Button layoutX="504.0" layoutY="525.0" mnemonicParsing="false" onAction="#onDeleteQuestion" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Delete">
          <font>
             <Font size="18.0" />
          </font>

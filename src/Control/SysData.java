@@ -1,13 +1,10 @@
 package Control;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,8 +19,6 @@ import org.json.simple.parser.ParseException;
 import Exceptions.QuestionEmptyException;
 import Model.Game;
 import Model.Question;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -42,6 +37,10 @@ public class SysData implements Initializable
 	
 	private String nickname;
 	private Question currentQuestion;
+	
+	// questions management
+	private String addEditFlag;
+	private Question editedQuestion;
 	
 	// static method to create instance of Singleton class
 	public static SysData getInstance()
@@ -71,6 +70,22 @@ public class SysData implements Initializable
 
 	public void setCurrentQuestion(Question currentQuestion) {
 		this.currentQuestion = currentQuestion;
+	}	
+
+	public String getAddEditFlag() {
+		return addEditFlag;
+	}
+
+	public void setAddEditFlag(String addEditFlag) {
+		this.addEditFlag = addEditFlag;
+	}
+
+	public Question getEditedQuestion() {
+		return editedQuestion;
+	}
+
+	public void setEditedQuestion(Question editedQuestion) {
+		this.editedQuestion = editedQuestion;
 	}
 	
 
