@@ -50,7 +50,7 @@ public class SignInAsAdmin {
 				Parent newRoot = FXMLLoader.load(getClass().getResource("/View/QuestionEditor.fxml"));
 				Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 				primaryStage.getScene().setRoot(newRoot);
-				primaryStage.setTitle("Rules");
+				primaryStage.setTitle("Questions Management");
 				primaryStage.show();
 				
 			}
@@ -73,7 +73,4 @@ public class SignInAsAdmin {
 		primaryStage.show(); 
  	}
 	
-   }
-	
-
-
+}
