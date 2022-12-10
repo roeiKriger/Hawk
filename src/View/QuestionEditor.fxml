@@ -29,12 +29,12 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="346.0" layoutY="525.0" mnemonicParsing="false" onAction="#onEditQuestion" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Edit">
+      <Button fx:id="editBtn" layoutX="346.0" layoutY="525.0" mnemonicParsing="false" onAction="#onEditQuestion" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Edit">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="504.0" layoutY="525.0" mnemonicParsing="false" onAction="#onDeleteQuestion" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Delete">
+      <Button fx:id="deleteBtn" layoutX="504.0" layoutY="525.0" mnemonicParsing="false" onAction="#onDeleteQuestion" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Delete">
          <font>
             <Font size="18.0" />
          </font>
