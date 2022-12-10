@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.json.simple.JSONArray;
@@ -22,6 +23,7 @@ import Model.Question;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 
 public class SysData implements Initializable
@@ -409,6 +411,22 @@ public class SysData implements Initializable
 		alert.showAndWait();
 		return;
     }
+    
+    /*
+     * alert with choice
+     * return true if user pressed 'OK', else ruten false
+     */
+    public static boolean choiceAlert(String title, String message, AlertType alertType) { 
+		Alert alert = new Alert(alertType);
+		alert.setTitle(title);
+		alert.setHeaderText(message);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (!(result.get() == ButtonType.OK) || !result.isPresent()) {
+			return false;
+		}
+		return true;
+    }
+    
     
     /*
      * Show game over alert generically by title and message

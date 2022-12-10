@@ -19,6 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -141,9 +142,20 @@ public class QuestionEditor implements Initializable {
     	moveToAddEditScreen();
     }
     
+    /*
+     * delete question if user approved
+     */
     @FXML
-    void onDeleteQuestion(ActionEvent event) {
-
+    void onDeleteQuestion(ActionEvent event) throws IOException {
+    	int idSelectedQuestion = sd.getEditedQuestion().getQuestionId();
+    	boolean isApproved = SysData.choiceAlert("Delete Question", "Are you sure you want to delete this question (id: " + idSelectedQuestion + ")?" , AlertType.CONFIRMATION);
+    	
+    	if (!isApproved) {
+    		return;
+    	}
+    	
+    	sd.get_questions().remove(sd.getEditedQuestion());
+    	refresh();
     }
     
     void moveToAddEditScreen() throws IOException {
@@ -151,6 +163,14 @@ public class QuestionEditor implements Initializable {
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);
 		primaryStage.setTitle(sd.getAddEditFlag() == "add" ? "Add Question" : "Edit Question");
+		primaryStage.show();
+    }
+    
+    private void refresh() throws IOException {
+		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/QuestionEditor.fxml"));
+		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
+		primaryStage.getScene().setRoot(newRoot);
+		primaryStage.setTitle("Questions Management");
 		primaryStage.show();
     }
 
