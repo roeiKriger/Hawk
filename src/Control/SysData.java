@@ -168,7 +168,7 @@ public class SysData implements Initializable
 	/*
 	 * create questions arrays by levels
 	 */
-	private void filterQuestionsByLevels() {
+	public void filterQuestionsByLevels() {
 		// init arrays of questions
 		this.questionsLevel1 = new ArrayList<>();
 		this.questionsLevel2 = new ArrayList<>();

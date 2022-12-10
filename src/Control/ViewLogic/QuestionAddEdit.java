@@ -2,6 +2,7 @@ package Control.ViewLogic;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import Control.SysData;
@@ -12,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -92,7 +94,7 @@ public class QuestionAddEdit implements Initializable {
     
     
     @FXML
-    void addOrEdit(MouseEvent event) {
+    void addOrEdit(MouseEvent event) throws IOException {
     	if (sd.getAddEditFlag() == "add") {
     		add();
     	} else {
@@ -102,13 +104,69 @@ public class QuestionAddEdit implements Initializable {
     	// TODO - update questions by level
     }
     
-    private void add() {
+    private void add() throws IOException {
+    	if (!validateRequiredFields()) {
+    		return;
+    	}
+    	
+    	String questionStr = question.getText();
+    	
+    	String ans1Str = answer1.getText();
+    	String ans2Str = answer2.getText();
+    	String ans3Str = answer3.getText();
+    	String ans4Str = answer4.getText();
+    	ArrayList<String> answers = new ArrayList<String>();
+    	answers.add(ans1Str);
+    	answers.add(ans2Str);
+    	answers.add(ans3Str);
+    	answers.add(ans4Str);
+    	
+    	int correctAns = correctAnsComboBox.getValue();
+    	
+    	Difficulty difficult = difficultyComboBox.getValue();
+    	int difficultNum;
+    	if (difficult.equals(Difficulty.Easy)) {
+    		difficultNum = 1;
+    	} else if (difficult.equals(Difficulty.Medium)) {
+    		difficultNum = 2;
+    	} else { // Hard
+    		difficultNum = 3;
+    	}
+    	
+    	Question newQuestion = new Question(difficultNum, questionStr, answers, correctAns);
+    	
+    	sd.get_questions().add(newQuestion);
+    	sd.filterQuestionsByLevels();
+    	
+    	System.out.println(sd.get_questions());
+    	returnToQuestionsManagement(null);
     	
     }
     
     private void edit() {
     	
     }
+    
+    private boolean validateRequiredFields() {
+    	if (question.getText().equals("")) {
+    		SysData.alert("Required Field", "Please enter a non-empty question", AlertType.WARNING);
+    		return false;
+    	}
+    	if (answer1.getText().equals("") || answer2.getText().equals("") || answer3.getText().equals("") || answer4.getText().equals("")) {
+    		SysData.alert("Required Field", "Please enter a non-empty answers", AlertType.WARNING);
+    		return false;
+    	}
+    	if (difficultyComboBox.getValue() == null) {
+    		SysData.alert("Required Field", "Please enter a difficulty level", AlertType.WARNING);
+    		return false;
+    	}
+    	if (correctAnsComboBox.getValue() == null) {
+    		SysData.alert("Required Field", "Please enter a correct answer", AlertType.WARNING);
+    		return false;
+    	}
+    	return true;
+    }
+    
 
     @FXML
     void returnToQuestionsManagement(ActionEvent event) throws IOException {
