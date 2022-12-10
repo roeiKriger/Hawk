@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import org.json.simple.parser.ParseException;
 
 import Control.SysData;
-import Exceptions.JsonException;
 import Model.Question;
 import Utils.Difficulty;
 import javafx.collections.FXCollections;
@@ -20,7 +19,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -65,22 +63,12 @@ public class QuestionEditor implements Initializable {
 			difficultyComboBox.getItems().addAll(Difficulty.values());
 		
 		// fill Question table
-		try {
-			if (!sd.load_questions()) // import not successful
-				throw new JsonException();
 			questions = FXCollections.observableArrayList(FXCollections.observableArrayList(sd.get_questions()));
 			numb.setCellValueFactory(new PropertyValueFactory<>("questionId"));
 			diff.setCellValueFactory(new PropertyValueFactory<>("questionDifficulty"));
 			cont.setCellValueFactory(new PropertyValueFactory<>("questionContent"));
 			correct.setCellValueFactory(new PropertyValueFactory<>("correctAnswerId"));
 			questionsTable.setItems(questions);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} catch (JsonException e) {
-			SysData.alert(e.getMessage(), e.getMessage(), AlertType.ERROR);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	/*

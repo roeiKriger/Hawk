@@ -1,18 +1,14 @@
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import org.json.simple.parser.ParseException;
 
 import Control.SysData;
-import Model.Game;
-import Model.Question;
+import Exceptions.JsonException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 
@@ -43,7 +39,16 @@ public class Main extends Application {
 //		SysData.getInstance().add_game_to_list(ga);
 //		SysData.getInstance().add_score();
 //		SysData.getInstance().import_scores();
-		SysData.getInstance().load_questions();
+//		SysData.getInstance().load_questions();
+		
+		SysData sd = SysData.getInstance();
+		try {
+		if (!sd.load_questions()) // import not successful
+			throw new JsonException();
+		} catch (JsonException e) {
+			SysData.alert(e.getMessage(), e.getMessage(), AlertType.ERROR);
+		}
+
 
 		launch(args);
 	}

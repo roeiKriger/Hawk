@@ -99,9 +99,7 @@ public class QuestionAddEdit implements Initializable {
     		add();
     	} else {
     		edit();
-    	}
-    	
-    	// TODO - update questions by level
+    	}   	
     }
     
     private void add() throws IOException {
@@ -136,11 +134,11 @@ public class QuestionAddEdit implements Initializable {
     	Question newQuestion = new Question(difficultNum, questionStr, answers, correctAns);
     	
     	sd.get_questions().add(newQuestion);
+    	
+    	// update questions by level
     	sd.filterQuestionsByLevels();
     	
-    	System.out.println(sd.get_questions());
     	returnToQuestionsManagement(null);
-    	
     }
     
     private void edit() {
