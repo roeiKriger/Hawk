@@ -4,27 +4,34 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Control.ViewLogic.SignInAsAdmin">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.SignInAsAdmin">
    <children>
+      <ImageView fitHeight="606.0" fitWidth="805.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assets/screens/blank.png" />
+         </image>
+      </ImageView>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToHomePage" style="-fx-background-radius: 20;" text="Back" />
       <TextField fx:id="usernameTextField" layoutX="330.0" layoutY="284.0" prefHeight="34.0" prefWidth="302.0" style="-fx-background-radius: 20;">
          <font>
             <Font size="20.0" />
          </font></TextField>
-      <Label layoutX="219.0" layoutY="289.0" text="Username:" textAlignment="CENTER">
+      <Label layoutX="219.0" layoutY="289.0" text="Username:" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="219.0" layoutY="345.0" text="Password:" textAlignment="CENTER">
+      <Label layoutX="219.0" layoutY="345.0" text="Password:" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="52.0" layoutY="134.0" text="Want to edit questions? Please sign in as admin first." textAlignment="CENTER">
+      <Label layoutX="52.0" layoutY="134.0" text="Want to edit questions? Please sign in as admin first." textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>
@@ -34,9 +41,9 @@
             <Font size="20.0" />
          </font>
       </PasswordField>
-      <Button layoutX="362.0" layoutY="410.0" mnemonicParsing="false" onAction="#onSignIn" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Sign in">
+      <Button layoutX="362.0" layoutY="410.0" mnemonicParsing="false" onAction="#onSignIn" prefHeight="36.0" prefWidth="87.0" style="-fx-background-radius: 30;" text="Sign In">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font></Button>
    </children>
 </AnchorPane>

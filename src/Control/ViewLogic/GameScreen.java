@@ -80,7 +80,7 @@ public class GameScreen implements Initializable {
 	{
 		//set current game
 		String nickname = sd.getNickname();
-		nicknameLabel.setText("Hello " + nickname);
+		nicknameLabel.setText("Hello\n" + nickname);
 		sd.setGame(new Game(nickname, new Date()));
 		currentGame = sd.getGame();
 		//initialize board
