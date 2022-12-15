@@ -287,12 +287,14 @@ public class GameScreen implements Initializable {
 				}
 			});
 		}
-		
-		tile.getChildren().clear();
+
+		if (pieceType.equals("knight")) {
+			tile.getChildren().clear();
+		}
 		tile.getChildren().add(actorImg);
 		StackPane.setAlignment(actorImg, Pos.CENTER);
 	}
-
+	
 	/*
 	 * Changing the position of a question square after the knight stands on it
 	 */
