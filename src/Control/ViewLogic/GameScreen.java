@@ -127,6 +127,11 @@ public class GameScreen implements Initializable {
 				tileView.setPrefSize(Constants.TILE_SIZE, Constants.TILE_SIZE);
 				tileView.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
 
+				//draw visited tile
+				if (currentBoard[row][col].getIsVisited() == true) {
+					drawGamePiece(tileView, "visited");
+				}
+
 				// draw game pieces
 				if (row == knightRow && col == knightCol) {
 					drawGamePiece(tileView, "knight");
@@ -147,7 +152,6 @@ public class GameScreen implements Initializable {
 				if (currentBoard[row][col].getSquareType() == "blocked") {
 					drawGamePiece(tileView, "blocked");
 				}
-
 				// set position in fxml
 				tileView.setLayoutX(Constants.TILE_SIZE * col);
 				tileView.setLayoutY(Constants.TILE_SIZE * row);
@@ -202,14 +206,8 @@ public class GameScreen implements Initializable {
 
 							// change color of tilePossible
 							StackPane tilePossibleView = boardView[rowPossible][colPossible];
-							tilePossibleView.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+							tilePossibleView.setBackground(new Background(new BackgroundFill(Color.TEAL, CornerRadii.EMPTY, Insets.EMPTY)));
 							tilePossibleView.setStyle("-fx-cursor: hand");
-							//squares that were visited by the knight, will be marked in a different color
-							if (currentGame.getBoard()[rowPossible][colPossible].getIsVisited().equals(true)) {
-								 tilePossibleView = boardView[i][j];
-								tilePossibleView.setBackground(new Background(new BackgroundFill(Color.TEAL, CornerRadii.EMPTY, Insets.EMPTY)));
-								tilePossibleView.setStyle("-fx-cursor: hand");
-							}	
 							
 							// add listener to press on possible move
 							tilePossibleView.setOnMouseClicked(eventAfter -> {
@@ -706,6 +704,8 @@ public class GameScreen implements Initializable {
 		seconds = Constants.ROUND_TIME;
 		initializeTimer();
 		initGamesArray();
+		//mark the tile 0,0 of knight as visited
+		currentGame.getBoard()[Constants.INITIAL_LOCATION][Constants.INITIAL_LOCATION].setIsVisited(true);
 	}
 	
 	//game over once the queen/king catches the knight, or a level ended with less than 15 points
