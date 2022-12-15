@@ -271,8 +271,13 @@ public class GameScreen implements Initializable {
 								else // if the player moves back three turns we want to let him play again, because he can fall right to the queen line of fire
 								{
 									//pass to automatic queen turn 
-									if(currentGame.getQueen() != null) 
-										singleQueenTurn();
+									if(currentGame.getQueen() != null)
+										try {
+											singleQueenTurn();
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
 								}
 								drawBoard(currentGame.getBoard());							
 
@@ -307,7 +312,7 @@ public class GameScreen implements Initializable {
 	/*
 	 * a single turn of a queen piece
 	 */
-	private void singleQueenTurn() {
+	private void singleQueenTurn() throws IOException {
 		//get possible next moves for the queen
 		Square[][] possibleMoves = currentGame.getQueen().move(currentGame.getGameLevel());
 
@@ -363,7 +368,7 @@ public class GameScreen implements Initializable {
 	/*
 	 * a single turn of a king piece
 	 */
-	private void singleKingTurn() {
+	private void singleKingTurn() throws IOException {
 		//get possible next moves for the king
 		Square[][] possibleMoves = currentGame.getKing().move(currentGame.getGameLevel());
 
@@ -419,7 +424,6 @@ public class GameScreen implements Initializable {
 	//play given number of king moves automatically
 	private static int count = 0;
 	private void automaticKingMovement(int moves) {
-		int i;
 		Timer kingSpeedTimer = new Timer();	
 		kingSpeedTimer.scheduleAtFixedRate( new TimerTask(){
 			    public void run() {
@@ -436,7 +440,12 @@ public class GameScreen implements Initializable {
 		    	     }
 		    	    //play a turn only if the game is not paused
 			    	if(playPauseMode == "pause")
-			    		singleKingTurn();	
+						try {
+							singleKingTurn();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}	
 			    		
 			    	});
 			    	
@@ -515,7 +524,12 @@ public class GameScreen implements Initializable {
 				countDownLabel.setText("00:" + secondsStr);
 				if (seconds <= 0) {
 					time.stop();
-					oneMinutePassedAndLevelEnded();
+					try {
+						oneMinutePassedAndLevelEnded();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 				}
 			}
@@ -638,7 +652,7 @@ public class GameScreen implements Initializable {
 	
 	
 	//start the next level or end the game, based on the score at the end of the level
-	void oneMinutePassedAndLevelEnded() {
+	void oneMinutePassedAndLevelEnded() throws IOException {
 		//score is higher than 15 points
 		if(currentGame.getScore() > Constants.MIN_SCORE_TO_WIN_LEVEL) {
 			
@@ -682,22 +696,20 @@ public class GameScreen implements Initializable {
 	}
 	
 	//game over once the queen/king catches the knight, or a level ended with less than 15 points
-	void gameOver(String reason){
-		SysData.gameOverAlert("Game Over ):", reason, AlertType.WARNING);
+	void gameOver(String reason) throws IOException{
+		SysData.alert("Game Over", reason, AlertType.WARNING);
 		
-		//TODO exit game screen
-		
+		returnToHomePage(null);
 	}
 	
 	//once a player ends level 4 with over 15 points
-	void gameWon() {
+	void gameWon() throws IOException {
 		if(currentGame.getScore() >= Constants.TROPHY)
-			SysData.gameOverAlert("Winner!", "You got over 200 points and won a trophy", AlertType.INFORMATION);
+			SysData.alert("Winner!", "You got over 200 points and won a trophy", AlertType.INFORMATION);
 		else
-			SysData.gameOverAlert("Winner!", "Congrats, you won the game", AlertType.INFORMATION);
+			SysData.alert("Winner!", "Congrats, you won the game", AlertType.INFORMATION);
 	
-		//TODO exit game screen
-	
+		returnToHomePage(null);
 	}
 	
 	
