@@ -111,7 +111,8 @@ public class QuestionAddEdit implements Initializable {
     		add();
     	} else {
     		edit();
-    	}   	
+    	}   
+    	sd.write_questions(sd.get_questions());
     }
       
     /*

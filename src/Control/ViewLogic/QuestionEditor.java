@@ -155,6 +155,8 @@ public class QuestionEditor implements Initializable {
     	}
     	
     	sd.get_questions().remove(sd.getEditedQuestion());
+    	
+    	sd.write_questions(sd.get_questions());
     	refresh();
     }
     
