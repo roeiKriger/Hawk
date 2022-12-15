@@ -408,7 +408,7 @@ public class SysData implements Initializable
 		Alert alert = new Alert(alertType);
 		alert.setTitle(title);
 		alert.setHeaderText(message);
-		alert.showAndWait();
+		alert.show();
 		return;
     }
     

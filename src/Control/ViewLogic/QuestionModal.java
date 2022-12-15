@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
 import Control.SysData;
 import Model.Question;
 import javafx.event.ActionEvent;
@@ -67,12 +66,14 @@ public class QuestionModal implements Initializable{
     	try 
     	{
 	    	updateScoreAfterAnswer();
+	    	
+	    	
 	    	//move back to board
 	    	closeWindow();
     	}
         catch(NullPointerException e)
     	{
-    		SysData.alert("Please insert a answer","Please insert a answer" , AlertType.ERROR);
+    		SysData.alert("Please insert an answer","Please insert an answer" , AlertType.ERROR);
     	}
     	
     }

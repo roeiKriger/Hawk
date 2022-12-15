@@ -8,8 +8,6 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
-
 import Control.SysData;
 import Model.Constants;
 import Model.Game;
@@ -84,18 +82,15 @@ public class GameScreen implements Initializable {
 		nicknameLabel.setText("Hello " + nickname);
 		sd.setGame(new Game(nickname, new Date()));
 		currentGame = sd.getGame();
-		
-		currentGame.createBoardLevelOne();
-		//currentGame.createBoardLevelTwo();
-		//currentGame.createBoardLevelThree();
-		//currentGame.createBoardLevelFour();
-		
+		currentGame.createBoardLevelOne();	
 		currentGame.getBoard()[Constants.INITIAL_LOCATION][Constants.INITIAL_LOCATION].setIsVisited(true);
 		Square[][] currentBoard = currentGame.getBoard();
+		gamesArrayForForgettingSquareGames.clear();
 		initGamesArray();
 		drawBoard(currentBoard);
 		initializeTimer();
 		levelLabel.setText("Level " + currentGame.getGameLevel());
+		
 		
 	}
 	
@@ -188,6 +183,10 @@ public class GameScreen implements Initializable {
 			Square[][] possibleMoves = currentGame.getKnight().move(currentGame.getGameLevel());
 
 			actorImg.setOnMouseClicked(eventBefore -> {
+				//start timer after a question was answered
+				if (playPauseMode == "play")
+					playPause(eventBefore);
+				
 				for (int i=0; i<8; i++) {
 					for (int j=0; j<8; j++) {
 						if (possibleMoves[i][j]!= null && possibleMoves[i][j].getCanVisit().equals(true)
@@ -227,10 +226,12 @@ public class GameScreen implements Initializable {
 									currentGame.setScore(currentGame.getScore()-Constants.POINT);
 								//update score on screen
 								pointsLabel.setText("Points: " + currentGame.getScore());
-									
+										
 								
 								// case of question tile
 								if (currentGame.getBoard()[newRow][newCol].getSquareType().equals("question")) {
+									//stop the timer during a question
+									playPause(eventBefore);
 									try {
 										// save current question in sysdata
 										Question currentQuestion = currentGame.getBoard()[newRow][newCol].getQuestion();
@@ -244,7 +245,7 @@ public class GameScreen implements Initializable {
 									// replace position of question
 									replaceQuestionPosition(newRow, newCol);
 								}
-
+							
 								// update knight position in Model
 								currentGame.getKnight().setRow(newRow);
 								currentGame.getKnight().setCol(newCol);
@@ -275,7 +276,6 @@ public class GameScreen implements Initializable {
 										try {
 											singleQueenTurn();
 										} catch (IOException e) {
-											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
 								}
@@ -287,6 +287,7 @@ public class GameScreen implements Initializable {
 				}
 			});
 		}
+		
 
 		if (pieceType.equals("knight")) {
 			tile.getChildren().clear();
@@ -362,7 +363,8 @@ public class GameScreen implements Initializable {
 		if(currentGame.getQueen().getRow() == currentGame.getKnight().getRow()
 				&& currentGame.getQueen().getCol() == currentGame.getKnight().getCol()) {
 			time.stop();
-			gameOver("The Knight was caught by the queen");
+			gameOver("The Knight was caught by the Queen. \nYou got to level " + currentGame.getGameLevel() 
+			+ ", and earned " + currentGame.getScore() + " points. \nBetter luck next time!");
 						
 		}
 	}
@@ -418,7 +420,8 @@ public class GameScreen implements Initializable {
 		if(currentGame.getKing().getRow() == currentGame.getKnight().getRow()
 				&& currentGame.getKing().getCol() == currentGame.getKnight().getCol()) {
 			time.stop();
-			gameOver("The Knight was caught by the king");
+			gameOver("The Knight was caught by the King. \nYou got to level " + currentGame.getGameLevel() 
+			+ ", and earned " + currentGame.getScore() + " points. \nBetter luck next time!");
 		}
 	}
 
@@ -667,7 +670,9 @@ public class GameScreen implements Initializable {
 		}
 		//score is 15 points or less
 		else {
-			gameOver("You need more than 15 points, to move to the next level");
+			gameOver("You need more than 15 points, to move to the next level. \nYou got to level " 
+		+ currentGame.getGameLevel() + ", and earned " + currentGame.getScore() 
+		+ " points. \nBetter luck next time!");
 		}
 		
 	}
@@ -695,6 +700,7 @@ public class GameScreen implements Initializable {
 		//reset the 60 seconds game timer
 		seconds = Constants.ROUND_TIME;
 		initializeTimer();
+		initGamesArray();
 	}
 	
 	//game over once the queen/king catches the knight, or a level ended with less than 15 points
@@ -721,6 +727,7 @@ public class GameScreen implements Initializable {
 	 */
 	@FXML
 	void returnToHomePage(ActionEvent event) throws IOException {
+		time.stop();
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);

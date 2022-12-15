@@ -17,8 +17,6 @@ public abstract class Piece {
 	private int col;
 	
 
-
-	
 	public Piece(int row, int col) {
 		this.row = row;
 		this.col = col;
@@ -48,16 +46,13 @@ public abstract class Piece {
 	abstract Square[][] pairAllPossibleMoves(int[] possibleNewRow, int[] possibleNewCol);
 	
 	
-	/**
-	 * Move function returns possible moves according to each of the pieces movement rules
-	 * 
-	 * This is a template method, based on the design
-	 * pattern we learned in practice 5 -> the template pattern
-	 */
-	public final Square[][] move(int level){
 	
+	/* move function returns possible moves according to each of the pieces movement rules
+	* This is a template method, based on the design
+	* pattern we learned in practice 5 -> the template pattern 
+	*/
+	public final Square[][] move(int level){
 		return pairAllPossibleMoves(calculateRows(level), calculateCols(level));	 
-		
 	}
 	
 	
