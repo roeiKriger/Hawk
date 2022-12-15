@@ -78,20 +78,25 @@ public class GameScreen implements Initializable {
 
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
+		//set current game
 		String nickname = sd.getNickname();
 		nicknameLabel.setText("Hello " + nickname);
 		sd.setGame(new Game(nickname, new Date()));
 		currentGame = sd.getGame();
+		//initialize board
 		currentGame.createBoardLevelOne();	
+		//mark the tile 0,0 of knight as visited
 		currentGame.getBoard()[Constants.INITIAL_LOCATION][Constants.INITIAL_LOCATION].setIsVisited(true);
+		//draw board
 		Square[][] currentBoard = currentGame.getBoard();
+		drawBoard(currentBoard);
+		//initialize games array for the forgetting square
 		gamesArrayForForgettingSquareGames.clear();
 		initGamesArray();
-		drawBoard(currentBoard);
+		//start 60 seconds timer
 		initializeTimer();
+		//display current game level on screen
 		levelLabel.setText("Level " + currentGame.getGameLevel());
-		
-		
 	}
 	
 	/*
