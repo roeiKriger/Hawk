@@ -105,7 +105,7 @@ public class QuestionModal implements Initializable{
     		if(question.getQuestionDifficulty() == 3)
     			score += Model.Constants.WORNG_HARD; 
     		
-    		String correctAns = question.getAnswers().get(question.getCorrectAnswerId());
+    		String correctAns = question.getAnswers().get(question.getCorrectAnswerId() - 1);
     		SysData.alert("Wrong Answer", "You were wrong, the correct answer is:\n'" + correctAns + "'", AlertType.CONFIRMATION);
     	}
     	sd.getGame().setScore(score); // updating score

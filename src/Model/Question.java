@@ -148,9 +148,9 @@ public class Question
 		for (int i = 0; i < answers.size(); i++)
 		{
 			if (answers.get(i).equals(answer))
-			{	
+			{
 				System.out.println("Check");
-				if (i == correctAnswerId)
+				if (i + 1 == correctAnswerId)
 					return true;
 			}
 		}
