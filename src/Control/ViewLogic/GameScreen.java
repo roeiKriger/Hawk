@@ -683,6 +683,12 @@ public class GameScreen implements Initializable {
 	//initialize next level's board
 	void switchToNextLevel() {
 		int previousLevel = currentGame.getGameLevel();
+		int nextLevel = previousLevel+1;
+		//alert user that the next level is starting
+		SysData.alert("Level Completed", "You finished level " + previousLevel
+				+ ", with " + currentGame.getScore() + " points.\n Level " + nextLevel +
+				" starts now, good luck!", AlertType.WARNING);
+		
 		//create board of the next level
 		switch (previousLevel) {
 		case Constants.LEVEL_ONE:
