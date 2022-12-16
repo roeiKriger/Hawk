@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.QuestionAddEdit">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.QuestionAddEdit">
    <children>
       <ImageView fitHeight="646.0" fitWidth="821.0" layoutX="-3.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -83,7 +83,7 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="difficultyComboBox" layoutX="435.0" layoutY="482.0" prefHeight="25.0" prefWidth="168.0" promptText="Choose correct answer" />
+      <ComboBox fx:id="difficultyComboBox" layoutX="435.0" layoutY="482.0" prefHeight="25.0" prefWidth="184.0" promptText="Choose difficulty question" />
       <Label layoutX="435.0" layoutY="444.0" text="Dificulty question:" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="18.0" />
