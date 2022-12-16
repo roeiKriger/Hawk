@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import Control.SysData;
 import Model.Question;
 import Utils.Difficulty;
+import Utils.Sound;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -215,6 +216,8 @@ public class QuestionAddEdit implements Initializable {
 
     @FXML
     void returnToQuestionsManagement(ActionEvent event) throws IOException {
+    	sd.playSound(Sound.Menu);
+    	
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/QuestionEditor.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);

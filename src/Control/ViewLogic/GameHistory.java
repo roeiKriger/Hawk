@@ -5,6 +5,7 @@ import java.text.ParseException;
 import Control.SysData;
 import Exceptions.JsonException;
 import Model.Game;
+import Utils.Sound;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -56,6 +57,8 @@ public class GameHistory {
 
 	@FXML
 	void returnToHomePage(ActionEvent event) throws IOException {
+		sd.playSound(Sound.Menu);
+		
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);

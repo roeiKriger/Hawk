@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.Jsoner;
@@ -20,6 +24,7 @@ import org.json.simple.parser.ParseException;
 import Exceptions.QuestionEmptyException;
 import Model.Game;
 import Model.Question;
+import Utils.Sound;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -467,8 +472,30 @@ public class SysData implements Initializable
 		SysData.games = games;
 	}
 	
-    
 	
+	// Bonuses
+	
+	// generic function that play sound by argument of Sound enum
+	public synchronized void playSound(Sound sound)
+	{
+		new Thread(new Runnable()
+		{
+			public void run()
+			{
+				try
+				{
+					Clip clip = AudioSystem.getClip();
+					AudioInputStream inputStream = AudioSystem
+							.getAudioInputStream(getClass().getResourceAsStream("/sounds/" + sound.getValue()));
+					clip.open(inputStream);
+					clip.start();
+				} catch (Exception e)
+				{
+					System.err.println(e.getMessage());
+				}
+			}
+		}).start();
+	}
 
 
 }

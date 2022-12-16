@@ -17,6 +17,7 @@ import Model.Queen;
 import Model.Question;
 import Model.Square;
 import Utils.Mode;
+import Utils.Sound;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -668,6 +669,8 @@ public class GameScreen implements Initializable {
 	 */
 	@FXML
 	void openQuestionModal(MouseEvent event) throws IOException {
+		sd.playSound(Sound.QuestionPopup);
+		
 		Stage stage = new Stage();
 		Parent root = FXMLLoader.load(getClass().getResource("/View/QuestionModal.fxml"));
 		stage.setScene(new Scene(root));
@@ -737,6 +740,8 @@ public class GameScreen implements Initializable {
 	
 	//game over once the queen/king catches the knight, or a level ended with less than 15 points
 	void gameOver(String reason) throws IOException{
+		sd.playSound(Sound.WrongAnswer);
+		
 		SysData.alert("Game Over", reason, AlertType.WARNING);
 		
 		returnToHomePage(null);
@@ -744,6 +749,8 @@ public class GameScreen implements Initializable {
 	
 	//once a player ends level 4 with over 15 points
 	void gameWon() throws IOException {
+		sd.playSound(Sound.CorrectAnswer);
+		
 		if(currentGame.getScore() >= Constants.TROPHY)
 			SysData.alert("Winner!", "You got over 200 points and won a trophy", AlertType.INFORMATION);
 		else
@@ -759,6 +766,8 @@ public class GameScreen implements Initializable {
 	 */
 	@FXML
 	void returnToHomePage(ActionEvent event) throws IOException {
+		sd.playSound(Sound.Menu);
+
 		time.stop();
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
@@ -768,6 +777,8 @@ public class GameScreen implements Initializable {
 	}
 	
 	void startANewGame(ActionEvent event) throws IOException {
+	   sd.playSound(Sound.Menu);
+
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/InsertNickname.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);
@@ -788,6 +799,8 @@ public class GameScreen implements Initializable {
    //change screen mode to Christmas
    @FXML
 	void christmasMode(ActionEvent event) throws IOException {
+	   sd.playSound(Sound.Menu);
+	   
 	   if(currentGame.getMode()!=Mode.Christmas) {
 		   currentGame.setMode(Mode.Christmas);
 		   background.setImage(new Image("/Assets/christmas/christmas_bg.png"));
@@ -800,6 +813,8 @@ public class GameScreen implements Initializable {
    //change screen mode to Hanukkah
    @FXML
 	void hanukkahMode(ActionEvent event) throws IOException {
+	   sd.playSound(Sound.Menu);
+
 	   if(currentGame.getMode()!=Mode.Hanukkah) {
 		   currentGame.setMode(Mode.Hanukkah);
 		   background.setImage(new Image("/Assets/hanukkah/hanukkah_bg.png"));
@@ -811,6 +826,8 @@ public class GameScreen implements Initializable {
    
    //change screen mode to default
    void defaultMode() {
+	   sd.playSound(Sound.Menu);
+
 	   currentGame.setMode(Mode.Default);
 	   background.setImage(new Image("/Assets/screens/blank.png"));
 	   drawBoard(currentGame.getBoard()); 

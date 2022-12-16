@@ -3,6 +3,8 @@ package Control.ViewLogic;
 
 import java.io.IOException;
 
+import Control.SysData;
+import Utils.Sound;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,11 +29,16 @@ public class SignInAsAdmin {
 	 String inputPassword;
 	
 	 Alert alert = new Alert(AlertType.WARNING);
+	 
+	 SysData sd = SysData.getInstance();
 	  
 	@FXML
     void onSignIn(ActionEvent event) throws IOException {
+		
 		//user has to fill username field and password field, or an alert will appear on screen
 		if (usernameTextField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+			sd.playSound(Sound.Error);
+
 			 alert.setTitle("Warning Dialog");
 			 alert.setContentText("Please fill both fields");
 			 alert.showAndWait();
@@ -47,6 +54,8 @@ public class SignInAsAdmin {
 			
 			//check username and password are both "admin"
 			if (inputUsername.equals("admin") && inputPassword.equals("admin")) {
+				sd.playSound(Sound.Menu);
+
 				Parent newRoot = FXMLLoader.load(getClass().getResource("/View/QuestionEditor.fxml"));
 				Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 				primaryStage.getScene().setRoot(newRoot);
@@ -56,6 +65,8 @@ public class SignInAsAdmin {
 			}
 			//incorrect user name or passwprd alert on screen
 			else {
+				sd.playSound(Sound.Error);
+				
 				alert.setTitle("Warning Dialog");
 				alert.setContentText("Incorrect username or password");
 				alert.showAndWait();
@@ -66,6 +77,8 @@ public class SignInAsAdmin {
 	
 	@FXML
     void returnToHomePage(ActionEvent event) throws IOException {
+		sd.playSound(Sound.Menu);
+		
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);

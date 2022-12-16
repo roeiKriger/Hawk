@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import Control.SysData;
 import Model.Question;
 import Utils.Difficulty;
+import Utils.Sound;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -161,6 +162,8 @@ public class QuestionEditor implements Initializable {
     }
     
     void moveToAddEditScreen() throws IOException {
+    	sd.playSound(Sound.QuestionPopup);
+    	
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/QuestionAddEdit.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);
@@ -169,6 +172,8 @@ public class QuestionEditor implements Initializable {
     }
     
     private void refresh() throws IOException {
+    	sd.playSound(Sound.QuestionPopup);
+    	
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/QuestionEditor.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);
@@ -179,6 +184,8 @@ public class QuestionEditor implements Initializable {
 
 	@FXML
 	void returnToHomePage(ActionEvent event) throws IOException {
+		sd.playSound(Sound.Menu);
+		
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);

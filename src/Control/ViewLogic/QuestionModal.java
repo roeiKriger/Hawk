@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import Control.SysData;
 import Model.Question;
+import Utils.Sound;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -87,6 +88,7 @@ public class QuestionModal implements Initializable{
     	int score = sd.getGame().getScore();
     	if(question.checkCorrectAnswer(toogleGroupValue))
     	{ // correct answer
+    		sd.playSound(Sound.CorrectAnswer);
     		if(question.getQuestionDifficulty() == 1)
     			score += Model.Constants.SUCSSED_EASY;
     		if(question.getQuestionDifficulty() == 2)
@@ -98,6 +100,7 @@ public class QuestionModal implements Initializable{
     	}
     	else
     	{ //wrong answer
+    		sd.playSound(Sound.WrongAnswer);
     		if(question.getQuestionDifficulty() == 1)
     			score += Model.Constants.WORNG_EASY;
     		if(question.getQuestionDifficulty() == 2)
