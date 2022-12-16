@@ -16,6 +16,7 @@ import Model.Knight;
 import Model.Queen;
 import Model.Question;
 import Model.Square;
+import Utils.Mode;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -31,6 +32,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -63,11 +65,14 @@ public class GameScreen implements Initializable {
 
 	@FXML
     private Label pointsLabel;
+	
+	@FXML
+	private ImageView background;
 
 	@FXML
 	private Label playPauseLabel;
 	private String playPauseMode = "pause";
-
+	
 	public StackPane[][] boardView = null;
 
 	private SysData sd = SysData.getInstance();
@@ -97,6 +102,8 @@ public class GameScreen implements Initializable {
 		initializeTimer();
 		//display current game level on screen
 		levelLabel.setText("Level " + currentGame.getGameLevel());
+		//set background
+		background.setImage(new Image("/Assets/screens/blank.png"));
 	}
 	
 	/*
@@ -183,10 +190,18 @@ public class GameScreen implements Initializable {
 	 * tileBeforeMove is global variable for save the initial tile before player move
 	 */
 	private void drawGamePiece(StackPane tile, String pieceType) {
-		ImageView actorImg = new ImageView(new Image("/Assets/" + pieceType + ".png"));
+		ImageView actorImg;
+		if(currentGame.getMode()==Mode.Christmas) {
+			 actorImg = new ImageView(new Image("/Assets/christmas/" + pieceType + ".png"));
+			actorImg.setFitWidth(Constants.GAME_PIECES_SIZE);
+			actorImg.setFitHeight(Constants.GAME_PIECES_SIZE);
+		}
+		else {	
+		
+		actorImg = new ImageView(new Image("/Assets/" + pieceType + ".png"));
 		actorImg.setFitWidth(Constants.GAME_PIECES_SIZE);
 		actorImg.setFitHeight(Constants.GAME_PIECES_SIZE);
-		
+		}
 		if (pieceType == "knight") {
 			actorImg.setStyle("-fx-cursor: hand");
 			Square[][] possibleMoves = currentGame.getKnight().move(currentGame.getGameLevel());
@@ -205,10 +220,19 @@ public class GameScreen implements Initializable {
 							int colPossible = j;
 
 							// change color of tilePossible
-							StackPane tilePossibleView = boardView[rowPossible][colPossible];
-							tilePossibleView.setBackground(new Background(new BackgroundFill(Color.TEAL, CornerRadii.EMPTY, Insets.EMPTY)));
-							tilePossibleView.setStyle("-fx-cursor: hand");
-							
+							StackPane tilePossibleView;
+							if(currentGame.getMode()==Mode.Christmas) {
+								tilePossibleView = boardView[rowPossible][colPossible];
+								tilePossibleView.setBackground(new Background(new BackgroundFill(Color.FIREBRICK, CornerRadii.EMPTY, Insets.EMPTY)));
+								tilePossibleView.setStyle("-fx-cursor: hand");
+							}
+							else {
+								tilePossibleView = boardView[rowPossible][colPossible];
+								tilePossibleView.setBackground(new Background(new BackgroundFill(Color.TEAL, CornerRadii.EMPTY, Insets.EMPTY)));
+								tilePossibleView.setStyle("-fx-cursor: hand");
+								
+							}
+											
 							// add listener to press on possible move
 							tilePossibleView.setOnMouseClicked(eventAfter -> {
 								// TODO - add cases of question, random, etc;
@@ -762,5 +786,22 @@ public class GameScreen implements Initializable {
     void changeScoreOnScreen(MouseEvent event) {
 		pointsLabel.setText("Points: " + currentGame.getScore());
     }
+   
+   
+   //change screen mode to Christmas
+   @FXML
+	void christmasMode(ActionEvent event) throws IOException {
+	   if(currentGame.getMode()==Mode.Default) {
+		   currentGame.setMode(Mode.Christmas);
+		   background.setImage(new Image("/Assets/christmas/christmas_bg.png"));
+		   drawBoard(currentGame.getBoard());   
+	   }
+	   else {
+		   currentGame.setMode(Mode.Default);
+		   background.setImage(new Image("/Assets/screens/blank.png"));
+		   drawBoard(currentGame.getBoard()); 
+	   }
+	  
+	}
 
 }
