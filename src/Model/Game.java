@@ -8,7 +8,6 @@ import java.util.Timer;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import Control.SysData;
-import Utils.Mode;
 import javafx.animation.Timeline;
 
 public class Game {
@@ -47,8 +46,6 @@ public class Game {
 	private Knight knight;
 	private Queen queen;
 	private King king;
-	
-	private Utils.Mode mode;
 
 	private int knightRowStarts = 0;
 	private int knightColStarts = 0;
@@ -69,7 +66,6 @@ public class Game {
 		this.gameLevel = 1;
 		this.nickname = nickname;
 		this.date = date;
-		this.mode = Mode.Default;
 	}
 
 	// Constructor
@@ -79,7 +75,6 @@ public class Game {
 		this.gameLevel = 1;
 		this.nickname = nickname;
 		this.date = new Date(System.currentTimeMillis());
-		this.mode = Mode.Default;
 	}
 	
 
@@ -95,7 +90,6 @@ public class Game {
 		this.knight = knight;
 		this.queen = queen;
 		this.king = king;
-		this.mode = Mode.Default;
 	}
 
 	/*
@@ -192,14 +186,6 @@ public class Game {
 
 	public void setKing(King king) {
 		this.king = king;
-	}
-
-	public Utils.Mode getMode() {
-		return mode;
-	}
-
-	public void setMode(Utils.Mode mode) {
-		this.mode = mode;
 	}
 
 	public void createBoardLevelOne()
