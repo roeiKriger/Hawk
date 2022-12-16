@@ -190,18 +190,18 @@ public class GameScreen implements Initializable {
 	 * tileBeforeMove is global variable for save the initial tile before player move
 	 */
 	private void drawGamePiece(StackPane tile, String pieceType) {
-		ImageView actorImg;
-		if(currentGame.getMode()==Mode.Christmas) {
-			 actorImg = new ImageView(new Image("/Assets/christmas/" + pieceType + ".png"));
-			actorImg.setFitWidth(Constants.GAME_PIECES_SIZE);
-			actorImg.setFitHeight(Constants.GAME_PIECES_SIZE);
-		}
-		else {	
-		
-		actorImg = new ImageView(new Image("/Assets/" + pieceType + ".png"));
+		ImageView actorImg = null;
+		//get image of the specific screen mode 
+		if(currentGame.getMode()==Mode.Default) 
+			actorImg = new ImageView(new Image("/Assets/" + pieceType + ".png"));
+		if(currentGame.getMode()==Mode.Christmas)
+			actorImg = new ImageView(new Image("/Assets/christmas/" + pieceType + ".png"));
+		if(currentGame.getMode()==Mode.Hanukkah)
+			actorImg = new ImageView(new Image("/Assets/hanukkah/" + pieceType + ".png"));
+			
 		actorImg.setFitWidth(Constants.GAME_PIECES_SIZE);
 		actorImg.setFitHeight(Constants.GAME_PIECES_SIZE);
-		}
+	
 		if (pieceType == "knight") {
 			actorImg.setStyle("-fx-cursor: hand");
 			Square[][] possibleMoves = currentGame.getKnight().move(currentGame.getGameLevel());
@@ -220,19 +220,16 @@ public class GameScreen implements Initializable {
 							int colPossible = j;
 
 							// change color of tilePossible
-							StackPane tilePossibleView;
-							if(currentGame.getMode()==Mode.Christmas) {
-								tilePossibleView = boardView[rowPossible][colPossible];
-								tilePossibleView.setBackground(new Background(new BackgroundFill(Color.FIREBRICK, CornerRadii.EMPTY, Insets.EMPTY)));
-								tilePossibleView.setStyle("-fx-cursor: hand");
-							}
-							else {
-								tilePossibleView = boardView[rowPossible][colPossible];
+							StackPane tilePossibleView = boardView[rowPossible][colPossible];
+							if(currentGame.getMode()==Mode.Default) 
 								tilePossibleView.setBackground(new Background(new BackgroundFill(Color.TEAL, CornerRadii.EMPTY, Insets.EMPTY)));
-								tilePossibleView.setStyle("-fx-cursor: hand");
-								
-							}
-											
+							if(currentGame.getMode()==Mode.Christmas) 
+								tilePossibleView.setBackground(new Background(new BackgroundFill(Color.FIREBRICK, CornerRadii.EMPTY, Insets.EMPTY)));
+							if(currentGame.getMode()==Mode.Hanukkah) 
+								tilePossibleView.setBackground(new Background(new BackgroundFill(Color.	DEEPSKYBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+							
+							tilePossibleView.setStyle("-fx-cursor: hand");
+							
 							// add listener to press on possible move
 							tilePossibleView.setOnMouseClicked(eventAfter -> {
 								// TODO - add cases of question, random, etc;
@@ -791,17 +788,32 @@ public class GameScreen implements Initializable {
    //change screen mode to Christmas
    @FXML
 	void christmasMode(ActionEvent event) throws IOException {
-	   if(currentGame.getMode()==Mode.Default) {
+	   if(currentGame.getMode()!=Mode.Christmas) {
 		   currentGame.setMode(Mode.Christmas);
 		   background.setImage(new Image("/Assets/christmas/christmas_bg.png"));
 		   drawBoard(currentGame.getBoard());   
 	   }
-	   else {
-		   currentGame.setMode(Mode.Default);
-		   background.setImage(new Image("/Assets/screens/blank.png"));
-		   drawBoard(currentGame.getBoard()); 
-	   }
-	  
+	   else 
+		   defaultMode();
 	}
+   
+   //change screen mode to Hanukkah
+   @FXML
+	void hanukkahMode(ActionEvent event) throws IOException {
+	   if(currentGame.getMode()!=Mode.Hanukkah) {
+		   currentGame.setMode(Mode.Hanukkah);
+		   background.setImage(new Image("/Assets/hanukkah/hanukkah_bg.png"));
+		   drawBoard(currentGame.getBoard());   
+	   }
+	   else 
+		   defaultMode();
+	}
+   
+   //change screen mode to default
+   void defaultMode() {
+	   currentGame.setMode(Mode.Default);
+	   background.setImage(new Image("/Assets/screens/blank.png"));
+	   drawBoard(currentGame.getBoard()); 
+   }
 
 }

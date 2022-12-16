@@ -1,6 +1,6 @@
 package Utils;
 
 public enum Mode {
-	Default, Christmas
+	Default, Christmas, Hanukkah
 
 }

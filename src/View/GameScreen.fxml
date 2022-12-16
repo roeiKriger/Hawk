@@ -46,9 +46,14 @@
             <Image url="@../Assets/screens/king_opacity.png" />
          </image>
       </ImageView>
-      <Button layoutX="29.0" layoutY="522.0" mnemonicParsing="false" onAction="#christmasMode" prefHeight="46.0" prefWidth="86.0" style="-fx-background-radius: 20;" text="Christmas&#10;Mode" textAlignment="CENTER">
+      <Button layoutX="21.0" layoutY="522.0" mnemonicParsing="false" onAction="#christmasMode" prefHeight="46.0" prefWidth="94.0" style="-fx-background-radius: 20;" text="Christmas&#10;Mode" textAlignment="CENTER">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="20.0" layoutY="469.0" mnemonicParsing="false" onAction="#hanukkahMode" prefHeight="46.0" prefWidth="94.0" style="-fx-background-radius: 20;" text="Hanukkah&#10;Mode" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="12.0" />
          </font>
       </Button>
    </children>
