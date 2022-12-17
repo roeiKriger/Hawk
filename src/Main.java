@@ -32,17 +32,7 @@ public class Main extends Application {
 
 	
 	public static void main(String[] args) throws IOException, ParseException, java.text.ParseException 
-	{
-//		Game g = new Game("Matan");
-//		g.setScore(15);
-//		SysData.getInstance().add_game_to_list(g);
-//		Game ga = new Game("Noga");
-//		ga.setScore(15);
-//		SysData.getInstance().add_game_to_list(ga);
-//		SysData.getInstance().add_score();
-//		SysData.getInstance().import_scores();
-//		SysData.getInstance().load_questions();
-		
+	{		
 		SysData sd = SysData.getInstance();
 		try {
 		if (!sd.load_questions()) // import not successful

@@ -215,8 +215,7 @@ public class Game {
 
 		// at level 1 we create at the start 3 Squares which are for random squares and 3 for questions
 		while(numOfSquares < 3)
-		{//this.board = createNewSquare(this.board, "forgetting");this.board = createNewSquare(this.board, "forgetting"); // for debug delete laterrrrrrrr
-		
+		{		
 			this.board = createNewQuestionSquare(this.board, "question", numOfSquares + 1);
 			numOfSquares++;
 		}		

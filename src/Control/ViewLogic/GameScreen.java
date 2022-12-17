@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.security.auth.x500.X500Principal;
+
 import Control.SysData;
 import Model.Constants;
 import Model.Game;
@@ -292,7 +294,7 @@ public class GameScreen implements Initializable {
 										Game currentGameTemp = null;
 										currentGameTemp = createGameClone(gamesArrayForForgettingSquareGames.get(gamesArrayForForgettingSquareGames.size()-1));
 										currentGameTemp.setKnight(currentGame.getKnight());
-										currentGameTemp.setBoard(currentGame.getBoard());
+										
 										if(currentGame.getQueen() != null)
 										{
 											currentGameTemp.setQueen(currentGame.getQueen());
@@ -304,6 +306,7 @@ public class GameScreen implements Initializable {
 										currentGame = currentGameTemp;
 										drawBoard(currentGame.getBoard());	
 										SysData.alert("Forgetting Square", "You stood on a forget square, going back 3 steps in the game", AlertType.INFORMATION);	
+										
 									}
 								}
 								else // if the player moves back three turns we want to let him play again, because he can fall right to the queen line of fire
@@ -593,7 +596,8 @@ public class GameScreen implements Initializable {
 	//add current game to array of games for the forgetting square
 	public void updateGamesArray() {
 		Game newTempGame = createGameClone(currentGame);
-		gamesArrayForForgettingSquareGames.add(gamesArrayForForgettingSquareGames.size(), newTempGame);
+		gamesArrayForForgettingSquareGames.add(gamesArrayForForgettingSquareGames.size(), newTempGame);		
+		
 	}
 	
 	
@@ -623,7 +627,25 @@ public class GameScreen implements Initializable {
 	// in order to save the Game objects we need to create a brand new object from scratch, or else the arraylist of games will be duplicates of the same current games, which are all a refernce to the same object
 	public Game createGameClone(Game currentGame) {
 		Game newTempGame = new Game("clone");
-		Square[][] board1 = currentGame.getBoard();
+		//Square[][] board1 = currentGame.getBoard();
+		Square[][] board1 = null;
+		board1 = new Square[8][8];
+		board1 = newTempGame.createEmptyBoard(board1);
+		for(int i=0; i<8; i++)
+		{
+			for(int j=0; j<8; j++)
+			{
+				board1[i][j] = new Square("");
+				if(board1[i][j]!=null)
+				{
+					board1[i][j].setIsVisited(currentGame.getBoard()[i][j].getIsVisited());
+				}
+				else {
+					System.out.println("null");
+				}
+				
+			}
+		}
 		int score = currentGame.getScore(); 
 		Timeline timer = currentGame.getTimer(); 
 		int gameLevel = currentGame.getGameLevel();
