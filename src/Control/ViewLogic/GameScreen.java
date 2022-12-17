@@ -639,6 +639,9 @@ public class GameScreen implements Initializable {
 				if(board1[i][j]!=null)
 				{
 					board1[i][j].setIsVisited(currentGame.getBoard()[i][j].getIsVisited());
+					board1[i][j].setCanVisit(currentGame.getBoard()[i][j].getCanVisit());
+					board1[i][j].setQuestion(currentGame.getBoard()[i][j].getQuestion());
+					board1[i][j].setSquareType(currentGame.getBoard()[i][j].getSquareType());
 				}
 				else {
 					System.out.println("null");
