@@ -34,7 +34,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <Label fx:id="levelLabel" layoutX="68.0" layoutY="39.0" text="levelLabel" />
+	   <Label fx:id="levelLabel" layoutX="68.0" layoutY="39.0" text="levelLabel" />
       <ImageView fitHeight="97.0" fitWidth="103.0" layoutX="7.0" layoutY="295.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Assets/screens/question_knight.png" />
