@@ -210,17 +210,13 @@ public class Game {
 		this.knight = (Knight) p.getPiece("KNIGHT", knightRowStarts, knightColStarts);
 		this.queen =(Queen) p.getPiece("QUEEN",queenRowStarts, queenColStarts);
 		
-		
-		/*this.knight = new Knight(knightRowStarts, knightColStarts);
-		this.queen = new Queen(queenRowStarts, queenColStarts);*/
-		
 		this.board = createEmptyBoard(this.board);
 		int numOfSquares = 0;
 
 		// at level 1 we create at the start 3 Squares which are for random squares and 3 for questions
 		while(numOfSquares < 3)
 		{//this.board = createNewSquare(this.board, "forgetting");this.board = createNewSquare(this.board, "forgetting"); // for debug delete laterrrrrrrr
-			//this.board = createNewSquare(this.board, "randomSquare");
+		
 			this.board = createNewQuestionSquare(this.board, "question", numOfSquares + 1);
 			numOfSquares++;
 		}		
@@ -234,8 +230,7 @@ public class Game {
 		 */
 		this.knight = (Knight) p.getPiece("KNIGHT", knightRowStarts, knightColStarts);
 		this.queen =(Queen) p.getPiece("QUEEN",queenRowStarts, queenColStarts);
-		/*this.knight = new Knight(knightRowStarts, knightColStarts);
-		this.queen = new Queen(queenRowStarts, queenColStarts);*/
+
 		this.board = createEmptyBoard(this.board);
 		this.gameLevel = Constants.LEVEL_TWO;
 		int numOfSquares = 0;
@@ -258,8 +253,6 @@ public class Game {
 		this.knight = (Knight) p.getPiece("KNIGHT", knightRowStarts, knightColStarts);
 		this.king =(King) p.getPiece("KING",kingRowStarts, kingColStarts);
 		
-		/*this.knight = new Knight(knightRowStarts, knightColStarts);
-		this.king = new King(kingRowStarts, kingColStarts);*/
 		this.board = createEmptyBoard(this.board);
 		this.gameLevel = Constants.LEVEL_THREE;
 		int numOfSquares = 0;
@@ -286,8 +279,6 @@ public class Game {
 		this.knight = (Knight) p.getPiece("KNIGHT", knightRowStarts, knightColStarts);
 		this.king =(King) p.getPiece("KING",kingRowStarts, kingColStarts);
 		
-		/*this.knight = new Knight(knightRowStarts, knightColStarts);
-		this.king = new King(kingRowStarts, kingColStarts);*/
 		this.board = createEmptyBoard(this.board);
 		this.gameLevel = Constants.LEVEL_FOUR;
 		int numOfSquares = 0;
@@ -343,22 +334,7 @@ public class Game {
 		{
 			if(board[randRow][randCol].getSquareType().equals("empty") && (randRow!= this.knight.getRow() && randCol!= this.knight.getCol()) && (randRow!= piece.getRow() && randCol != piece.getCol()))
 			{
-				board[randRow][randCol].setSquareType(type);	
-				//for debugging purpose
-				if(type == "randomSquare")
-				{
-					System.out.println("Random location: row: " + randRow +" , col is: " + randCol);
-				}
-				//for debugging purpose
-				if(type == "blocked")
-				{
-					System.out.println("Blocked location: row: " + randRow +" , col is: " + randCol);
-				}
-				//for debugging purpose
-				if(type == "forgetting")
-				{
-					System.out.println("Forgetting location: row: " + randRow +" , col is: " + randCol);
-				}
+				board[randRow][randCol].setSquareType(type);			
 				isDone = true;
 			}
 			else 
@@ -505,7 +481,6 @@ public class Game {
 	@Override
 	public String toString() {
 		return "Game [score=" + score + ", nickname=" + nickname + ", date=" + date + "]";
-		//return "kinght loc: " + knight.getRow() +" "+ knight.getCol() + "]";
 	}
 
 

@@ -289,7 +289,19 @@ public class GameScreen implements Initializable {
 										//delete 3 last games from the game history
 										goBackThreeSteps();
 										//change current game back to the game from 3 steps ago
-										currentGame = createGameClone(gamesArrayForForgettingSquareGames.get(gamesArrayForForgettingSquareGames.size()-1));
+										Game currentGameTemp = null;
+										currentGameTemp = createGameClone(gamesArrayForForgettingSquareGames.get(gamesArrayForForgettingSquareGames.size()-1));
+										currentGameTemp.setKnight(currentGame.getKnight());
+										currentGameTemp.setBoard(currentGame.getBoard());
+										if(currentGame.getQueen() != null)
+										{
+											currentGameTemp.setQueen(currentGame.getQueen());
+										}
+										else 
+										{
+											currentGameTemp.setKing(currentGame.getKing());
+										}
+										currentGame = currentGameTemp;
 										drawBoard(currentGame.getBoard());	
 										SysData.alert("Forgetting Square", "You stood on a forget square, going back 3 steps in the game", AlertType.INFORMATION);	
 									}
