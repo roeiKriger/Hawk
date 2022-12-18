@@ -1,21 +1,24 @@
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
-
-import org.junit.Test;
-import Control.SysData;
-import Model.Game;
-
 /**
  * 
  */
+package Testing;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.Test;
+
+import Control.SysData;
+import Model.Game;
 
 /**
  * @author Matan
  *
  */
-class TestClass 
-{
+class junits {
+
 	/*
 	 * This test is testing if game is inisilaize in score of 0
 	 */
@@ -31,14 +34,9 @@ class TestClass
 	 * This test is testing if the Json File is read successfully
 	 */
 	@Test
-	public void testReadQuestionsJson()
+	public void testReadQuestionsJson() throws IOException, ParseException
 	{
 		assertTrue(SysData.getInstance().load_questions());
 	}
-	
-	/*
-	 * 
-	 */
-	
-	
+
 }
