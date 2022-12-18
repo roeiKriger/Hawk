@@ -83,7 +83,7 @@ public class Knight extends Piece{
 		//now we have two arrays, each of them has locations of the placements, first array
 		//is the Row and the second is the Column, we will match them to create a list of all possible squares
 		for(int i=0;i<numberOfPossibleSquares;i++) {
-			possibleMoves[possibleNewRow[i]][possibleNewCol[i]] = new Square("noColor", false);
+			possibleMoves[possibleNewRow[i]][possibleNewCol[i]] = new Square();
 			if((possibleNewRow[i] >=0 && possibleNewRow[i] <8 && possibleNewCol[i] >=0 && possibleNewCol[i]<8))
 				possibleMoves[possibleNewRow[i]][possibleNewCol[i]].setCanVisit(true);	
 		}

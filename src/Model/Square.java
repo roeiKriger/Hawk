@@ -2,10 +2,7 @@ package Model;
 
 public class Square {
 	
-	/**
-	 * Each square has color depends on what type the square is
-	 */
-	private String color;
+	
 	
 	/**
 	 * Square has few types, regular, special and more, "empty" , "special", "question", "blocked", "randomSquare", "forgetting"
@@ -28,8 +25,7 @@ public class Square {
 	private Question question;
 
 	// Constructor 
-	public Square(String color, Boolean isVisited) {
-		this.color = color;
+	public Square() {
 		this.squareType = "empty";
 		this.isVisited = false;
 		this.canVisit = false;
@@ -38,10 +34,9 @@ public class Square {
 	
 	
 
-	public Square(String color, Boolean isVisited , String squareType) 
+	public Square(Boolean isVisited , String squareType) 
 	{
 		super();
-		this.color = color;
 		this.isVisited = isVisited;
 		this.squareType = squareType;
 		this.canVisit = false;
@@ -49,20 +44,18 @@ public class Square {
 	}
 	
 	//for Question Square
-	public Square(String color, Boolean isVisited , String squareType, Question question) 
+	public Square(Boolean isVisited , String squareType, Question question) 
 	{
 		super();
-		this.color = color;
 		this.isVisited = isVisited;
 		this.squareType = squareType;
 		this.canVisit = false;
 		this.question = question;	
 	}
 	
-	public Square(String color , String squareType) 
+	public Square(String squareType) 
 	{
 		super();
-		this.color = color;
 		this.isVisited = false;
 		this.squareType = squareType;
 		this.canVisit = false;
@@ -70,42 +63,19 @@ public class Square {
 	}
 	
 	//for Question Square
-	public Square(String color , String squareType, Question question) 
+	public Square(String squareType, Question question) 
 	{
 		super();
-		this.color = color;
 		this.isVisited = false;
 		this.squareType = squareType;
 		this.canVisit = false;
 		this.question = question;	
 	}
 	
-	public Square(String color) {
-		this.color = color;
-		this.squareType = "empty";
-		this.isVisited = false;
-		this.canVisit = false;
-		this.question = null;
-	}
-	
-	
-	
-
-
 
 	/*
 	 * Getters and Setters
 	 */
-	
-	
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
 	public String getSquareType() {
 		return squareType;
 	}
@@ -142,7 +112,7 @@ public class Square {
 
 	@Override
 	public String toString() {
-		return "Square [color=" + color + ", squareType=" + squareType + ", canVisit=" + canVisit + ", isVisited="
+		return "Square [squareType=" + squareType + ", canVisit=" + canVisit + ", isVisited="
 				+ isVisited + ", question=" + question + "]";
 	}
 	

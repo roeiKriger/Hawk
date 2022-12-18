@@ -636,7 +636,7 @@ public class GameScreen implements Initializable {
 		{
 			for(int j=0; j<8; j++)
 			{
-				board1[i][j] = new Square("");
+				board1[i][j] = new Square();
 				if(board1[i][j]!=null)
 				{
 					board1[i][j].setIsVisited(currentGame.getBoard()[i][j].getIsVisited());

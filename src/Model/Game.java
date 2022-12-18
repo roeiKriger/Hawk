@@ -330,7 +330,7 @@ public class Game {
 		{
 			for(int j=0; j<8; j++)
 			{
-				this.board[i][j] = new Square("no-color", false);
+				this.board[i][j] = new Square();
 				this.board[i][j].setSquareType("empty");
 			}
 		}

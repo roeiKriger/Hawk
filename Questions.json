@@ -13,18 +13,6 @@
 			"correct_ans":1
 		},
 		{
-			"question":"question level 1 ",
-			"level":1,
-			"answers":[
-				"a plan or specification for the construction of an object or system",
-				"no",
-				"yes",
-				"other"
-			],
-			"team":"Hawk",
-			"correct_ans":1
-		},
-		{
 			"question":"question level3 ",
 			"level":3,
 			"answers":[
