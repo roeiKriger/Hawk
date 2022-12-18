@@ -101,5 +101,15 @@ public class GameHistory {
 		primaryStage.setTitle("Knight's Move");
 		primaryStage.show();
 	}
+	
+	@FXML
+	void returnToStatisticsPage(ActionEvent event) throws IOException {
+		sd.playSound(Sound.Menu);
+		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/StaticsScoreScreen.fxml"));
+		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
+		primaryStage.getScene().setRoot(newRoot);
+		primaryStage.setTitle("Knight's Move");
+		primaryStage.show();
+	}
 
 }
