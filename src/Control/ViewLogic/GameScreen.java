@@ -786,7 +786,7 @@ public class GameScreen implements Initializable {
 	//once a player ends level 4 with over 15 points
 	void gameWon() throws IOException {
 		sd.playSound(Sound.CorrectAnswer);
-		
+		sd.addGameToHistory();
 		if(currentGame.getScore() >= Constants.TROPHY)
 			SysData.alert("Winner!", "You got over 200 points and won a trophy", AlertType.INFORMATION);
 		else
