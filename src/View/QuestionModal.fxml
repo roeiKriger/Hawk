@@ -9,33 +9,33 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.QuestionModal">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="416.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.QuestionModal">
    <children>
-      <ImageView fitHeight="454.0" fitWidth="541.0" layoutX="-40.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="447.0" fitWidth="566.0" layoutX="-62.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Assets/screens/blue.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="questionLabel" layoutX="69.0" layoutY="76.0" text="questionLabel">
+      <Label fx:id="questionLabel" layoutX="29.0" layoutY="55.0" prefHeight="55.0" prefWidth="413.0" text="questionLabel" wrapText="true">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <RadioButton fx:id="answer1" layoutX="69.0" layoutY="141.0" mnemonicParsing="false" text="answer1">
+      <RadioButton fx:id="answer1" layoutX="29.0" layoutY="105.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="413.0" text="answer1" wrapText="true">
          <toggleGroup>
             <ToggleGroup fx:id="answers" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="answer4" layoutX="69.0" layoutY="264.0" mnemonicParsing="false" text="answer4" toggleGroup="$answers" />
-      <RadioButton fx:id="answer3" layoutX="69.0" layoutY="223.0" mnemonicParsing="false" text="answer3" toggleGroup="$answers" />
-      <RadioButton fx:id="answer2" layoutX="69.0" layoutY="182.0" mnemonicParsing="false" text="answer2" toggleGroup="$answers" />
+      <RadioButton fx:id="answer4" layoutX="29.0" layoutY="255.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="413.0" text="answer4" toggleGroup="$answers" wrapText="true" />
+      <RadioButton fx:id="answer3" layoutX="29.0" layoutY="205.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="413.0" text="answer3" toggleGroup="$answers" wrapText="true" />
+      <RadioButton fx:id="answer2" layoutX="29.0" layoutY="155.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="413.0" text="answer2" toggleGroup="$answers" wrapText="true" />
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-radius: 20;" text="Back" />
-      <Button layoutX="204.0" layoutY="318.0" mnemonicParsing="false" onAction="#onAnswer" prefHeight="41.0" prefWidth="91.0" style="-fx-background-radius: 20;" text="Answer">
+      <Button layoutX="204.0" layoutY="333.0" mnemonicParsing="false" onAction="#onAnswer" prefHeight="41.0" prefWidth="91.0" style="-fx-background-radius: 20;" text="Answer">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-	   <Label fx:id="levelLabel" layoutX="68.0" layoutY="39.0" text="levelLabel" />
-      <ImageView fitHeight="97.0" fitWidth="103.0" layoutX="7.0" layoutY="295.0" pickOnBounds="true" preserveRatio="true">
+	   <Label fx:id="levelLabel" layoutX="217.0" layoutY="23.0" text="levelLabel" />
+      <ImageView fitHeight="97.0" fitWidth="103.0" layoutX="-1.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Assets/screens/question_knight.png" />
          </image>

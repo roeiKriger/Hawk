@@ -91,7 +91,7 @@ public class GameScreen implements Initializable {
 	{
 		//set current game
 		String nickname = sd.getNickname();
-		nicknameLabel.setText("Hello\n" + nickname);
+		nicknameLabel.setText("Hello\n" + nickname + "!");
 		sd.setGame(new Game(nickname, new Date()));
 		currentGame = sd.getGame();
 		//initialize board
@@ -770,16 +770,19 @@ public class GameScreen implements Initializable {
 			initializeKingSpeed();
 			break;
 		}
-		//display the new board
-		drawBoard(currentGame.getBoard());
+		
 		levelLabel.setText("Level " + currentGame.getGameLevel());
 		//reset the 60 seconds game timer
 		seconds = Constants.ROUND_TIME;
 		initializeTimer();
+		//initialize game array for forgetting square
+		gamesArrayForForgettingSquareGames.clear();
 		initGamesArray();
+		//display the new board
+		drawBoard(currentGame.getBoard());
 		//mark the tile 0,0 of knight as visited
 		currentGame.getBoard()[Constants.INITIAL_LOCATION][Constants.INITIAL_LOCATION].setIsVisited(true);
-	
+		
 	}
 	
 	//game over once the queen/king catches the knight, or a level ended with less than 15 points
@@ -798,7 +801,6 @@ public class GameScreen implements Initializable {
 			SysData.alert("Winner!", "You got over 200 points and won a trophy", AlertType.INFORMATION);
 		else
 			SysData.alert("Winner!", "Congrats, you won the game", AlertType.INFORMATION);
-	
 		returnToHomePage(null);
 	}
 	
