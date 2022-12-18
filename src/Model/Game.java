@@ -496,7 +496,11 @@ public class Game {
 	}
 
 
-
+	public int compareTo(Game compareGame) 
+	{
+		//ascending order
+		return this.getScore() - compareGame.getScore();
+	}
 
 
 }

@@ -306,16 +306,16 @@ public class SysData implements Initializable
 	{
 		JSONArray gamesArr = new JSONArray();
 
-		/*for (Game g : games)
-		{*/
-		Game g = getGame();
+		for (Game g : games)
+		{
+		//Game g = getGame();
 			JSONObject inner = new JSONObject();
 
 			inner.put("nickname", g.getNickname());
 			inner.put("score", g.getScore());
 			inner.put("date", g.getDate().toGMTString());
 			gamesArr.add(inner);
-		//}
+		}
 		JSONObject outer = new JSONObject();
 
 		if (games.size() > 0)

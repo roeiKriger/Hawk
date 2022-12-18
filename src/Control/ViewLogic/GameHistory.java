@@ -2,6 +2,9 @@ package Control.ViewLogic;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Collections;
+import java.util.Comparator;
+
 import Control.SysData;
 import Exceptions.JsonException;
 import Model.Game;
@@ -49,11 +52,17 @@ public class GameHistory {
 					throw new JsonException();	
 			}
 			counter ++;
+			Collections.sort(sd.getGames(), new Comparator<Game>() {
+			    public int compare(Game g1, Game g2) {
+			        return g2.getScore() - g1.getScore();
+			    }
+			});
 			gamesHistory = FXCollections.observableArrayList(FXCollections.observableArrayList(sd.getGames()));
 			nickName.setCellValueFactory(new PropertyValueFactory<>("nickname"));
 			time.setCellValueFactory(new PropertyValueFactory<>("date"));
 			score.setCellValueFactory(new PropertyValueFactory<>("score"));
 			tbData.setItems(gamesHistory);
+			tbData.sort();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (JsonException e) {
