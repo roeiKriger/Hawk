@@ -19,6 +19,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -37,10 +39,16 @@ public class GameHistory {
 	public TableColumn<Game, String> time;
 
 	@FXML
-	public TableColumn<Game, String> score;
+	public TableColumn<Game, Integer> score;
+	
+	@FXML
+	public TableColumn<Game, ImageView> win;
 
 	private ObservableList<Game> gamesHistory;
 	public static int counter = 0; //for not import scores more than one time
+	
+	@FXML
+	private ImageView winPic;
 
 	@FXML
 	public void initialize() {
@@ -58,11 +66,24 @@ public class GameHistory {
 			        return g2.getScore() - g1.getScore();
 			    }
 			});
+			//set background
+			//winPic.setImage(new Image("/Assets/cup.png"));
 			gamesHistory = FXCollections.observableArrayList(FXCollections.observableArrayList(sd.getGames()));
 			nickName.setCellValueFactory(new PropertyValueFactory<>("nickname"));
 			time.setCellValueFactory(new PropertyValueFactory<>("date"));
 			score.setCellValueFactory(new PropertyValueFactory<>("score"));
+			//win.setCellValueFactory(new PropertyValueFactory<Game, ImageView>("img"));
+			//PropertyValueFactory winingList = new PropertyValueFactory<>("hasCup");
+			/*if (winingList.getProperty().compareTo("True") == 0 ) //hasCup is true
+			{
+				Image img = new Image("Assets/cup.png");
+				//win.setCellValueFactory(new PropertyValueFactory<Game, ImageView>(new Image("/Assets/.png")));
+				win.setCellValueFactory(new PropertyValueFactory<Game, ImageView>(img));
+				win.setPrefWidth(60);
+			}*/
+			//win.setCellValueFactory();
 			tbData.setItems(gamesHistory);
+			//System.out.println(score.getText());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (JsonException e) {

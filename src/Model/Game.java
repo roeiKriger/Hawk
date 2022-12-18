@@ -12,6 +12,7 @@ import Exceptions.EmptyNickNameException;
 import Utils.Mode;
 import javafx.animation.Timeline;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 
 public class Game {
 
@@ -44,6 +45,12 @@ public class Game {
 	 * Date of the game for game history
 	 */
 	private Date date;
+	
+	/*
+	 * save if the player has cup (over 200 points)
+	 */
+	private Boolean hasCup;
+	private Image img; 
 
 	//game pieces
 	private Knight knight;
@@ -91,10 +98,17 @@ public class Game {
 		this.score = score;
 		//this.gameLevel = 1;
 		this.nickname = nickname;
-
+		if(this.score > 200)
+		{
+			this.hasCup = true;
+		}
+		else {
+			this.hasCup = false;
+		}
 		this.date = date;
 		//this.mode = Mode.Default;
 	}
+	
 
 	public Game(Square[][] board, int score, Timeline timer, int gameLevel, String nickname, Date date, Knight knight,
 			Queen queen, King king) {
@@ -501,6 +515,38 @@ public class Game {
 		//ascending order
 		return this.getScore() - compareGame.getScore();
 	}
+
+
+	public void setHasCup() 
+	{
+		if(this.getScore() > 200)
+		{
+			this.hasCup = true;
+			setImg();
+		}
+		else
+		{
+			this.hasCup = false;
+		}
+	}
+	
+	public Boolean getHasCup() 
+	{
+		this.setHasCup();
+		return this.hasCup;
+	}
+
+	public Image getImg() {
+		return img;
+	}
+
+	public void setImg() {
+		this.img = new Image("/Assets/cup.png");;
+	}
+	
+	
+	
+	
 
 
 }
