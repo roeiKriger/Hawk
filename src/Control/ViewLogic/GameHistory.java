@@ -40,18 +40,19 @@ public class GameHistory {
 	public TableColumn<Game, String> score;
 
 	private ObservableList<Game> gamesHistory;
-	public static int counter = 0;
+	public static int counter = 0; //for not import scores more than one time
 
 	@FXML
 	public void initialize() {
 		try 
 		{
-			if(counter ==0)
+			if(counter ==0) // if not imported yet
 			{
-				if (!sd.import_scores()) // import not successful
-					throw new JsonException();	
+				if (!sd.import_scores()) // doing import
+					throw new JsonException();	//not successfully
 			}
 			counter ++;
+			//sorting game History
 			Collections.sort(sd.getGames(), new Comparator<Game>() {
 			    public int compare(Game g1, Game g2) {
 			        return g2.getScore() - g1.getScore();
@@ -62,7 +63,6 @@ public class GameHistory {
 			time.setCellValueFactory(new PropertyValueFactory<>("date"));
 			score.setCellValueFactory(new PropertyValueFactory<>("score"));
 			tbData.setItems(gamesHistory);
-			tbData.sort();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (JsonException e) {
