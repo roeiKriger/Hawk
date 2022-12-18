@@ -778,9 +778,8 @@ public class GameScreen implements Initializable {
 	//game over once the queen/king catches the knight, or a level ended with less than 15 points
 	void gameOver(String reason) throws IOException{
 		sd.playSound(Sound.WrongAnswer);
-		
+		sd.addGameToHistory();
 		SysData.alert("Game Over", reason, AlertType.WARNING);
-		
 		returnToHomePage(null);
 	}
 	
