@@ -80,12 +80,18 @@ class TestClass
 		assertFalse(testQuestion.checkCorrectAnswer("D"));
 	}
 	
+	/*
+	 * Checking if score is add to Scores JSON
+	 */
+	
 	@Test
-	public void checkNullPlayerTest() 
+	public void addScoreTest() 
 	{
-		//g=new Game(null);
-		//assertNotNull(g);
-		assertTrue(true);
+		g = new Game("jUnit");
+		g.setScore(100);
+		SysData sd = SysData.getInstance();
+		sd.setGame(g);
+		assertTrue(sd.add_score());	
 	}
 	
 	
