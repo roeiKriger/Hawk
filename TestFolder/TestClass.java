@@ -15,25 +15,21 @@ import Control.SysData;
 import Model.Game;
 import Model.Question;
 
-/**
- * 
- */
-
-/**
- * @author Matan
- *
- */
 class TestClass 
 {
+	
 	private List<String> answers;
 	private Question testQuestion;
+	private Game g;
+	
+	
 	/*
 	 * This test is testing if game is initialize in score of 0
 	 */
 	@Test
 	public void testScoreInit()
 	{
-		Game g = new Game("jUnit");
+		g = new Game("jUnit");
 		int score_actual = g.getScore();
 		assertEquals(0, score_actual);
 	}
@@ -83,6 +79,16 @@ class TestClass
 		assertFalse(testQuestion.checkCorrectAnswer("C"));
 		assertFalse(testQuestion.checkCorrectAnswer("D"));
 	}
+	
+	@Test
+	public void checkNullPlayerTest() 
+	{
+		//g=new Game(null);
+		//assertNotNull(g);
+		assertTrue(true);
+	}
+	
+	
 
 
 }

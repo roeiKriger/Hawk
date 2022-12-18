@@ -3,6 +3,7 @@ package Control.ViewLogic;
 import java.io.IOException;
 
 import Control.SysData;
+import Exceptions.EmptyNickNameException;
 import Utils.Sound;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,47 +17,50 @@ import javafx.stage.Stage;
 
 public class InsertNickname {
 
-    @FXML
-    private AnchorPane mainPane;
-    
-    @FXML
-    private TextField nickname;
-    
-    private SysData sd = SysData.getInstance();
+	@FXML
+	private AnchorPane mainPane;
 
-    @FXML
-    void onStartGame(ActionEvent event) throws IOException {
-    	sd.playSound(Sound.StartGame);
-    	
-    	String nick = nickname.getText();
-    	if (nick.length() == 0) {
+	@FXML
+	private TextField nickname;
+
+	private SysData sd = SysData.getInstance();
+
+	@FXML
+	void onStartGame(ActionEvent event) throws IOException {
+		sd.playSound(Sound.StartGame);
+		try {
+			String nick = nickname.getText();
+			if (nick.length() == 0) {
+				throw new EmptyNickNameException();
+			}
+			// save nick name in sysdata
+			sd.setNickname(nick);
+
+			// Move to game screen
+			Parent newRoot = FXMLLoader.load(getClass().getResource("/View/GameScreen.fxml"));
+			Stage primaryStage = (Stage) mainPane.getScene().getWindow();
+			primaryStage.getScene().setRoot(newRoot);
+			primaryStage.setTitle("Knight's Move");
+			primaryStage.show();
+		} catch (EmptyNickNameException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Empty nickname");
-			alert.setHeaderText("Please don't enter enpty nickname");
+			alert.setHeaderText("Please don't enter empty nickname");
 			alert.showAndWait();
 			return;
-    	}
-    	
-    	// save nick name in sysdata
-    	sd.setNickname(nick);
-    	
-    	// Move to game screen
-		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/GameScreen.fxml"));
-		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
-		primaryStage.getScene().setRoot(newRoot);
-		primaryStage.setTitle("Knight's Move");
-		primaryStage.show();
-    }
-    
-    @FXML
-    void returnToHomePage(ActionEvent event) throws IOException {
-    	sd.playSound(Sound.Menu);
-    	
+		}
+
+	}
+
+	@FXML
+	void returnToHomePage(ActionEvent event) throws IOException {
+		sd.playSound(Sound.Menu);
+
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);
 		primaryStage.setTitle("Knight's Move");
 		primaryStage.show();
-    }
+	}
 
 }

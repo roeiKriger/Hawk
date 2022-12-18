@@ -8,8 +8,10 @@ import java.util.Timer;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import Control.SysData;
+import Exceptions.EmptyNickNameException;
 import Utils.Mode;
 import javafx.animation.Timeline;
+import javafx.scene.control.Alert.AlertType;
 
 public class Game {
 
@@ -78,10 +80,21 @@ public class Game {
 		this.score = 0;
 		this.gameLevel = 1;
 		this.nickname = nickname;
+
 		this.date = new Date(System.currentTimeMillis());
 		this.mode = Mode.Default;
 	}
 	
+	// Constructor for Json Score
+	public Game(String nickname, int score, Date date) {
+		//this.board = new Square[8][8];
+		this.score = score;
+		//this.gameLevel = 1;
+		this.nickname = nickname;
+
+		this.date = date;
+		//this.mode = Mode.Default;
+	}
 
 	public Game(Square[][] board, int score, Timeline timer, int gameLevel, String nickname, Date date, Knight knight,
 			Queen queen, King king) {

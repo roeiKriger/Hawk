@@ -2,6 +2,7 @@ package Control.ViewLogic;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -315,7 +316,7 @@ public class GameScreen implements Initializable {
 									if(currentGame.getQueen() != null)
 										try {
 											singleQueenTurn();
-										} catch (IOException e) {
+										} catch (Exception e) {
 											e.printStackTrace();
 										}
 								}
@@ -355,7 +356,7 @@ public class GameScreen implements Initializable {
 	/*
 	 * a single turn of a queen piece
 	 */
-	private void singleQueenTurn() throws IOException {
+	private void singleQueenTurn() throws IOException, ParseException {
 		//get possible next moves for the queen
 		Square[][] possibleMoves = currentGame.getQueen().move(currentGame.getGameLevel());
 
@@ -784,7 +785,7 @@ public class GameScreen implements Initializable {
 	}
 	
 	//once a player ends level 4 with over 15 points
-	void gameWon() throws IOException {
+	void gameWon() throws IOException{
 		sd.playSound(Sound.CorrectAnswer);
 		sd.addGameToHistory();
 		if(currentGame.getScore() >= Constants.TROPHY)

@@ -306,15 +306,16 @@ public class SysData implements Initializable
 	{
 		JSONArray gamesArr = new JSONArray();
 
-		for (Game g : games)
-		{
+		/*for (Game g : games)
+		{*/
+		Game g = getGame();
 			JSONObject inner = new JSONObject();
 
 			inner.put("nickname", g.getNickname());
 			inner.put("score", g.getScore());
 			inner.put("date", g.getDate().toGMTString());
 			gamesArr.add(inner);
-		}
+		//}
 		JSONObject outer = new JSONObject();
 
 		if (games.size() > 0)
@@ -356,15 +357,18 @@ public class SysData implements Initializable
 			{
 				JSONObject currItem = ((JSONObject) jsAr.get(i));
 				String nick = (String) currItem.get("nickname");
-				Game game = new Game(nick);
+				//Game game = new Game(nick);
 				Long s = (Long) currItem.get("score");
 				int score = s.intValue();
-				game.setScore(score);
+				//game.setScore(score);
 				String gameDayOnString = (String) currItem.get("date");
 				Date gameDay = new Date(gameDayOnString);
-				game.setDate(gameDay);
+				//game.setDate(gameDay);
+				//Game game = new Game
+				Game game = new Game(nick, score, gameDay);
 //				System.out.println(game);
-				this.games.add(game);
+				if(!games.contains(game)) // if game not exist in list
+					this.games.add(game);
 			}	
 			return true;
 		} catch (FileNotFoundException e)
@@ -450,19 +454,21 @@ public class SysData implements Initializable
 	/*
 	 * This method add the end game to Scores.json
 	 */
-    public boolean addGameToHistory()
-    {
-    	if(game == null)
-    	{
-    		return false;
-    	}
-    	if(!games.add(game))
-    	{
-    		return false;
-    	}
-    	
-    	return this.write_questions(questions);
-    }
+	public boolean addGameToHistory() {
+		try {
+			if (game == null) {
+				return false;
+			}
+			if (!games.add(game)) {
+				return false;
+			}
+
+			return this.add_score();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return true;
+	}
 
 	public List<Game> getGames() {
 		return games;

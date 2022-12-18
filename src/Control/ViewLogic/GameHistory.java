@@ -37,12 +37,18 @@ public class GameHistory {
 	public TableColumn<Game, String> score;
 
 	private ObservableList<Game> gamesHistory;
+	public static int counter = 0;
 
 	@FXML
 	public void initialize() {
-		try {
-			if (!sd.import_scores()) // import not successful
-				throw new JsonException();
+		try 
+		{
+			if(counter ==0)
+			{
+				if (!sd.import_scores()) // import not successful
+					throw new JsonException();	
+			}
+			counter ++;
 			gamesHistory = FXCollections.observableArrayList(FXCollections.observableArrayList(sd.getGames()));
 			nickName.setCellValueFactory(new PropertyValueFactory<>("nickname"));
 			time.setCellValueFactory(new PropertyValueFactory<>("date"));
