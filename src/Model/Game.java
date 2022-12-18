@@ -58,7 +58,7 @@ public class Game {
 	private King king;
 	
 	private Utils.Mode mode;
-
+	
 	private int knightRowStarts = 0;
 	private int knightColStarts = 0;
 

@@ -1,9 +1,24 @@
 {
 	"games":[
 		{
-			"date":"18 Dec 2022 19:41:19 GMT",
-			"score":11,
+			"date":"18 Dec 2022 20:09:31 GMT",
+			"score":3,
 			"nickname":"g"
+		},
+		{
+			"date":"18 Dec 2022 20:09:41 GMT",
+			"score":19,
+			"nickname":"f"
+		},
+		{
+			"date":"18 Dec 2022 20:11:24 GMT",
+			"score":1,
+			"nickname":"f"
+		},
+		{
+			"date":"18 Dec 2022 20:11:32 GMT",
+			"score":20,
+			"nickname":"v"
 		}
 	]
 }

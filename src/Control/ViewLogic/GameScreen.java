@@ -84,6 +84,8 @@ public class GameScreen implements Initializable {
 	ArrayList<Game> gamesArrayForForgettingSquareGames = new ArrayList<>();
 
 	private Game currentGame;
+	
+	private int previousLevelScore;
 
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
@@ -108,6 +110,7 @@ public class GameScreen implements Initializable {
 		levelLabel.setText("Level " + currentGame.getGameLevel());
 		//set background
 		background.setImage(new Image("/Assets/screens/blank.png"));
+		previousLevelScore = 0;
 	}
 	
 	/*
@@ -254,7 +257,6 @@ public class GameScreen implements Initializable {
 									currentGame.setScore(currentGame.getScore()-Constants.POINT);
 								//update score on screen
 								pointsLabel.setText("Points: " + currentGame.getScore());
-										
 								
 								// case of question tile
 								if (currentGame.getBoard()[newRow][newCol].getSquareType().equals("question")) {
@@ -723,8 +725,12 @@ public class GameScreen implements Initializable {
 	
 	//start the next level or end the game, based on the score at the end of the level
 	void oneMinutePassedAndLevelEnded() throws IOException {
+		//calculate current level score
+		int currentLevelScore = currentGame.getScore() - previousLevelScore;
+		previousLevelScore = currentGame.getScore();
+	
 		//score is higher than 15 points
-		if(currentGame.getScore() > Constants.MIN_SCORE_TO_WIN_LEVEL) {
+		if(currentLevelScore > Constants.MIN_SCORE_TO_WIN_LEVEL) {
 			
 			//player won level 4
 			if(currentGame.getGameLevel() == 4) 
@@ -739,7 +745,6 @@ public class GameScreen implements Initializable {
 		+ currentGame.getGameLevel() + ", and earned " + currentGame.getScore() 
 		+ " points. \nBetter luck next time!");
 		}
-		
 	}
 	
 	//initialize next level's board
@@ -774,6 +779,7 @@ public class GameScreen implements Initializable {
 		initGamesArray();
 		//mark the tile 0,0 of knight as visited
 		currentGame.getBoard()[Constants.INITIAL_LOCATION][Constants.INITIAL_LOCATION].setIsVisited(true);
+	
 	}
 	
 	//game over once the queen/king catches the knight, or a level ended with less than 15 points
