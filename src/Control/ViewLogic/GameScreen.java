@@ -242,8 +242,7 @@ public class GameScreen implements Initializable {
 								// TODO - add cases of question, random, etc;
 
 								int newCol = (int) (eventAfter.getSceneX() - boardWrapper.getLayoutX()) / Constants.TILE_SIZE;
-								int newRow = (int) (eventAfter.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;
-								
+								int newRow = (int) (eventAfter.getSceneY() - boardWrapper.getLayoutY()) / Constants.TILE_SIZE;	
 								
 								//update score based on visited/unvisited square	
 								if (currentGame.getBoard()[newRow][newCol].getIsVisited().equals(false)) {
