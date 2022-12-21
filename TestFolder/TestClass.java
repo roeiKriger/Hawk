@@ -19,14 +19,16 @@ import Model.Question;
 class TestClass 
 {
 	
-	private List<String> answers;
-	private Question testQuestion;
+	private static List<String> answers = new ArrayList<String>() ;
+	private static Question testQuestion;
 	private Game g;
 	
+	/*
+	 * Before all testing initialize new Question
+	 */
 	@BeforeAll
-	public void initializeQuestion()
+	public static void initializeQuestion()
 	{
-		answers = new ArrayList<String>();
 		answers.add("A");
 		answers.add("B");
 		answers.add("C");
@@ -47,66 +49,34 @@ class TestClass
 	}
 	
 	/*
-	 * This test is testing if the Question JSON File is read successfully
+	 * This test is testing if the Question has content not null
 	 */
 	@Test
-	public void testReadQuestionsJson() throws IOException, ParseException
+	public void testContentQuestion()
 	{
-		assertTrue(SysData.getInstance().load_questions());
-	}
-	
-	/*
-	 * This test is testing if the Scores JSON File is read successfully
-	 */
-	@Test
-	public void testReadScoresJson() throws java.text.ParseException {
-		assertTrue(SysData.getInstance().import_scores());
-	}
-	
-	/*
-	 * This method trying to add new Question 
-	 * Testing if just one of the answers is correct
-	 * if the question content is not null
-	 * check if difficulty is correct
-	 */
-	@Before
-	public List<String> initializeAnswers()
-	{
-		answers = new ArrayList<String>();
-		answers.add("A");
-		answers.add("B");
-		answers.add("C");
-		answers.add("D");
-		return answers;
-	}
-
-	@Test
-	public void initalizeQuestion() throws IOException
-	{
-		testQuestion = new Question(1, "Whay you prefer?", initializeAnswers(), 1);
 		assertNotNull(testQuestion.getQuestionContent());
+	}
+	
+	/*
+	 * This test is testing if the Question difficulty is true
+	 */
+	@Test
+	public void testDiffucltyQuestion()
+	{
 		assertEquals(1, testQuestion.getQuestionDifficulty());
+	}
+	
+	/*
+	 * Testing if just one of the answers is correct
+	 */
+	@Test
+	public void testAnsewrsOfQuestion() throws IOException
+	{	
 		assertTrue(testQuestion.checkCorrectAnswer("A"));
 		assertFalse(testQuestion.checkCorrectAnswer("B"));
 		assertFalse(testQuestion.checkCorrectAnswer("C"));
 		assertFalse(testQuestion.checkCorrectAnswer("D"));
 	}
 	
-	/*
-	 * Checking if score is add to Scores JSON
-	 */
-	
-	@Test
-	public void addScoreTest() 
-	{
-		g = new Game("jUnit");
-		g.setScore(100);
-		SysData sd = SysData.getInstance();
-		sd.setGame(g);
-		assertTrue(sd.add_score());	
-	}
-	
-	
-
 
 }
