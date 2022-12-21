@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.json.simple.parser.ParseException;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import Control.SysData;
@@ -21,6 +22,17 @@ class TestClass
 	private List<String> answers;
 	private Question testQuestion;
 	private Game g;
+	
+	@BeforeAll
+	public void initializeQuestion()
+	{
+		answers = new ArrayList<String>();
+		answers.add("A");
+		answers.add("B");
+		answers.add("C");
+		answers.add("D");
+		testQuestion = new Question(1, "Whay you prefer?", answers, 1);
+	}
 	
 	
 	/*
@@ -69,7 +81,7 @@ class TestClass
 	}
 
 	@Test
-	public void addQuestionTest() throws IOException
+	public void initalizeQuestion() throws IOException
 	{
 		testQuestion = new Question(1, "Whay you prefer?", initializeAnswers(), 1);
 		assertNotNull(testQuestion.getQuestionContent());
