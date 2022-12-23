@@ -9,8 +9,6 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.security.auth.x500.X500Principal;
-
 import Control.SysData;
 import Model.Constants;
 import Model.Game;
@@ -36,7 +34,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -708,7 +705,9 @@ public class GameScreen implements Initializable {
 	 */
 	@FXML
 	void openQuestionModal(MouseEvent event) throws IOException {
-		sd.playSound(Sound.QuestionPopup);
+		if (sd.isSoundFlag()) {
+			sd.playSound(Sound.QuestionPopup);			
+		}
 		
 		Stage stage = new Stage();
 		Parent root = FXMLLoader.load(getClass().getResource("/View/QuestionModal.fxml"));
@@ -786,7 +785,9 @@ public class GameScreen implements Initializable {
 	
 	//game over once the queen/king catches the knight, or a level ended with less than 15 points
 	void gameOver(String reason) throws IOException{
-		sd.playSound(Sound.WrongAnswer);
+		if (sd.isSoundFlag()) {
+			sd.playSound(Sound.WrongAnswer);			
+		}
 		sd.addGameToHistory();
 		SysData.alert("Game Over", reason, AlertType.WARNING);
 		returnToHomePage(null);
@@ -794,7 +795,9 @@ public class GameScreen implements Initializable {
 	
 	//once a player ends level 4 with over 15 points
 	void gameWon() throws IOException{
-		sd.playSound(Sound.CorrectAnswer);
+		if (sd.isSoundFlag()) {
+			sd.playSound(Sound.CorrectAnswer);			
+		}
 		sd.addGameToHistory();
 		if(currentGame.getScore() >= Constants.TROPHY)
 			SysData.alert("Winner!", "You got over 200 points and won a trophy", AlertType.INFORMATION);
@@ -810,7 +813,9 @@ public class GameScreen implements Initializable {
 	 */
 	@FXML
 	void returnToHomePage(ActionEvent event) throws IOException {
-		sd.playSound(Sound.Menu);
+		if (sd.isSoundFlag()) {
+			sd.playSound(Sound.Menu);			
+		}
 
 		time.stop();
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
@@ -821,7 +826,9 @@ public class GameScreen implements Initializable {
 	}
 	
 	void startANewGame(ActionEvent event) throws IOException {
-	   sd.playSound(Sound.Menu);
+		if (sd.isSoundFlag()) {
+			sd.playSound(Sound.Menu);			
+		}
 
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/InsertNickname.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
@@ -843,7 +850,9 @@ public class GameScreen implements Initializable {
    //change screen mode to Christmas
    @FXML
 	void christmasMode(ActionEvent event) throws IOException {
-	   sd.playSound(Sound.Menu);
+		if (sd.isSoundFlag()) {
+			sd.playSound(Sound.Menu);			
+		}
 	   
 	   if(currentGame.getMode()!=Mode.Christmas) {
 		   currentGame.setMode(Mode.Christmas);
@@ -857,7 +866,9 @@ public class GameScreen implements Initializable {
    //change screen mode to Hanukkah
    @FXML
 	void hanukkahMode(ActionEvent event) throws IOException {
-	   sd.playSound(Sound.Menu);
+		if (sd.isSoundFlag()) {
+			sd.playSound(Sound.Menu);			
+		}
 
 	   if(currentGame.getMode()!=Mode.Hanukkah) {
 		   currentGame.setMode(Mode.Hanukkah);
@@ -870,7 +881,9 @@ public class GameScreen implements Initializable {
    
    //change screen mode to default
    void defaultMode() {
-	   sd.playSound(Sound.Menu);
+		if (sd.isSoundFlag()) {
+			sd.playSound(Sound.Menu);			
+		}
 
 	   currentGame.setMode(Mode.Default);
 	   background.setImage(new Image("/Assets/screens/blank.png"));

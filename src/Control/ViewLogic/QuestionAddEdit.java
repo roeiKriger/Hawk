@@ -216,7 +216,9 @@ public class QuestionAddEdit implements Initializable {
 
     @FXML
     void returnToQuestionsManagement(ActionEvent event) throws IOException {
-    	sd.playSound(Sound.Menu);
+    	if (sd.isSoundFlag()) {
+			sd.playSound(Sound.Menu);			
+		}
     	
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/QuestionEditor.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();

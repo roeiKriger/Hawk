@@ -48,6 +48,7 @@ public class SysData implements Initializable
 	// questions management
 	private String addEditFlag;
 	private Question editedQuestion;
+	private boolean soundFlag = true;
 	
 	// static method to create instance of Singleton class
 	public static SysData getInstance()
@@ -95,6 +96,13 @@ public class SysData implements Initializable
 		this.editedQuestion = editedQuestion;
 	}
 	
+	public boolean isSoundFlag() {
+		return soundFlag;
+	}
+
+	public void setSoundFlag(boolean soundFlag) {
+		this.soundFlag = soundFlag;
+	}
 
 	public Game getGame() {
 		return game;

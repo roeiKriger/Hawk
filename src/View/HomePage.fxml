@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Control.ViewLogic.HomePage">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ViewLogic.HomePage">
    <children>
       <ImageView fitHeight="623.0" fitWidth="822.0" layoutX="-12.0" layoutY="-13.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -43,5 +43,6 @@
             <Font name="System Bold" size="60.0" />
          </font>
       </Label>
+      <ImageView fx:id="soundImg" fitHeight="64.0" fitWidth="64.0" layoutX="700.0" layoutY="65.0" onMouseClicked="#toggleSound" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

@@ -27,7 +27,10 @@ public class InsertNickname {
 
 	@FXML
 	void onStartGame(ActionEvent event) throws IOException {
-		sd.playSound(Sound.StartGame);
+		if (sd.isSoundFlag()) {
+			sd.playSound(Sound.StartGame);			
+		}
+		
 		try {
 			String nick = nickname.getText();
 			if (nick.length() == 0) {
@@ -54,8 +57,10 @@ public class InsertNickname {
 
 	@FXML
 	void returnToHomePage(ActionEvent event) throws IOException {
-		sd.playSound(Sound.Menu);
-
+		if (sd.isSoundFlag()) {
+			sd.playSound(Sound.Menu);			
+		}
+		
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);

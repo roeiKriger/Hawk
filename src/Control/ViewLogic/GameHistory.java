@@ -19,7 +19,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -93,7 +92,9 @@ public class GameHistory {
 
 	@FXML
 	void returnToHomePage(ActionEvent event) throws IOException {
-		sd.playSound(Sound.Menu);
+		if (sd.isSoundFlag()) {
+			sd.playSound(Sound.Menu);			
+		}
 		
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/HomePage.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
@@ -104,7 +105,10 @@ public class GameHistory {
 	
 	@FXML
 	void returnToStatisticsPage(ActionEvent event) throws IOException {
-		sd.playSound(Sound.Menu);
+		if (sd.isSoundFlag()) {
+			sd.playSound(Sound.Menu);			
+		}
+		
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/StaticsScoreScreen.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);

@@ -1,20 +1,15 @@
 package Control.ViewLogic;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import Control.SysData;
-import Model.Game;
 import Utils.Sound;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -46,7 +41,9 @@ public class StatisticsScore {
 
 	@FXML
 	void returnBack(ActionEvent event) throws IOException {
-		sd.playSound(Sound.Menu);
+		if (sd.isSoundFlag()) {
+			sd.playSound(Sound.Menu);			
+		}
 
 		Parent newRoot = FXMLLoader.load(getClass().getResource("/View/GameHistory.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();

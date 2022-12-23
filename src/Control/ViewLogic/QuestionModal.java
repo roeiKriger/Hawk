@@ -50,7 +50,6 @@ public class QuestionModal implements Initializable{
     	questionLabel.setText(question.getQuestionContent());
     	levelLabel.setText("Level: " + question.getQuestionDifficulty());
     	
-    	// TODO - maybe shuffle order
     	List<String> answers = question.getAnswers();
     	answer1.setText(answers.get(0));
     	answer2.setText(answers.get(1));
@@ -88,7 +87,9 @@ public class QuestionModal implements Initializable{
     	int score = sd.getGame().getScore();
     	if(question.checkCorrectAnswer(toogleGroupValue))
     	{ // correct answer
-    		sd.playSound(Sound.CorrectAnswer);
+    		if (sd.isSoundFlag()) {
+    			sd.playSound(Sound.CorrectAnswer);			
+    		}
     		if(question.getQuestionDifficulty() == 1)
     			score += Model.Constants.SUCSSED_EASY;
     		if(question.getQuestionDifficulty() == 2)
@@ -100,7 +101,9 @@ public class QuestionModal implements Initializable{
     	}
     	else
     	{ //wrong answer
-    		sd.playSound(Sound.WrongAnswer);
+    		if (sd.isSoundFlag()) {
+    			sd.playSound(Sound.WrongAnswer);			
+    		}
     		if(question.getQuestionDifficulty() == 1)
     			score += Model.Constants.WORNG_EASY;
     		if(question.getQuestionDifficulty() == 2)
