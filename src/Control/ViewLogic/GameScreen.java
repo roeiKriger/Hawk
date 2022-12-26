@@ -739,9 +739,9 @@ public class GameScreen implements Initializable {
 		}
 		//score is 15 points or less
 		else {
-			gameOver("You need more than 15 points, to move to the next level. \nYou got to level " 
-		+ currentGame.getGameLevel() + ", and earned " + currentGame.getScore() 
-		+ " points. \nBetter luck next time!");
+			gameOver("You need to earn more than 15 points in each level, to be able to move to the next one. "
+					+ "\nYou got to level " + currentGame.getGameLevel() + ", and earned " + currentLevelScore + " points."
+					+ "\nYou earned " + currentGame.getScore() + " points total. Better luck next time!");
 		}
 	}
 	
