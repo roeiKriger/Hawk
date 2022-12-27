@@ -118,7 +118,7 @@ public class SysData implements Initializable
 	/*
 	 * This method do import JSON to Question array
 	 */
-	public boolean load_questions() throws IOException, ParseException
+	public boolean loadQuestions() throws IOException, ParseException
 	{
 		//questions = new ArrayList<>();
 		String fileName = "Questions.json";
@@ -190,7 +190,7 @@ public class SysData implements Initializable
 		this.questionsLevel3 = new ArrayList<>();
 		
 		
-		for (Question question : this.get_questions()) {
+		for (Question question : this.getQuestions()) {
 			if (question.getQuestionDifficulty() == 1) {
 				this.questionsLevel1.add(question);
 			} else if (question.getQuestionDifficulty() == 2) {
@@ -205,7 +205,7 @@ public class SysData implements Initializable
 	/*
 	 * This method will write the questions to JSON file
 	 */
-	public boolean write_questions(List<Question> questionsToUpdate)
+	public boolean writeQuestions(List<Question> questionsToUpdate)
 	{
 		questions = new ArrayList<>();
 		questions.addAll(questionsToUpdate);
@@ -255,7 +255,7 @@ public class SysData implements Initializable
 	 * This method gets Question
 	 * The method will remove the Question from the List 
 	 */
-	private boolean delete_question_from_list(Question q)
+	private boolean deleteQuestionFromList(Question q)
 	{
 		return this.questions.remove(q);
 	}
@@ -265,11 +265,11 @@ public class SysData implements Initializable
 	 * This method gets Question
 	 * The method will remove the Question from the List and JSON
 	 */
-	public boolean delete_question(Question q)
+	public boolean deleteQuestion(Question q)
 	{
-		if(delete_question_from_list(q))
+		if(deleteQuestionFromList(q))
 		{
-			return write_questions(questions);
+			return writeQuestions(questions);
 		}
 		return false;
 	}
@@ -277,7 +277,7 @@ public class SysData implements Initializable
 	/*
 	 * This method get this question list 
 	 */
-	public List<Question> get_questions()
+	public List<Question> getQuestions()
 	{
 		if(this.questions!=null)
 			return this.questions;
@@ -302,7 +302,7 @@ public class SysData implements Initializable
 	// Score Zone // 
 
 	//this method add game to list
-	public boolean add_game_to_list(Game g)
+	public boolean addGameToList(Game g)
 	{
 		return this.games.add(g);
 	}
@@ -310,7 +310,7 @@ public class SysData implements Initializable
 	/*
 	 * This method will add the scores to JSON file
 	 */
-	public boolean add_score()
+	public boolean addScore()
 	{
 		JSONArray gamesArr = new JSONArray();
 
@@ -349,7 +349,7 @@ public class SysData implements Initializable
 	/*
 	 * This method get the scores to the list from Scores.json
 	 */
-	public boolean import_scores() throws java.text.ParseException
+	public boolean importScores() throws java.text.ParseException
 	{
 		String fileName = "Scores.json";
 		FileReader reader;
@@ -402,7 +402,7 @@ public class SysData implements Initializable
 			questions = new ArrayList<>();
 			try
 			{
-				this.load_questions();
+				this.loadQuestions();
 			} catch (IOException e)
 			{
 				// TODO Auto-generated catch block
@@ -471,7 +471,7 @@ public class SysData implements Initializable
 				return false;
 			}
 
-			return this.add_score();
+			return this.addScore();
 		} catch (Exception e) {
 			e.getStackTrace();
 		}

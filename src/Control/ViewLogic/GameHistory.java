@@ -55,7 +55,7 @@ public class GameHistory {
 		{
 			if(counter ==0) // if not imported yet
 			{
-				if (!sd.import_scores()) // doing import
+				if (!sd.importScores()) // doing import
 					throw new JsonException();	//not successfully
 			}
 			counter ++;

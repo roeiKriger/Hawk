@@ -44,7 +44,7 @@ class TestClass
 		
 		sd = SysData.getInstance();
 		try {
-		if (!sd.load_questions()) // import not successful
+		if (!sd.loadQuestions()) // import not successful
 			throw new JsonException();
 		} catch (JsonException e) {
 			SysData.alert(e.getMessage(), e.getMessage(), AlertType.ERROR);

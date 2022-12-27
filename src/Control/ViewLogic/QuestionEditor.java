@@ -72,7 +72,7 @@ public class QuestionEditor implements Initializable {
 			difficultyComboBox.getItems().addAll(Difficulty.values());
 		
 		// fill Question table
-			questions = FXCollections.observableArrayList(FXCollections.observableArrayList(sd.get_questions()));
+			questions = FXCollections.observableArrayList(FXCollections.observableArrayList(sd.getQuestions()));
 			numb.setCellValueFactory(new PropertyValueFactory<>("questionId"));
 			diff.setCellValueFactory(new PropertyValueFactory<>("questionDifficulty"));
 			cont.setCellValueFactory(new PropertyValueFactory<>("questionContent"));
@@ -155,9 +155,9 @@ public class QuestionEditor implements Initializable {
     		return;
     	}
     	
-    	sd.get_questions().remove(sd.getEditedQuestion());
+    	sd.getQuestions().remove(sd.getEditedQuestion());
     	
-    	sd.write_questions(sd.get_questions());
+    	sd.writeQuestions(sd.getQuestions());
     	refresh();
     }
     

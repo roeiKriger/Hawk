@@ -113,7 +113,7 @@ public class QuestionAddEdit implements Initializable {
     	} else {
     		edit();
     	}   
-    	sd.write_questions(sd.get_questions());
+    	sd.writeQuestions(sd.getQuestions());
     }
       
     /*
@@ -128,7 +128,7 @@ public class QuestionAddEdit implements Initializable {
     	
     	Question newQuestion = new Question(difficultNum, questionStr, answers, correctAns);
     	
-    	sd.get_questions().add(newQuestion);
+    	sd.getQuestions().add(newQuestion);
     	
     	// update questions by level
     	sd.filterQuestionsByLevels();
