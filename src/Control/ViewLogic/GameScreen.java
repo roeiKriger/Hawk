@@ -275,6 +275,37 @@ public class GameScreen implements Initializable {
 								// update knight position in Model
 								currentGame.getKnight().setRow(newRow);
 								currentGame.getKnight().setCol(newCol);
+								
+								//if the queen caught the knight
+								if(currentGame.getQueen() != null) {
+									if(currentGame.getQueen().getRow() == currentGame.getKnight().getRow()
+											&& currentGame.getQueen().getCol() == currentGame.getKnight().getCol()) {
+										time.stop();
+										try {
+											gameOver("The Knight was caught by the Queen. \nYou got to level " + currentGame.getGameLevel() 
+											+ ", and earned " + currentGame.getScore() + " points. \nBetter luck next time!");
+										} catch (IOException e) {
+											e.printStackTrace();
+										}
+													
+									}
+								}
+								else {
+									//if the king caught the knight
+									if(currentGame.getKing().getRow() == currentGame.getKnight().getRow()
+											&& currentGame.getKing().getCol() == currentGame.getKnight().getCol()) {
+										time.stop();
+										try {
+											gameOver("The Knight was caught by the King. \nYou got to level " + currentGame.getGameLevel() 
+											+ ", and earned " + currentGame.getScore() + " points. \nBetter luck next time!");
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									}
+									
+								}
+								
 
 								// checking to see if the Knight stepped on a Random Square, if so he will be moved to a new location
 								if (currentGame.checkIfSteppedOnRandomSquare()) {
