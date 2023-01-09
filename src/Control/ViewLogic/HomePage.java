@@ -61,7 +61,7 @@ public class HomePage implements Initializable{
     	Parent newRoot = FXMLLoader.load(getClass().getResource("/View/GameHistory.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);
-		primaryStage.setTitle("Rules");
+		primaryStage.setTitle("Game History");
 		primaryStage.show();
     }
 
@@ -87,7 +87,7 @@ public class HomePage implements Initializable{
     	Parent newRoot = FXMLLoader.load(getClass().getResource("/View/SignInAsAdmin.fxml"));
 		Stage primaryStage = (Stage) mainPane.getScene().getWindow();
 		primaryStage.getScene().setRoot(newRoot);
-		primaryStage.setTitle("Insert Nickname");
+		primaryStage.setTitle("Sign In As Admin");
 		primaryStage.show();
 
     }

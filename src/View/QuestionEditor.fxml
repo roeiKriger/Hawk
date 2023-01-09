@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="605.0" fitWidth="804.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Assets/screens/blue.jpg" />
+            <Image url="/Assets/screens/blue.jpg" />
          </image>
       </ImageView>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToHomePage" style="-fx-background-radius: 20;" text="Log Out" />
@@ -54,7 +54,7 @@
       </Label>
       <ImageView fitHeight="159.0" fitWidth="230.0" layoutX="573.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Assets/screens/questions.png" />
+            <Image url="/Assets/screens/questions.png" />
          </image>
       </ImageView>
    </children>

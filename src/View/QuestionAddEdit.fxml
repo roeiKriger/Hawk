@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="646.0" fitWidth="821.0" layoutX="-3.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Assets/screens/blue.jpg" />
+            <Image url="/Assets/screens/blue.jpg" />
          </image>
       </ImageView>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnToQuestionsManagement" style="-fx-background-radius: 20;" text="Back" />
@@ -91,7 +91,7 @@
       </Label>
       <ImageView fitHeight="181.0" fitWidth="203.0" layoutX="630.0" layoutY="413.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Assets/screens/question_knight.png" />
+            <Image url="/Assets/screens/question_knight.png" />
          </image>
       </ImageView>
    </children>

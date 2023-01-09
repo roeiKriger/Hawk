@@ -38,12 +38,12 @@
       </Label>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-4.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Assets/screens/horse_opacity.png" />
+            <Image url="/Assets/screens/horse_opacity.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="651.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Assets/screens/king_opacity.png" />
+            <Image url="/Assets/screens/king_opacity.png" />
          </image>
       </ImageView>
       <Button layoutX="21.0" layoutY="522.0" mnemonicParsing="false" onAction="#christmasMode" prefHeight="46.0" prefWidth="94.0" style="-fx-background-radius: 20;" text="Christmas&#10;Mode" textAlignment="CENTER">
