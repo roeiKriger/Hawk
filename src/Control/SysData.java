@@ -1,9 +1,11 @@
 package Control;
 
+import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -499,9 +501,13 @@ public class SysData implements Initializable
 				try
 				{
 					Clip clip = AudioSystem.getClip();
-					AudioInputStream inputStream = AudioSystem
-							.getAudioInputStream(getClass().getResourceAsStream("/sounds/" + sound.getValue()));
-					clip.open(inputStream);
+//					AudioInputStream inputStream = AudioSystem
+//							.getAudioInputStream(getClass().getResourceAsStream("/sounds/" + sound.getValue()));
+					InputStream audioSrc = getClass().getResourceAsStream("/sounds/" + sound.getValue());
+					InputStream bufferedIn = new BufferedInputStream(audioSrc);
+					AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+
+					clip.open(audioStream);
 					clip.start();
 				} catch (Exception e)
 				{
