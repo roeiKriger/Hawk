@@ -7,3 +7,5 @@ The game is played on a chess board, and in each level the player, represented a
 The project was developed using the MVC pattern. The screens that make up the game's GUI include the game board, home, score history, game rules, question popup and question editor (protected with an admin sign in screen). 
 
 There are two design pattern implemented in the project: template method and factory method.
+
+![Alt text](/src/Assets/board.png "Optional title")
