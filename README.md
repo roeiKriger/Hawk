@@ -12,3 +12,5 @@ There are two design pattern implemented in the project: template method and fac
 The game board:
 
 ![Game Board](/src/Assets/board.jpg "Optional title" | width=100)
+
+<img src="/src/Assets/board.jpg" width="100" height="100">
