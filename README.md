@@ -1,4 +1,5 @@
-Knight's Move Game:
+# Knight's Move Game:
+
 Academic project in Software Engineering course. Includes: inheritance, data structures, exceptions, enums, singleton, serialization, JavaFX, JSON, design patterns.
 
 The game is played on a chess board, and in each level the player, represented as the knight, must escape the queen or king, that move on their own, while earning enough points to move to the next level. The board contains special squares such as: question square, blocked square, random jump square etc.  
