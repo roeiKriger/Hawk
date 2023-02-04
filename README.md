@@ -1,4 +1,4 @@
-# Knight's Move Game:
+# Knight's Move Game
 
 Academic project in Software Engineering course. Includes: inheritance, data structures, exceptions, enums, singleton, serialization, JavaFX, JSON, design patterns.
 
