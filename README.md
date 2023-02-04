@@ -8,4 +8,7 @@ The project was developed using the MVC pattern. The screens that make up the ga
 
 There are two design pattern implemented in the project: template method and factory method.
 
-![Alt text](/src/Assets/board.jpg "Optional title")
+
+The game board:
+
+![Game Board](/src/Assets/board.jpg "Optional title" | width=100)
