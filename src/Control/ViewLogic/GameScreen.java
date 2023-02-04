@@ -83,6 +83,8 @@ public class GameScreen implements Initializable {
 	private Game currentGame;
 	
 	private int previousLevelScore;
+	
+	private boolean gameEndedFlag = false;
 
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
@@ -537,7 +539,7 @@ public class GameScreen implements Initializable {
 	
 	//increase king movement speed every 10 seconds
 	private void initializeKingSpeed() {
-		KeyFrame frame = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+		KeyFrame frame = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent event) {
 				switch (seconds) {
@@ -597,7 +599,7 @@ public class GameScreen implements Initializable {
 				seconds--;
 				String secondsStr = (seconds >= 10) ? seconds.toString() : '0' + seconds.toString();
 				countDownLabel.setText("00:" + secondsStr);
-				if (seconds <= 0) {
+				if (seconds <= 0 && !gameEndedFlag) {
 					time.stop();
 					try {
 						oneMinutePassedAndLevelEnded();
@@ -759,7 +761,7 @@ public class GameScreen implements Initializable {
 		previousLevelScore = currentGame.getScore();
 	
 		//score is higher than 15 points
-		if(currentLevelScore > Constants.MIN_SCORE_TO_WIN_LEVEL) {
+		if(currentLevelScore >= Constants.MIN_SCORE_TO_WIN_LEVEL) {
 			
 			//player won level 4
 			if(currentGame.getGameLevel() == 4) 
@@ -816,6 +818,8 @@ public class GameScreen implements Initializable {
 	
 	//game over once the queen/king catches the knight, or a level ended with less than 15 points
 	void gameOver(String reason) throws IOException{
+		time.stop();
+		gameEndedFlag = true;
 		if (sd.isSoundFlag()) {
 			sd.playSound(Sound.WrongAnswer);			
 		}
